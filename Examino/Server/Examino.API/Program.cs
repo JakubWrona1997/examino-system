@@ -9,7 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 //sql connection
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//InMemmory Connection
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+              options.UseInMemoryDatabase("Examino")
+            );
 
 //Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
