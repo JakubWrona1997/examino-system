@@ -1,4 +1,4 @@
-﻿namespace Examino.Infrastructure.Entities
+﻿namespace Examino.Domain.Entities
 {
     public class Patient : ApplicationUser
     {

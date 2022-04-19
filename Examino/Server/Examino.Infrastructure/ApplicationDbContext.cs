@@ -1,4 +1,4 @@
-﻿using Examino.Infrastructure.Entities;
+﻿using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -132,7 +132,5 @@ namespace Examino.Infrastructure
                 b.ToTable("RoleClaims");
             });
         }
-
-
     }
 }

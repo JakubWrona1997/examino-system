@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Examino.Domain\Examino.Domain.csproj" />
     <ProjectReference Include="..\Examino.Infrastructure\Examino.Infrastructure.csproj" />
   </ItemGroup>
 

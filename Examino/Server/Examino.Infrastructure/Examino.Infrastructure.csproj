@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Examino.Domain\Examino.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

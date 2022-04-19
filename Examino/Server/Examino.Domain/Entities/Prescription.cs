@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Examino.Infrastructure.Entities
+namespace Examino.Domain.Entities
 {
     public class Prescription
     {

@@ -1,16 +1,15 @@
-using Examino.Infrastructure;
-using Examino.Infrastructure.Entities;
+global using Examino.Infrastructure;
+global using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+ConfigurationManager Configuration = builder.Configuration;
 // Add services to the container.
-
 builder.Services.AddControllers();
 
-//sql connection
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//Infrastructure services registration
+builder.Services.AddExaminoInfrastructureServices(Configuration);
 
 //Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -21,7 +20,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
