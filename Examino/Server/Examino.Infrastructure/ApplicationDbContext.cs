@@ -18,15 +18,11 @@ namespace Examino.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
-
             //ApplicationUser
             modelBuilder.Entity<ApplicationUser>()
              .HasDiscriminator<string>("UserType")
              .HasValue<Patient>("Patient")
              .HasValue<Doctor>("Doctor");
-
 
             modelBuilder.Entity<ApplicationUser>(b =>
             {
@@ -134,7 +130,6 @@ namespace Examino.Infrastructure
                 b.HasKey(rc => rc.Id);
                 // Maps to the AspNetRoleClaims table
                 b.ToTable("RoleClaims");
-
             });
         }
 

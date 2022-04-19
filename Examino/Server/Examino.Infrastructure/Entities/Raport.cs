@@ -9,7 +9,7 @@ namespace Examino.Infrastructure.Entities
         public string? PatientId { get; set; }
         [ForeignKey("Doctor")]
         public string? DoctorId { get; set; }
-        public DateTime RaportTime { get; set; }
+        public DateTimeOffset RaportTime { get; set; }
         public string Symptoms { get; set; }
         public string Examination { get; set; }
         public string Diagnosis { get; set; }
@@ -19,7 +19,5 @@ namespace Examino.Infrastructure.Entities
         public virtual Prescription Prescription { get; set; }
         public virtual Patient? Patient { get; set; }
         public virtual Doctor?  Doctor { get; set; }
-
-
     }
 }
