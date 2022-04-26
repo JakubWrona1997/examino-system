@@ -29,8 +29,11 @@ namespace Examino.Infrastructure.DummyData
                 NormalizedUserName = "WITOLDMAJEWSKI@GMAIL.COM",
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                Qualification = "Gynaecologist",
-                Specialization = "obstetrics and gynaecology"
+                Qualification = "Cardiologist,Internist",
+                Specialization = "cardiology,internal diseases",
+                LockoutEnabled=false,
+                PostalCode="30-001"
+                
             };
             Doctor doctor2 = new Doctor()
             {
@@ -49,8 +52,10 @@ namespace Examino.Infrastructure.DummyData
                 NormalizedUserName = "WGWINCIARZ@GMAIL.COM",
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                Qualification= "Oncologist,laryngologist",
-                Specialization= "oncological radiotherapy,otolaryngology "
+                Qualification= "Oncologist,Laryngologist",
+                Specialization= "oncological radiotherapy,otolaryngology ",
+                LockoutEnabled = false,
+                PostalCode = "30-003"
 
             };
 
