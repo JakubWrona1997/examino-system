@@ -22,10 +22,11 @@ namespace Examino.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Examino.Infrastructure.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("Examino.Domain.Entities.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -103,18 +104,18 @@ namespace Examino.Infrastructure.Migrations
                     b.HasDiscriminator<string>("UserType").HasValue("ApplicationUser");
                 });
 
-            modelBuilder.Entity("Examino.Infrastructure.Entities.Prescription", b =>
+            modelBuilder.Entity("Examino.Domain.Entities.Prescription", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Medicines")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RaportId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RaportId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -124,10 +125,11 @@ namespace Examino.Infrastructure.Migrations
                     b.ToTable("Prescriptions");
                 });
 
-            modelBuilder.Entity("Examino.Infrastructure.Entities.Raport", b =>
+            modelBuilder.Entity("Examino.Domain.Entities.Raport", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Comment")
                         .IsRequired()
@@ -137,18 +139,18 @@ namespace Examino.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DoctorId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid?>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Examination")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PatientId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid?>("PatientId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("RaportTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("RaportTime")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Recommendation")
                         .IsRequired()
@@ -167,17 +169,14 @@ namespace Examino.Infrastructure.Migrations
                     b.ToTable("Raports");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -191,11 +190,9 @@ namespace Examino.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<string>");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -209,9 +206,8 @@ namespace Examino.Infrastructure.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -220,7 +216,7 @@ namespace Examino.Infrastructure.Migrations
                     b.ToTable("RoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -234,9 +230,8 @@ namespace Examino.Infrastructure.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -245,7 +240,7 @@ namespace Examino.Infrastructure.Migrations
                     b.ToTable("UserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
@@ -258,9 +253,8 @@ namespace Examino.Infrastructure.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -269,13 +263,13 @@ namespace Examino.Infrastructure.Migrations
                     b.ToTable("UserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -284,10 +278,10 @@ namespace Examino.Infrastructure.Migrations
                     b.ToTable("UserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -303,9 +297,9 @@ namespace Examino.Infrastructure.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Examino.Infrastructure.Entities.Doctor", b =>
+            modelBuilder.Entity("Examino.Domain.Entities.Doctor", b =>
                 {
-                    b.HasBaseType("Examino.Infrastructure.Entities.ApplicationUser");
+                    b.HasBaseType("Examino.Domain.Entities.ApplicationUser");
 
                     b.Property<string>("Qualification")
                         .HasColumnType("nvarchar(max)");
@@ -316,9 +310,9 @@ namespace Examino.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("Doctor");
                 });
 
-            modelBuilder.Entity("Examino.Infrastructure.Entities.Patient", b =>
+            modelBuilder.Entity("Examino.Domain.Entities.Patient", b =>
                 {
-                    b.HasBaseType("Examino.Infrastructure.Entities.ApplicationUser");
+                    b.HasBaseType("Examino.Domain.Entities.ApplicationUser");
 
                     b.Property<string>("BloodType")
                         .HasColumnType("nvarchar(max)");
@@ -332,31 +326,24 @@ namespace Examino.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("Patient");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("Examino.Domain.Entities.Prescription", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole<string>");
-
-                    b.HasDiscriminator().HasValue("IdentityRole");
-                });
-
-            modelBuilder.Entity("Examino.Infrastructure.Entities.Prescription", b =>
-                {
-                    b.HasOne("Examino.Infrastructure.Entities.Raport", "Raport")
+                    b.HasOne("Examino.Domain.Entities.Raport", "Raport")
                         .WithOne("Prescription")
-                        .HasForeignKey("Examino.Infrastructure.Entities.Prescription", "RaportId")
+                        .HasForeignKey("Examino.Domain.Entities.Prescription", "RaportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Raport");
                 });
 
-            modelBuilder.Entity("Examino.Infrastructure.Entities.Raport", b =>
+            modelBuilder.Entity("Examino.Domain.Entities.Raport", b =>
                 {
-                    b.HasOne("Examino.Infrastructure.Entities.Doctor", "Doctor")
+                    b.HasOne("Examino.Domain.Entities.Doctor", "Doctor")
                         .WithMany("Raports")
                         .HasForeignKey("DoctorId");
 
-                    b.HasOne("Examino.Infrastructure.Entities.Patient", "Patient")
+                    b.HasOne("Examino.Domain.Entities.Patient", "Patient")
                         .WithMany("Raports")
                         .HasForeignKey("PatientId");
 
@@ -365,69 +352,69 @@ namespace Examino.Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<string>", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Examino.Infrastructure.Entities.ApplicationUser", null)
+                    b.HasOne("Examino.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("Examino.Infrastructure.Entities.ApplicationUser", null)
+                    b.HasOne("Examino.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<string>", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Examino.Infrastructure.Entities.ApplicationUser", null)
+                    b.HasOne("Examino.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("Examino.Infrastructure.Entities.ApplicationUser", null)
+                    b.HasOne("Examino.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Examino.Infrastructure.Entities.Raport", b =>
+            modelBuilder.Entity("Examino.Domain.Entities.Raport", b =>
                 {
                     b.Navigation("Prescription")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Examino.Infrastructure.Entities.Doctor", b =>
+            modelBuilder.Entity("Examino.Domain.Entities.Doctor", b =>
                 {
                     b.Navigation("Raports");
                 });
 
-            modelBuilder.Entity("Examino.Infrastructure.Entities.Patient", b =>
+            modelBuilder.Entity("Examino.Domain.Entities.Patient", b =>
                 {
                     b.Navigation("Raports");
                 });

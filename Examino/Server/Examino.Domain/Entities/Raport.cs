@@ -4,11 +4,11 @@ namespace Examino.Domain.Entities
 {
     public class Raport
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         [ForeignKey("Patient")]
-        public string? PatientId { get; set; }
+        public Guid? PatientId { get; set; }
         [ForeignKey("Doctor")]
-        public string? DoctorId { get; set; }
+        public Guid? DoctorId { get; set; }
         public DateTimeOffset RaportTime { get; set; }
         public string Symptoms { get; set; }
         public string Examination { get; set; }

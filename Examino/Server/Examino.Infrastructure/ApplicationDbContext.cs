@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Examino.Infrastructure
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,IdentityRole<Guid>,Guid>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -45,20 +45,20 @@ namespace Examino.Infrastructure
                 // Note that these relationships are configured with no navigation properties
 
                 // Each User can have many UserClaims
-                b.HasMany<IdentityUserClaim<string>>().WithOne().HasForeignKey(uc => uc.UserId).IsRequired();
+                b.HasMany<IdentityUserClaim<Guid>>().WithOne().HasForeignKey(uc => uc.UserId).IsRequired();
 
                 // Each User can have many UserLogins
-                b.HasMany<IdentityUserLogin<string>>().WithOne().HasForeignKey(ul => ul.UserId).IsRequired();
+                b.HasMany<IdentityUserLogin<Guid>>().WithOne().HasForeignKey(ul => ul.UserId).IsRequired();
 
                 // Each User can have many UserTokens
-                b.HasMany<IdentityUserToken<string>>().WithOne().HasForeignKey(ut => ut.UserId).IsRequired();
+                b.HasMany<IdentityUserToken<Guid>>().WithOne().HasForeignKey(ut => ut.UserId).IsRequired();
 
                 // Each User can have many entries in the UserRole join table
-                b.HasMany<IdentityUserRole<string>>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+                b.HasMany<IdentityUserRole<Guid>>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
             });
 
             //table AspNetUserClaims
-            modelBuilder.Entity<IdentityUserClaim<string>>(b =>
+            modelBuilder.Entity<IdentityUserClaim<Guid>>(b =>
             {
                 // Primary key
                 b.HasKey(uc => uc.Id);
@@ -66,7 +66,7 @@ namespace Examino.Infrastructure
                 b.ToTable("UserClaims");
             });
             //table AspNetUserLogins
-            modelBuilder.Entity<IdentityUserLogin<string>>(b =>
+            modelBuilder.Entity<IdentityUserLogin<Guid>>(b =>
             {
                 // Composite primary key consisting of the LoginProvider and the key to use
                 // with that provider
@@ -80,7 +80,7 @@ namespace Examino.Infrastructure
 
             });
             //table AspNetUserTokens
-            modelBuilder.Entity<IdentityUserToken<string>>(b =>
+            modelBuilder.Entity<IdentityUserToken<Guid>>(b =>
             {
                 // Composite primary key consisting of the UserId, LoginProvider and Name
                 b.HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
@@ -91,7 +91,7 @@ namespace Examino.Infrastructure
 
             });
             //table AspNetUserRoles
-            modelBuilder.Entity<IdentityUserRole<string>>(b =>
+            modelBuilder.Entity<IdentityUserRole<Guid>>(b =>
             {
                 // Primary key
                 b.HasKey(r => new { r.UserId, r.RoleId });
@@ -99,7 +99,7 @@ namespace Examino.Infrastructure
                 b.ToTable("UserRoles");
             });
             //Roles
-            modelBuilder.Entity<IdentityRole<string>>(b =>
+            modelBuilder.Entity<IdentityRole<Guid>>(b =>
             {
                 // Primary key
                 b.HasKey(r => r.Id);
@@ -118,13 +118,13 @@ namespace Examino.Infrastructure
                 // Note that these relationships are configured with no navigation properties
 
                 // Each Role can have many entries in the UserRole join table
-                b.HasMany<IdentityUserRole<string>>().WithOne().HasForeignKey(ur => ur.RoleId).IsRequired();
+                b.HasMany<IdentityUserRole<Guid>>().WithOne().HasForeignKey(ur => ur.RoleId).IsRequired();
 
                 // Each Role can have many associated RoleClaims
-                b.HasMany<IdentityRoleClaim<string>>().WithOne().HasForeignKey(rc => rc.RoleId).IsRequired();
+                b.HasMany<IdentityRoleClaim<Guid>>().WithOne().HasForeignKey(rc => rc.RoleId).IsRequired();
             });
             //RoleClaim
-            modelBuilder.Entity<IdentityRoleClaim<string>>(b =>
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>(b =>
             {
                 // Primary key
                 b.HasKey(rc => rc.Id);
