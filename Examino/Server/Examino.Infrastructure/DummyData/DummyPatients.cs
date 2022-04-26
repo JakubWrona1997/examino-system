@@ -31,7 +31,9 @@ namespace Examino.Infrastructure.DummyData
                 SecurityStamp = Guid.NewGuid().ToString(),
                 BloodType = "B-",
                 Height = 175,
-                Weight = 80
+                Weight = 80,
+                LockoutEnabled = false,
+                PostalCode= "34-331"
             };
             Patient patient2 = new Patient()
             {
@@ -52,8 +54,10 @@ namespace Examino.Infrastructure.DummyData
                 SecurityStamp = Guid.NewGuid().ToString(),
                 BloodType="B+",
                 Height=172,
-                Weight=70
-                
+                Weight=70,
+                LockoutEnabled = false,
+                PostalCode ="80-001"
+
             };
             Patient patient3 = new Patient()
             {
@@ -74,7 +78,9 @@ namespace Examino.Infrastructure.DummyData
                 SecurityStamp = Guid.NewGuid().ToString(),
                 BloodType = "A+",
                 Height = 192,
-                Weight = 90
+                Weight = 90,
+                LockoutEnabled = false,
+                PostalCode = "34-500"
 
             };
 
