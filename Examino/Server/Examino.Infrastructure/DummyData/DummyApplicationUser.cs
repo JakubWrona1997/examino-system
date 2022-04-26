@@ -29,6 +29,8 @@ namespace Examino.Infrastructure.DummyData
                 NormalizedUserName= "ADMIN@GMAIL.COM",
                 PhoneNumberConfirmed=true,
                 SecurityStamp = Guid.NewGuid().ToString(),
+                LockoutEnabled = false,
+                PostalCode="30-004"
 
             };
             return admin;
