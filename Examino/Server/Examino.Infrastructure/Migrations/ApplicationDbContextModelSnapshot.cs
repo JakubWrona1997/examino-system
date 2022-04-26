@@ -125,7 +125,7 @@ namespace Examino.Infrastructure.Migrations
                     b.HasIndex("RaportId")
                         .IsUnique();
 
-                    b.ToTable("Prescriptions");
+                    b.ToTable("Prescriptions", (string)null);
                 });
 
             modelBuilder.Entity("Examino.Domain.Entities.Raport", b =>
@@ -169,7 +169,7 @@ namespace Examino.Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Raports");
+                    b.ToTable("Raports", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>

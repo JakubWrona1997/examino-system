@@ -1,4 +1,5 @@
 ﻿using Examino.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,9 @@ namespace Examino.Infrastructure.DummyData
 {
     public class DummyDoctors
     {
-        public static List<Doctor> GetPatients()
+        public static List<Doctor> GetDoctors()
         {
+            var hasher = new PasswordHasher<Doctor>();
             List<Doctor> doctors = new List<Doctor>();
             Doctor doctor1 = new Doctor()
             {
@@ -32,8 +34,9 @@ namespace Examino.Infrastructure.DummyData
                 Qualification = "Cardiologist,Internist",
                 Specialization = "cardiology,internal diseases",
                 LockoutEnabled=false,
-                PostalCode="30-001"
-                
+                PostalCode="30-001",
+                PasswordHash= hasher.HashPassword(null, "Doctor123!")
+
             };
             Doctor doctor2 = new Doctor()
             {
@@ -55,7 +58,8 @@ namespace Examino.Infrastructure.DummyData
                 Qualification= "Oncologist,Laryngologist",
                 Specialization= "oncological radiotherapy,otolaryngology ",
                 LockoutEnabled = false,
-                PostalCode = "30-003"
+                PostalCode = "30-003",
+                PasswordHash = hasher.HashPassword(null, "Doctor123!")
 
             };
 

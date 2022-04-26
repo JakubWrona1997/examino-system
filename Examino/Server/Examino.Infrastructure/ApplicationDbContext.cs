@@ -1,11 +1,12 @@
 ﻿using Examino.Domain.Entities;
+using Examino.Infrastructure.DummyData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Examino.Infrastructure
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,IdentityRole<Guid>,Guid>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -18,12 +19,34 @@ namespace Examino.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+
             //ApplicationUser
             modelBuilder.Entity<ApplicationUser>()
              .HasDiscriminator<string>("UserType")
              .HasValue<Patient>("Patient")
-             .HasValue<Doctor>("Doctor");
+             .HasValue<Doctor>("Doctor")
+             .HasValue<ApplicationUser>("Admin");
 
+            //Doctor
+            modelBuilder.Entity<Doctor>(b =>
+            {
+                //doctor data seeding 
+
+                    b.HasData(DummyDoctors.GetDoctors());
+                
+            });
+
+            //Patient
+            modelBuilder.Entity<Patient>(b =>
+            {
+                //patients data seeding
+
+                    b.HasData(DummyPatients.GetPatients());
+           
+            });
+
+            //ApplicationUser
             modelBuilder.Entity<ApplicationUser>(b =>
             {
                 // Primary key
@@ -55,6 +78,17 @@ namespace Examino.Infrastructure
 
                 // Each User can have many entries in the UserRole join table
                 b.HasMany<IdentityUserRole<Guid>>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+
+
+
+                //admin data seeding
+             
+                b.HasData(DummyApplicationUser.GetAdmin());
+
+                
+
+              
+
             });
 
             //table AspNetUserClaims
@@ -90,14 +124,7 @@ namespace Examino.Infrastructure
                 b.ToTable("UserTokens");
 
             });
-            //table AspNetUserRoles
-            modelBuilder.Entity<IdentityUserRole<Guid>>(b =>
-            {
-                // Primary key
-                b.HasKey(r => new { r.UserId, r.RoleId });
-                // Maps to the AspNetUserRoles table
-                b.ToTable("UserRoles");
-            });
+           
             //Roles
             modelBuilder.Entity<IdentityRole<Guid>>(b =>
             {
@@ -122,6 +149,23 @@ namespace Examino.Infrastructure
 
                 // Each Role can have many associated RoleClaims
                 b.HasMany<IdentityRoleClaim<Guid>>().WithOne().HasForeignKey(rc => rc.RoleId).IsRequired();
+
+
+
+                // role data seeding
+                b.HasData(DummyRoles.GetRoles());
+                
+            });
+            //table AspNetUserRoles
+            modelBuilder.Entity<IdentityUserRole<Guid>>(b =>
+            {
+                // Primary key
+                b.HasKey(r => new { r.UserId, r.RoleId });
+                // Maps to the AspNetUserRoles table
+                b.ToTable("UserRoles");
+
+                //roles data seeding
+                b.HasData(DummyUserRoles.Get());
             });
             //RoleClaim
             modelBuilder.Entity<IdentityRoleClaim<Guid>>(b =>
@@ -130,6 +174,19 @@ namespace Examino.Infrastructure
                 b.HasKey(rc => rc.Id);
                 // Maps to the AspNetRoleClaims table
                 b.ToTable("RoleClaims");
+            });
+
+            //raports
+            modelBuilder.Entity<Raport>(b =>
+            {
+                //raport data seeding
+                b.HasData(DummyRaports.GetRaports());
+            });
+            //prescriptions
+            modelBuilder.Entity<Prescription>(b =>
+            {
+                //raport data seeding
+                b.HasData(DummyPrescriptions.GetPrescriptions());
             });
         }
     }

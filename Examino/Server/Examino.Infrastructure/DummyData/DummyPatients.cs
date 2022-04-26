@@ -1,4 +1,5 @@
 ﻿using Examino.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Examino.Infrastructure.DummyData
     {
         public static List<Patient> GetPatients()
         {
+            var hasher = new PasswordHasher<Patient>();
             List<Patient> patients = new List<Patient>(); 
             Patient patient1 = new Patient()
             {
@@ -33,7 +35,8 @@ namespace Examino.Infrastructure.DummyData
                 Height = 175,
                 Weight = 80,
                 LockoutEnabled = false,
-                PostalCode= "34-331"
+                PostalCode= "34-331",
+                PasswordHash = hasher.HashPassword(null, "Patient123!")
             };
             Patient patient2 = new Patient()
             {
@@ -56,7 +59,8 @@ namespace Examino.Infrastructure.DummyData
                 Height=172,
                 Weight=70,
                 LockoutEnabled = false,
-                PostalCode ="80-001"
+                PostalCode ="80-001",
+                PasswordHash = hasher.HashPassword(null, "Patient123!")
 
             };
             Patient patient3 = new Patient()
@@ -80,7 +84,8 @@ namespace Examino.Infrastructure.DummyData
                 Height = 192,
                 Weight = 90,
                 LockoutEnabled = false,
-                PostalCode = "34-500"
+                PostalCode = "34-500",
+                PasswordHash = hasher.HashPassword(null, "Patient123!")
 
             };
 
