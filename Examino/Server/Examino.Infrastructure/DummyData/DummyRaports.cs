@@ -17,13 +17,13 @@ namespace Examino.Infrastructure.DummyData
             {
                 Id = Guid.Parse("a34d644f-55fc-4a39-addd-a8cc07f89c34"),
                 DoctorId = Guid.Parse("ae47d26c-b934-4057-8d05-dfd78ea1a138"),
-                PatientId= Guid.Parse("4d9b6996-8e8a-4cec-9f2f-d7f64e2113ca"),
+                PatientId = Guid.Parse("4d9b6996-8e8a-4cec-9f2f-d7f64e2113ca"),
                 RaportTime = DateTime.Now,
-                Symptoms=" heart pain,pain in middle of chest,lazziness ",
+                Symptoms = " heart pain,pain in middle of chest,lazziness ",
                 Examination = "checking pulse, checking sound of lungs",
                 Diagnosis = " there are needed cholesterol tests ",
-                Comment=" do cholesterol tests",
-                Recommendation="increase potassium income"
+                Comment = " do cholesterol tests",
+                Recommendation = "increase potassium income"
 
             };
             var raport2 = new Raport()
@@ -52,9 +52,23 @@ namespace Examino.Infrastructure.DummyData
                 Recommendation = "bed cleaning, xyzal once a day"
 
             };
+            var raport4 = new Raport()
+            {
+                Id = Guid.Parse("fd01f84e-8917-461a-8d6d-b5758a6065b2"),
+                DoctorId = Guid.Parse("d9339e74-284d-46f4-ad46-b13269c4900e"),
+                PatientId = Guid.Parse("f43c4920-a607-4d32-a937-ba324e07ebd6"),
+                RaportTime = DateTime.Now,
+                Symptoms = "runny nose,cough   ",
+                Examination = "he has temperature ",
+                Diagnosis = "just cold",
+                Comment = "",
+                Recommendation = "stay at home and take aspiryn  "
+
+            };
             raports.Add(raport1);
             raports.Add(raport2);
             raports.Add(raport3);
+            raports.Add(raport4);
             return raports;
 
 
