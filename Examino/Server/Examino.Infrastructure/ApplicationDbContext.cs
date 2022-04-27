@@ -79,15 +79,9 @@ namespace Examino.Infrastructure
                 // Each User can have many entries in the UserRole join table
                 b.HasMany<IdentityUserRole<Guid>>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
 
-
-
                 //admin data seeding
              
                 b.HasData(DummyApplicationUser.GetAdmin());
-
-                
-
-              
 
             });
 
@@ -149,8 +143,6 @@ namespace Examino.Infrastructure
 
                 // Each Role can have many associated RoleClaims
                 b.HasMany<IdentityRoleClaim<Guid>>().WithOne().HasForeignKey(rc => rc.RoleId).IsRequired();
-
-
 
                 // role data seeding
                 b.HasData(DummyRoles.GetRoles());
