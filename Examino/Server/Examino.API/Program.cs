@@ -1,8 +1,11 @@
 global using Examino.Infrastructure;
 global using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Examino.Infrastructure.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.AddExaminoInfrastructureHostConfiguration();
 
 ConfigurationManager Configuration = builder.Configuration;
 // Add services to the container.
@@ -10,6 +13,7 @@ builder.Services.AddControllers();
 
 //Infrastructure services registration
 builder.Services.AddExaminoInfrastructureServices(Configuration);
+
 
 //Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
@@ -20,6 +24,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
