@@ -18,16 +18,15 @@ namespace Examino.Infrastructure
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddTransient<ISqlConnectionService, SqlConnectionService>(_ => new SqlConnectionService(configuration.GetConnectionString("DefaultConnection")));
             //error middleware
             services.AddScoped<ErrorHandlingMiddleware>();
 
             return services;
         }
         public static IHostBuilder AddExaminoInfrastructureHostConfiguration(this IHostBuilder host)
-        {
-         
-             host.UseNLog();
+        {         
+            host.UseNLog();
 
             return host;
         }
