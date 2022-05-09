@@ -19,9 +19,9 @@ namespace Examino.API.Controllers
             _mediator = mediator;
         }
         [HttpPost]
-        public async Task<ActionResult> RegisterPatientAsync([FromBody] CreatePatientCommand patientData)
+        public async Task<ActionResult> RegisterPatientAsync([FromBody] RegisterPatientCommand RegisterPatientData)
         {
-            await _mediator.Send(patientData);
+            await _mediator.Send(RegisterPatientData);
             return Ok();
         }
     }
