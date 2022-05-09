@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Examino.Infrastructure.Repositories
 {
-    public class LoginPatientRepository : ILoginPatientRepository
+    public class PatientRepository : IPatientRepository
     {
         public Task<bool> Register(Patient patient)
         {

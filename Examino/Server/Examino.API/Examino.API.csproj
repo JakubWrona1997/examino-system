@@ -28,6 +28,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Functions\Prescriptions\Command\" />
+    <Folder Include="Functions\Prescriptions\Queries\" />
   </ItemGroup>
 
 </Project>
