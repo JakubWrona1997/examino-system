@@ -1,5 +1,6 @@
 ﻿using Examino.Domain.Contracts;
 using Examino.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,17 @@ namespace Examino.Infrastructure.Repositories
 {
     public class PatientRepository : IPatientRepository
     {
+        private readonly ApplicationDbContext _dbContext;
+        private readonly UserManager<Patient> _userManager;
+
+        public PatientRepository(ApplicationDbContext dbContext, UserManager<Patient> userManager)
+        {
+            _dbContext = dbContext;
+            _userManager = userManager;
+        }
         public Task<bool> Register(Patient patient)
         {
-            throw new NotImplementedException();
+            _userManager.CreateAsync(patient).Wait();
         }
     }
 }
