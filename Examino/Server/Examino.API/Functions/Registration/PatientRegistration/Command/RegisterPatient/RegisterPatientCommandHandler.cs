@@ -3,10 +3,10 @@ using MediatR;
 
 namespace Examino.API.Functions.Registration.PatientRegistration.Command
 {
-    public class CreatePatientCommandHandler : IRequestHandler<CreatePatientCommand>
+    public class RegisterPatientCommandHandler : IRequestHandler<RegisterPatientCommand, RegisterPatientCommandResponse>
     {
         private readonly IPatientRepository _patientRepository;
-        public Task<Unit> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
+        public Task<RegisterPatientCommandResponse> Handle(RegisterPatientCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
