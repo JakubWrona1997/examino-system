@@ -1,14 +1,17 @@
-﻿using Examino.Domain.Contracts;
+﻿using Examino.Application.Contracts;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Examino.API.Functions.Registration.PatientRegistration.Command
+namespace Examino.Application.Functions.Registration.PatientRegistration.Command
 {
     public class RegisterPatientCommandHandler : IRequestHandler<RegisterPatientCommand, RegisterPatientCommandResponse>
     {
         private readonly IPatientRepository _patientRepository;
+
         public Task<RegisterPatientCommandResponse> Handle(RegisterPatientCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
     }
 }

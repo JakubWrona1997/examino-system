@@ -1,5 +1,8 @@
 ﻿using FluentValidation.Results;
-namespace Examino.API.Responses
+using System;
+using System.Collections.Generic;
+
+namespace Examino.Application.Responses
 {
     public class BaseResponse
     {

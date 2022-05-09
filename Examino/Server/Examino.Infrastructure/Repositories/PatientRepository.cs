@@ -1,4 +1,4 @@
-﻿using Examino.Domain.Contracts;
+﻿using Examino.Application.Contracts;
 using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examino.API", "Examino.API.csproj", "{E65A2FF5-FD3D-4DDC-9AAA-A9C7776B8809}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examino.API", "Examino.API.csproj", "{E65A2FF5-FD3D-4DDC-9AAA-A9C7776B8809}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examino.Domain", "..\Examino.Domain\Examino.Domain.csproj", "{DB0BE77B-322A-4093-A943-817779F45A24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examino.Domain", "..\Examino.Domain\Examino.Domain.csproj", "{DB0BE77B-322A-4093-A943-817779F45A24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examino.Infrastructure", "..\Examino.Infrastructure\Examino.Infrastructure.csproj", "{F864A7DC-BFFF-4758-A5AC-CAB090F816E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examino.Infrastructure", "..\Examino.Infrastructure\Examino.Infrastructure.csproj", "{F864A7DC-BFFF-4758-A5AC-CAB090F816E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examino.Application", "..\Examino.Application\Examino.Application.csproj", "{5296ACF6-037E-49D9-A4B8-5968FDF56D59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F864A7DC-BFFF-4758-A5AC-CAB090F816E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F864A7DC-BFFF-4758-A5AC-CAB090F816E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F864A7DC-BFFF-4758-A5AC-CAB090F816E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5296ACF6-037E-49D9-A4B8-5968FDF56D59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5296ACF6-037E-49D9-A4B8-5968FDF56D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5296ACF6-037E-49D9-A4B8-5968FDF56D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5296ACF6-037E-49D9-A4B8-5968FDF56D59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

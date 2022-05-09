@@ -1,4 +1,4 @@
-﻿using Examino.API.Functions.Registration.PatientRegistration;
+﻿using Examino.Application.Functions.Registration.PatientRegistration;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Examino.API.Controllers
+namespace Examino.Application.Controllers
 {
     [Route("api/patient")]
     [ApiController]
