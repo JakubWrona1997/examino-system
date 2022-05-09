@@ -22,6 +22,7 @@ namespace Examino.Infrastructure.Repositories
         public Task<bool> Register(Patient patient)
         {
             _userManager.CreateAsync(patient).Wait();
+            return ValueTask.FromResult(true).AsTask();
         }
     }
 }
