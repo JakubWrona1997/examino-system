@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Examino.Domain.Contracts
 {
-    public interface ILoginPatientRepository
+    public interface IPatientRepository
     {
         Task<bool> Register(Patient patient);
     }

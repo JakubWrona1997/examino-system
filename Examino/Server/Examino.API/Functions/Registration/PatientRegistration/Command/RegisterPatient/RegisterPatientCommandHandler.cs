@@ -5,7 +5,7 @@ namespace Examino.API.Functions.Registration.PatientRegistration.Command
 {
     public class CreatePatientCommandHandler : IRequestHandler<CreatePatientCommand>
     {
-        private readonly ILoginPatientRepository _patientRepository;
+        private readonly IPatientRepository _patientRepository;
         public Task<Unit> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
