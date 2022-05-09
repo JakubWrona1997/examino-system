@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Examino.API.Functions.Registration.PatientRegistration
 {
-    public class CreatePatientCommand : IRequest<CreatePatientCommandResponse>
+    public record RegisterPatientCommand : IRequest<RegisterPatientCommandResponse>
     {
         public string Email { get; set; }
         public string Name { get; set; }
