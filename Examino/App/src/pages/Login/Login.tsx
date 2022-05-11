@@ -1,18 +1,32 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../app/store";
+import { loginUser } from "../../redux/userSlice";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import "./Login.scss";
 
 interface FormInputs {
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
-  confirmPassword: string;
 }
 
 const Login = () => {
+  const { user, loading } = useSelector(
+    (state: RootState) => state.currentUser
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loading === "fulfilled" || user) {
+      navigate("/dashboard");
+    }
+  }, [loading, user]);
+
   const loginSchema = yup.object().shape({
     email: yup
       .string()
@@ -30,8 +44,7 @@ const Login = () => {
   });
 
   const onSubmit = (data: FormInputs) => {
-    // TODO
-    console.log(data);
+    dispatch(loginUser(data));
   };
 
   return (

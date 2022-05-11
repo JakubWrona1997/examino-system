@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../app/store";
+import { registerUser } from "../../redux/userSlice";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import "./Register.scss";
 
 interface FormInputs {
@@ -14,6 +18,19 @@ interface FormInputs {
 }
 
 const Register = () => {
+  const { user, loading } = useSelector(
+    (state: RootState) => state.currentUser
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loading === "fulfilled" || user) {
+      navigate("/dashboard");
+    }
+  }, [loading, user]);
+
   const registerSchema = yup.object().shape({
     firstName: yup.string().required("To pole jest wymagane"),
     lastName: yup.string().required("To pole jest wymagane"),
@@ -42,10 +59,8 @@ const Register = () => {
   });
 
   const onSubmit = (data: FormInputs) => {
-    // TODO
     const { confirmPassword, ...dataCopy } = data;
-
-    console.log(dataCopy);
+    dispatch(registerUser(dataCopy));
   };
 
   return (
