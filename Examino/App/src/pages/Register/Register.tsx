@@ -7,6 +7,7 @@ import "./Register.scss";
 interface FormInputs {
   firstName: string;
   lastName: string;
+  pesel: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -16,6 +17,11 @@ const Register = () => {
   const registerSchema = yup.object().shape({
     firstName: yup.string().required("To pole jest wymagane"),
     lastName: yup.string().required("To pole jest wymagane"),
+    pesel: yup
+      .string()
+      .matches(/^[0-9]+$/, "Pesel może zawierać tylko cyfry")
+      .length(11, "Pesel musi zawierać 11 cyfr")
+      .required("To pole jest wymagane"),
     email: yup
       .string()
       .email("Podany email jest niepoprawny")
@@ -37,7 +43,9 @@ const Register = () => {
 
   const onSubmit = (data: FormInputs) => {
     // TODO
-    console.log(data);
+    const { confirmPassword, ...dataCopy } = data;
+
+    console.log(dataCopy);
   };
 
   return (
@@ -55,35 +63,66 @@ const Register = () => {
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-field">
             <label htmlFor="firstName">Imię</label>
-            <input type="text" {...register("firstName")} />
+            <input
+              className={errors.firstName ? "is-invalid" : ""}
+              type="text"
+              {...register("firstName")}
+            />
             {errors.firstName && (
               <p className="form-field-error">{errors.firstName.message}</p>
             )}
           </div>
           <div className="form-field">
             <label htmlFor="lastName">Nazwisko</label>
-            <input type="text" {...register("lastName")} />
+            <input
+              className={errors.lastName ? "is-invalid" : ""}
+              type="text"
+              {...register("lastName")}
+            />
             {errors.lastName && (
               <p className="form-field-error">{errors.lastName.message}</p>
             )}
           </div>
           <div className="form-field">
+            <label htmlFor="pesel">Pesel</label>
+            <input
+              className={errors.pesel ? "is-invalid" : ""}
+              type="text"
+              {...register("pesel")}
+            />
+            {errors.pesel && (
+              <p className="form-field-error">{errors.pesel.message}</p>
+            )}
+          </div>
+          <div className="form-field">
             <label htmlFor="email">Adres email</label>
-            <input type="email" {...register("email")} />
+            <input
+              className={errors.email ? "is-invalid" : ""}
+              type="email"
+              {...register("email")}
+            />
             {errors.email && (
               <p className="form-field-error">{errors.email.message}</p>
             )}
           </div>
           <div className="form-field">
             <label htmlFor="password">Hasło</label>
-            <input type="password" {...register("password")} />
+            <input
+              className={errors.password ? "is-invalid" : ""}
+              type="password"
+              {...register("password")}
+            />
             {errors.password && (
               <p className="form-field-error">{errors.password.message}</p>
             )}
           </div>
           <div className="form-field">
             <label htmlFor="confirmPassword">Potwierdź hasło</label>
-            <input type="password" {...register("confirmPassword")} />
+            <input
+              className={errors.confirmPassword ? "is-invalid" : ""}
+              type="password"
+              {...register("confirmPassword")}
+            />
             {errors.confirmPassword && (
               <p className="form-field-error">
                 {errors.confirmPassword.message}
