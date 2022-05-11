@@ -45,14 +45,22 @@ const Login = () => {
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-field">
             <label htmlFor="email">Adres email</label>
-            <input type="email" {...register("email")} />
+            <input
+              className={errors.email ? "is-invalid" : ""}
+              type="email"
+              {...register("email")}
+            />
             {errors.email && (
               <p className="form-field-error">{errors.email.message}</p>
             )}
           </div>
           <div className="form-field">
             <label htmlFor="password">Hasło</label>
-            <input type="password" {...register("password")} />
+            <input
+              className={errors.password ? "is-invalid" : ""}
+              type="password"
+              {...register("password")}
+            />
             {errors.password && (
               <p className="form-field-error">{errors.password.message}</p>
             )}
