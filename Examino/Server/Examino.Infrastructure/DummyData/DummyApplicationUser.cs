@@ -19,7 +19,7 @@ namespace Examino.Infrastructure.DummyData
                 Id = Guid.Parse("8931ce67-348b-48b6-96fc-6fc47a74311e"),
                 Name ="Antek",
                 Surname="Kowalski",
-                PESEL = 99101912345,
+                PESEL = "99101912345",
                 BirthDay = new DateTime(1988,10,19),
                 Address = "Miejska 10",
                 City="Kraków",
