@@ -2,6 +2,7 @@ global using Examino.Infrastructure;
 global using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Examino.Infrastructure.Middleware;
+using Examino.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddControllers();
 //Infrastructure services registration
 builder.Services.AddExaminoInfrastructureServices(Configuration);
 
+//Application services registration
+builder.Services.AddApplicationServices();
 
 //Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
