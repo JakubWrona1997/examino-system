@@ -11,18 +11,20 @@ namespace Examino.Infrastructure.Repositories
 {
     public class PatientRepository : IPatientRepository
     {
-        private readonly ApplicationDbContext _dbContext;
+
         private readonly UserManager<Patient> _userManager;
 
-        public PatientRepository(ApplicationDbContext dbContext, UserManager<Patient> userManager)
+        public PatientRepository(UserManager<Patient> userManager)
         {
-            _dbContext = dbContext;
+       
             _userManager = userManager;
         }
-        public Task<bool> Register(Patient patient)
+        public async Task<Guid> Register(Patient patient,string password)
         {
-            _userManager.CreateAsync(patient).Wait();
-            return ValueTask.FromResult(true).AsTask();
+            await _userManager.CreateAsync(patient,password);
+            var newMadeUser = _userManager.FindByEmailAsync(patient.Email).Result;
+            await _userManager.AddToRoleAsync(newMadeUser, "Patient");
+            return newMadeUser.Id;
         }
     }
 }
