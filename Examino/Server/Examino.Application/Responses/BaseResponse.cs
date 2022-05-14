@@ -6,46 +6,50 @@ namespace Examino.Application.Responses
 {
     public class BaseResponse
     {
-        public ResponseStatus Status { get; set; }
+        public int StatusCode { get; set; }
         public bool Success { get; set; }
         public string Message { get; set; }
-        public List<string> ValidationErrors { get; set; }
+        
 
         public BaseResponse()
         {
-            ValidationErrors = new List<string>();
+            
             Success = true;
         }
         public BaseResponse(string message = null)
         {
-            ValidationErrors = new List<string>();
+           
             Success = true;
             Message = message;
         }
 
-        public BaseResponse(string message, bool success)
+        public BaseResponse(int statusCode,bool success)
         {
-            ValidationErrors = new List<string>();
+            Success = success;
+            StatusCode = statusCode;
+            Message = CommonResponse[statusCode].ToString();
+        }
+
+        public BaseResponse(int statusCode, string message,bool success)
+        {
+          
             Success = success;
             Message = message;
+            StatusCode = statusCode;
         }
 
-        public BaseResponse(ValidationResult validationResult)
+        public static Dictionary<int, string> CommonResponse { get; set; } = new Dictionary<int, string>()
         {
-            ValidationErrors = new List<String>();
-            Success = validationResult.Errors.Count < 0;
-            foreach (var item in validationResult.Errors)
-            {
-                ValidationErrors.Add(item.ErrorMessage);
-            }
-        }
+            //don t add 400 bad request(validation give that ),401 unathorized
+            { 200,"OK"},
+            { 201,"Created"},
+            { 204,"No Content Response , operation succeed"},
+            { 403,"Forbidden"},
+            { 404,"Not found"}
+           
+        };
+       
     }
 
-    public enum ResponseStatus
-    {
-        Success = 0,
-        NotFound = 1,
-        BadQuery = 2,
-        ValidationError = 3
-    }
+   
 }
