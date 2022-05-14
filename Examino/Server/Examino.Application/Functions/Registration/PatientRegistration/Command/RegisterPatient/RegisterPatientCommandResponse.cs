@@ -1,19 +1,29 @@
 ﻿using Examino.Application.Responses;
 using FluentValidation.Results;
+using System;
 
 namespace Examino.Application.Functions.Registration.PatientRegistration.Command
 {
     public class RegisterPatientCommandResponse : BaseResponse
     {
-        public string? PatientId { get; set; }
+        public Guid? PatientId { get; set; }
 
-        public RegisterPatientCommandResponse() : base()
+        public RegisterPatientCommandResponse(Guid patientId ) : base()
+        {
+            PatientId = patientId;
+        }
+        public RegisterPatientCommandResponse(string message ) :base(message)
         {
 
         }
-        public RegisterPatientCommandResponse(ValidationResult validationResult) 
+        public RegisterPatientCommandResponse(int statusCode,bool success):base(statusCode, success)
         {
 
         }
+        public RegisterPatientCommandResponse(int statusCode,string message,bool success):base(statusCode,message,success)
+        {
+
+        }
+      
     }
 }
