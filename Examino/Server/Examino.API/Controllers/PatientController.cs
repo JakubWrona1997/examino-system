@@ -21,8 +21,12 @@ namespace Examino.Application.Controllers
         [HttpPost]
         public async Task<ActionResult> RegisterPatientAsync([FromBody] RegisterPatientCommand RegisterPatientData)
         {
-            await _mediator.Send(RegisterPatientData);
-            return Ok();
+         var result  = await _mediator.Send(RegisterPatientData);
+            if (result.Success ==false)
+            {
+                return StatusCode(result.StatusCode, result.Message);
+            }
+            return Ok(result.PatientId);
         }
     }
 }
