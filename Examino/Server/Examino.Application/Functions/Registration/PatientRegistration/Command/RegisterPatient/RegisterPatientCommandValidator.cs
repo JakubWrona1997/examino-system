@@ -1,27 +1,27 @@
-﻿using FluentValidation;
+﻿using Examino.Domain.Contracts;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Registration.PatientRegistration.Command.RegisterPatient
 {
    public  class RegisterPatientCommandValidator:AbstractValidator<RegisterPatientCommand>
     {
-        public RegisterPatientCommandValidator(ApplicationDbContext dbContext)
+        private readonly IPatientRepository _patientRepository;
+
+        public RegisterPatientCommandValidator(IPatientRepository patientRepository)
         {
+            _patientRepository = patientRepository;
+
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .EmailAddress()
-                .Custom((value,context) =>
-                {
-                    var emilInUse = dbContext.Users.Any(x => x.Email == value);
-                    if (emilInUse)
-                    {
-                        context.AddFailure("Email", "that email is taken");
-                    }
-                });
+                .Must(IsEmailUnique).WithMessage("Patient with that email exist");
+                
 
             RuleFor(x => x.Name)
                 .NotEmpty();//add remnant rules from frontend
@@ -29,19 +29,28 @@ namespace Examino.Application.Functions.Registration.PatientRegistration.Command
             RuleFor(x => x.Surname)
               .NotEmpty();//add remnant rules from frontend
 
-            RuleFor(x=>x.PESEL)
+            RuleFor(x => x.PESEL)
                 .NotEmpty()
                 .Length(11)
-                .Custom((value, context) =>
-                {
-                    var peselInUse = dbContext.Users.Any(x => x.PESEL == value);
-                    if (peselInUse)
-                    {
-                        context.AddFailure("PESEL", "that PESEL is taken");
-                    }
-                });
-                //add cant be a number
+                .Must(IsPeselUnique).WithMessage("Patient with that PESEL exist"); ;
 
+   
+         
+
+
+        }
+
+        private bool IsEmailUnique(string email)
+        {
+            var check =  _patientRepository.
+                IsEmailAlreadyExist(email).Result;
+            return !check;
+        }
+        private bool IsPeselUnique(string pesel)
+        {
+            var check = _patientRepository.
+                IsPeselAlreadyExist(pesel).Result;
+            return !check;
         }
     }
 }

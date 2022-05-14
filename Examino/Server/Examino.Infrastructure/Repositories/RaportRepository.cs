@@ -1,4 +1,4 @@
-﻿using Examino.Application.Contracts;
+﻿using Examino.Domain.Contracts;
 using Examino.Domain.Entities;
 using System;
 using System.Collections.Generic;

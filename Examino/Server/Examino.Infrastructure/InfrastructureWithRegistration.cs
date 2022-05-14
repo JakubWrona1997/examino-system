@@ -1,4 +1,6 @@
-﻿using Examino.Infrastructure.Middleware;
+﻿using Examino.Domain.Contracts;
+using Examino.Infrastructure.Middleware;
+using Examino.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +23,9 @@ namespace Examino.Infrastructure
             services.AddTransient<ISqlConnectionService, SqlConnectionService>(_ => new SqlConnectionService(configuration.GetConnectionString("DefaultConnection")));
             //error middleware
             services.AddScoped<ErrorHandlingMiddleware>();
+
+            // repository services
+            services.AddScoped<IPatientRepository, PatientRepository>();
 
             return services;
         }

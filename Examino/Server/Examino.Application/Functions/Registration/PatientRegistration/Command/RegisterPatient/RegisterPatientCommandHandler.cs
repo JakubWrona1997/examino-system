@@ -1,4 +1,6 @@
-﻿using Examino.Application.Contracts;
+﻿using AutoMapper;
+using Examino.Domain.Contracts;
+using Examino.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,7 +12,7 @@ namespace Examino.Application.Functions.Registration.PatientRegistration.Command
         private readonly IPatientRepository _patientRepository;
         private readonly IMapper _mapper;
 
-        public RegisterPatientCommandHandler(IPatientRepository patientRepository,IMapper mapper)
+        public RegisterPatientCommandHandler(IPatientRepository patientRepository, IMapper mapper)
         {
             _patientRepository = patientRepository;
             _mapper = mapper;
@@ -18,11 +20,11 @@ namespace Examino.Application.Functions.Registration.PatientRegistration.Command
 
         public async Task<RegisterPatientCommandResponse> Handle(RegisterPatientCommand request, CancellationToken cancellationToken)
         {
-           // var patient = _mapper.Map<Patient>(request);
+            var patient = _mapper.Map<Patient>(request);
 
-          // var patientId = await _patientRepository.Register(patient,request.Password);
+            var patientId = await _patientRepository.Register(patient, request.Password);
 
-           // return new CreatedPostCommandResponse(patientId);
+            return new RegisterPatientCommandResponse(patientId);
 
 
 

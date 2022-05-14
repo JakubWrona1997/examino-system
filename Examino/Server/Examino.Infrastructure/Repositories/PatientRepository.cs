@@ -1,4 +1,4 @@
-﻿using Examino.Application.Contracts;
+﻿using Examino.Domain.Contracts;
 using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -12,16 +12,36 @@ namespace Examino.Infrastructure.Repositories
     public class PatientRepository : IPatientRepository
     {
 
-        private readonly UserManager<Patient> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _db;
 
-        public PatientRepository(UserManager<Patient> userManager)
+        public PatientRepository(UserManager<ApplicationUser> userManager, ApplicationDbContext db)
         {
-       
+
             _userManager = userManager;
+            _db = db;
         }
-        public async Task<Guid> Register(Patient patient,string password)
+
+        public  Task<bool> IsEmailAlreadyExist(string email)
         {
-            await _userManager.CreateAsync(patient,password);
+            var matches = _db.Users.
+                 Any(a => a.Email.Equals(email));
+
+            return Task.FromResult(matches);
+        }
+        public Task<bool> IsPeselAlreadyExist(string pesel)
+        {
+            var matches = _db.Users.
+                 Any(a => a.PESEL.Equals(pesel));
+
+            return Task.FromResult(matches);
+        }
+
+        public async Task<Guid> Register(Patient patient, string password)
+        {
+
+            //haslo musi byc dobre inacze null w bazie
+            await _userManager.CreateAsync(patient, password);
             var newMadeUser = _userManager.FindByEmailAsync(patient.Email).Result;
             await _userManager.AddToRoleAsync(newMadeUser, "Patient");
             return newMadeUser.Id;
