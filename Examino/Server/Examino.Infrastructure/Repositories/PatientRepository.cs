@@ -37,14 +37,14 @@ namespace Examino.Infrastructure.Repositories
             return Task.FromResult(matches);
         }
 
-        public async Task<Guid> Register(Patient patient, string password)
+        public async Task<Patient> Register(Patient patient, string password)
         {
 
             //haslo musi byc dobre inacze null w bazie
             await _userManager.CreateAsync(patient, password);
             var newMadeUser = _userManager.FindByEmailAsync(patient.Email).Result;
             await _userManager.AddToRoleAsync(newMadeUser, "Patient");
-            return newMadeUser.Id;
+            return (Patient)newMadeUser;
         }
     }
 }

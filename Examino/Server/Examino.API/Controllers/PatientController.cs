@@ -26,7 +26,9 @@ namespace Examino.Application.Controllers
             {
                 return StatusCode(result.StatusCode, result.Message);
             }
-            return Ok(result.PatientId);
+
+
+            return Ok(new { Email=result.Email,Password = result.Password });
         }
     }
 }

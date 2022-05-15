@@ -6,11 +6,13 @@ namespace Examino.Application.Functions.Registration.PatientRegistration.Command
 {
     public class RegisterPatientCommandResponse : BaseResponse
     {
-        public Guid? PatientId { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
 
-        public RegisterPatientCommandResponse(Guid patientId ) : base()
+        public RegisterPatientCommandResponse(string email,string password ) : base()
         {
-            PatientId = patientId;
+            Email = email;
+            Password = password;
         }
         public RegisterPatientCommandResponse(string message ) :base(message)
         {

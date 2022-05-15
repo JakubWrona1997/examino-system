@@ -22,9 +22,9 @@ namespace Examino.Application.Functions.Registration.PatientRegistration.Command
         {
             var patient = _mapper.Map<Patient>(request);
 
-            var patientId = await _patientRepository.Register(patient, request.Password);
+            var patientResult = await _patientRepository.Register(patient, request.Password);
 
-            return new RegisterPatientCommandResponse(patientId);
+            return new RegisterPatientCommandResponse(patientResult.Email,patientResult.PasswordHash);
 
 
 
