@@ -9,7 +9,7 @@ namespace Examino.Domain.Contracts
 {
     public interface IPatientRepository
     {
-        Task<Patient> Register(Patient patient, string password);
+       Task<Patient> Register(Patient patient, string password);
        Task<bool> IsEmailAlreadyExist(string email);
        Task<bool> IsPeselAlreadyExist( string pesel);
     }

@@ -26,8 +26,6 @@ namespace Examino.Application.Functions.Registration.PatientRegistration.Command
 
             return new RegisterPatientCommandResponse(patientResult.Email,patientResult.PasswordHash);
 
-
-
         }
     }
 }

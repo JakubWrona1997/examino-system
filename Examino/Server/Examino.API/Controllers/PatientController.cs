@@ -22,11 +22,11 @@ namespace Examino.Application.Controllers
         public async Task<ActionResult> RegisterPatientAsync([FromBody] RegisterPatientCommand RegisterPatientData)
         {
          var result  = await _mediator.Send(RegisterPatientData);
+
             if (result.Success ==false)
             {
                 return StatusCode(result.StatusCode, result.Message);
             }
-
 
             return Ok(new { Email=result.Email,Password = result.Password });
         }

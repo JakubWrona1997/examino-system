@@ -49,9 +49,6 @@ namespace Examino.Application.Functions.Registration.PatientRegistration.Command
                 .Matches("(?=.*?[#?!@$%^&*-])").WithMessage("Password need at least one special character");
 
 
-
-
-
         }
 
         private bool IsEmailUnique(string email)
