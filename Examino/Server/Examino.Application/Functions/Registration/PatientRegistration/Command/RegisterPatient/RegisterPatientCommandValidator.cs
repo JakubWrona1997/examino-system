@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,18 +25,31 @@ namespace Examino.Application.Functions.Registration.PatientRegistration.Command
                 
 
             RuleFor(x => x.Name)
-                .NotEmpty();//add remnant rules from frontend
+                .NotEmpty()
+                .Length(3,50)
+                .Matches("^[A-Z]").WithMessage("Name needs to start with uppercase letter");//add remnant rules from frontend
 
             RuleFor(x => x.Surname)
-              .NotEmpty();//add remnant rules from frontend
+              .NotEmpty()
+              .Length(3, 50)
+              .Matches("^[A-Z]").WithMessage("Surname needs to start with uppercase letter"); //add remnant rules from frontend
 
             RuleFor(x => x.PESEL)
                 .NotEmpty()
                 .Length(11)
-                .Must(IsPeselUnique).WithMessage("Patient with that PESEL exist"); ;
+                .Matches("\\d{11}").WithMessage("Pesel need to have 11 digits")
+                .Must(IsPeselUnique).WithMessage("Patient with that PESEL exist");
+                
 
-   
-         
+            RuleFor(x => x.Password)
+                .NotEmpty()
+                .Matches("[A-Z]").WithMessage("Password need one Uppercase letter")
+                .Matches("[a-z]").WithMessage("Password need one lowercase letter")
+                .Matches("[0-9]").WithMessage("Password need one number")
+                .Matches("(?=.*?[#?!@$%^&*-])").WithMessage("Password need at least one special character");
+
+
+
 
 
         }
