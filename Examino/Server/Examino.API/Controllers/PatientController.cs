@@ -31,7 +31,9 @@ namespace Examino.Application.Controllers
                 return StatusCode(result.StatusCode, result.Message);
             }
 
-            return Ok(new { Email = result.Email, Password = result.Password });
+            var RedirectedStatus = await Login(new LoginCommand { Email = result.Email, Password = result.Password });
+
+            return RedirectedStatus;
         }
 
         [HttpPost("login")]
