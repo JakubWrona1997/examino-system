@@ -6,21 +6,26 @@ using Examino.Application;
 using Examino.Domain.TokenClasses;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
+ConfigurationManager Configuration = builder.Configuration;
 
 builder.Host.AddExaminoInfrastructureHostConfiguration();
+//Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+   .AddDefaultTokenProviders();
 
-ConfigurationManager Configuration = builder.Configuration;
 // Jwt token 
 var authenticationSettings = new AuthenticationSettings();
 Configuration.GetSection("Authentication").Bind(authenticationSettings);
+builder.Services.AddSingleton(authenticationSettings);
 builder.Services.AddAuthentication(option =>
 {
-    option.DefaultAuthenticateScheme = "Bearer";
-    option.DefaultChallengeScheme = "Bearer";
-    option.DefaultScheme = "Bearer";
-
+    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(cfg =>
 {
     cfg.RequireHttpsMetadata = false;
@@ -29,9 +34,14 @@ builder.Services.AddAuthentication(option =>
     {
         ValidIssuer = authenticationSettings.JwtIssuer,
         ValidAudience = authenticationSettings.JwtIssuer,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey)),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
     };
 });
+
+//password hasher
+builder.Services.AddScoped<IPasswordHasher<ApplicationUser>, PasswordHasher<ApplicationUser>>();
+builder.Services.AddScoped<IPasswordHasher<Patient>, PasswordHasher<Patient>>();
+builder.Services.AddScoped<IPasswordHasher<Doctor>, PasswordHasher<Doctor>>();
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -41,10 +51,7 @@ builder.Services.AddExaminoInfrastructureServices(Configuration);
 //Application services registration
 builder.Services.AddApplicationServices();
 
-//Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -52,6 +59,11 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
+
+
+app.UseAuthentication();
+
+app.UseHttpsRedirection();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -59,9 +71,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthentication();
 
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
