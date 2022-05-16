@@ -1,6 +1,7 @@
 ﻿using Examino.Domain.Contracts;
 using Examino.Infrastructure.Middleware;
 using Examino.Infrastructure.Repositories;
+using Examino.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,7 @@ namespace Examino.Infrastructure
 
             // repository services
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<ILoginService, LoginService>();
 
             return services;
         }
