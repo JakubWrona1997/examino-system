@@ -24,7 +24,7 @@ namespace Examino.Application.Functions.Registration.PatientRegistration.Command
 
             var patientResult = await _patientRepository.Register(patient, request.Password);
 
-            return new RegisterPatientCommandResponse(patientResult.Email,patientResult.PasswordHash);
+            return new RegisterPatientCommandResponse(patientResult.Email,request.Password);
 
         }
     }

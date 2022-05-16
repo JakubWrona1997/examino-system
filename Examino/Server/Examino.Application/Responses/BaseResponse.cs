@@ -41,8 +41,6 @@ namespace Examino.Application.Responses
         public static Dictionary<int, string> CommonResponse { get; set; } = new Dictionary<int, string>()
         {
             //don t add 400 bad request(validation give that ),401 unathorized
-            { 200,"OK"},
-            { 201,"Created"},
             { 204,"No Content Response , operation succeed"},
             { 403,"Forbidden"},
             { 404,"Not found"}
