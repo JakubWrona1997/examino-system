@@ -1,4 +1,5 @@
-﻿using Examino.Application.Functions.Registration.PatientRegistration;
+﻿using Examino.Application.Functions.Login.Commands.Login;
+using Examino.Application.Functions.Registration.PatientRegistration;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace Examino.Application.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<ActionResult> RegisterPatientAsync([FromBody] RegisterPatientCommand RegisterPatientData)
         {
          var result  = await _mediator.Send(RegisterPatientData);
@@ -29,6 +30,13 @@ namespace Examino.Application.Controllers
             }
 
             return Ok(new { Email=result.Email,Password = result.Password });
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult> Login([FromBody] LoginCommand loginCommand)
+        {
+            string token = await _mediator.Send(loginCommand); // generowanie tokena
+            return Ok(token);
         }
     }
 }
