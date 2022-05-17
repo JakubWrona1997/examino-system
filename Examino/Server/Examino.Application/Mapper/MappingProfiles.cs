@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Examino.Application.Functions.Raports.Commands.CreateRaport;
 using Examino.Application.Functions.Registration.PatientRegistration;
 using Examino.Domain.Entities;
 using System;
@@ -15,6 +16,8 @@ namespace Examino.Application.Mapper
         {
             CreateMap<RegisterPatientCommand, Patient>()
                 .ForMember(x => x.UserName, opt => opt.MapFrom(x => x.Email));
+
+            CreateMap<CreateRaportCommand, Raport>().IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
         }
     }
 }
