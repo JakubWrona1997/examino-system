@@ -1,6 +1,8 @@
 ﻿using Examino.Application.Functions.Raports.Commands.CreateRaport;
+using Examino.Application.Functions.Raports.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Examino.API.Controllers
 {
@@ -12,6 +14,15 @@ namespace Examino.API.Controllers
         public RaportController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("{patientId}")]
+        [ProducesResponseType(typeof(List<RaportDto>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult> GetPatientRaports(Guid patientId)
+        {
+            var raports = await _mediator.Send(new GetPatientRaportQuery(patientId));
+
+            return Ok(raports);
         }
 
         [HttpPost("create")]
