@@ -9,8 +9,8 @@ namespace Examino.Domain.Contracts
 {
     public interface IRaportRepository
     {
-        Task<Raport> GetById(int id);
-        Task<int> CreateRaport(Raport raport);
+        Task<Raport> GetById(Guid id);
+        Task<Guid> CreateRaport(Raport raport);
         Task<bool> UpdateRaport(Raport raport, int id);
         Task<bool> DeleteRaport(Raport raport);
     }
