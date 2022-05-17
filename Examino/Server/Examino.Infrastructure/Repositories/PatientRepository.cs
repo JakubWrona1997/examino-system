@@ -22,7 +22,7 @@ namespace Examino.Infrastructure.Repositories
             _db = db;
         }
 
-        public  Task<bool> IsEmailAlreadyExist(string email)
+        public Task<bool> IsEmailAlreadyExist(string email)
         {
             var matches = _db.Users.
                  Any(a => a.Email.Equals(email));

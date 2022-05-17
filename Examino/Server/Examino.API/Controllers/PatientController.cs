@@ -46,7 +46,6 @@ namespace Examino.Application.Controllers
             }
 
             return Ok(result.Token);
-
         }
     }
 }

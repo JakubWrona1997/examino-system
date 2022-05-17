@@ -22,8 +22,7 @@ namespace Examino.Application.Functions.Login.Commands.Login
         {
             var result = _loginService.GenerateJwt(request.Email, request.Password);
             if (result is null)  return Task.FromResult(new LoginCommandResponse(404, false));
-            return Task.FromResult( new LoginCommandResponse(result));
-            
+            return Task.FromResult( new LoginCommandResponse(result));          
         }
     }
 }

@@ -12,8 +12,7 @@ namespace Examino.Application.Responses
         
 
         public BaseResponse()
-        {
-            
+        {            
             Success = true;
         }
         public BaseResponse(string message = null)
@@ -43,8 +42,7 @@ namespace Examino.Application.Responses
             //don t add 400 bad request(validation give that ),401 unathorized
             { 204,"No Content Response , operation succeed"},
             { 403,"Forbidden"},
-            { 404,"Not found"}
-           
+            { 404,"Not found"}         
         };
        
     }

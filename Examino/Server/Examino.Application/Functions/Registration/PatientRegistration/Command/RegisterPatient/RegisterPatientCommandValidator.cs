@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Registration.PatientRegistration.Command.RegisterPatient
 {
-   public  class RegisterPatientCommandValidator:AbstractValidator<RegisterPatientCommand>
+   public  class RegisterPatientCommandValidator : AbstractValidator<RegisterPatientCommand>
     {
         private readonly IPatientRepository _patientRepository;
 
@@ -47,8 +47,6 @@ namespace Examino.Application.Functions.Registration.PatientRegistration.Command
                 .Matches("[a-z]").WithMessage("Password need one lowercase letter")
                 .Matches("[0-9]").WithMessage("Password need one number")
                 .Matches("(?=.*?[#?!@$%^&*-])").WithMessage("Password need at least one special character");
-
-
         }
 
         private bool IsEmailUnique(string email)

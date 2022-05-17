@@ -78,7 +78,6 @@ namespace Examino.Infrastructure.Services
 
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
-
         }
 
     }
