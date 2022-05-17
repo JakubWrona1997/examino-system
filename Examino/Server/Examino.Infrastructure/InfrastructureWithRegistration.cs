@@ -27,6 +27,7 @@ namespace Examino.Infrastructure
 
             // repository services
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IRaportRepository, RaportRepository>();
             services.AddScoped<ILoginService, LoginService>();
 
             return services;

@@ -1,4 +1,5 @@
-﻿using Examino.Application.Functions.Registration.PatientRegistration;
+﻿using Examino.Application.Functions.Raports.Commands.CreateRaport;
+using Examino.Application.Functions.Registration.PatientRegistration;
 using Examino.Application.Functions.Registration.PatientRegistration.Command.RegisterPatient;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -24,6 +25,7 @@ namespace Examino.Application
             //Validation services
 
             services.AddScoped<IValidator<RegisterPatientCommand>, RegisterPatientCommandValidator>();
+            services.AddScoped<IValidator<CreateRaportCommand>, CreateRaportCommandValidator>();
 
             return services;
         }
