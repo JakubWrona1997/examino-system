@@ -1,68 +1,55 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { LoginUser, RegisterUser, User } from "../models/User";
-
-let user: User | null = null;
-const userFromLocalStorage = localStorage.getItem("user");
-if (userFromLocalStorage !== null) {
-  user = JSON.parse(userFromLocalStorage);
-}
+import { LoginUser, RegisterUser } from "../models/User";
 
 interface IUserState {
-  user: User | null;
+  token: string | null;
   loading: "idle" | "pending" | "fulfilled" | "failed";
+  error: string | null | undefined;
 }
 
 const initialState: IUserState = {
-  user: user,
+  token: null,
   loading: "idle",
+  error: null,
 };
 
 // Register User
-// POST /api/...
-export const registerUser = createAsyncThunk<User, RegisterUser>(
-  "register",
-  async (user: RegisterUser, thunkAPI) => {
-    try {
-      // TODO add endpoint url
-      const res = await axios.post("api/...", user);
-      if (res.data) {
-        localStorage.setItem("user", JSON.stringify(res.data));
-      }
-      return res.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error);
-    }
+// POST /api/patient/register
+export const registerUser = createAsyncThunk<
+  string,
+  RegisterUser,
+  { rejectValue: string }
+>("register", async (userData: RegisterUser, thunkAPI) => {
+  try {
+    const res = await axios.post("/api/patient/register", userData);
+    return res.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
 
 // Login User
-// POST /api/...
-export const loginUser = createAsyncThunk<User, LoginUser>(
-  "login",
-  async (user: LoginUser, thunkAPI) => {
-    try {
-      // TODO add endpoint url
-      const res = await axios.post("api/...", user);
-      if (res.data) {
-        localStorage.setItem("user", JSON.stringify(res.data));
-      }
-      return res.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error);
-    }
+// POST /api/patient/login
+export const loginUser = createAsyncThunk<
+  string,
+  LoginUser,
+  { rejectValue: string }
+>("login", async (userData: LoginUser, thunkAPI) => {
+  try {
+    const res = await axios.post("/api/patient/login", userData);
+    return res.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
-
-// Logout User
-export const logoutUser = createAsyncThunk("logout", async () => {
-  await localStorage.removeItem("user");
 });
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -70,25 +57,25 @@ export const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = "fulfilled";
-        state.user = action.payload;
+        state.token = action.payload;
       })
-      .addCase(registerUser.rejected, (state) => {
+      .addCase(registerUser.rejected, (state, action) => {
         state.loading = "failed";
+        state.error = action.payload;
       })
       .addCase(loginUser.pending, (state) => {
         state.loading = "pending";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = "fulfilled";
-        state.user = action.payload;
+        state.token = action.payload;
       })
-      .addCase(loginUser.rejected, (state) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.loading = "failed";
-      })
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.user = null;
+        state.error = action.payload;
       });
   },
 });
 
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;

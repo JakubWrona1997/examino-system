@@ -9,8 +9,8 @@ import * as yup from "yup";
 import "./Register.scss";
 
 interface FormInputs {
-  firstName: string;
-  lastName: string;
+  name: string;
+  surname: string;
   pesel: string;
   email: string;
   password: string;
@@ -18,22 +18,20 @@ interface FormInputs {
 }
 
 const Register = () => {
-  const { user, loading } = useSelector(
-    (state: RootState) => state.currentUser
-  );
+  const { token, loading } = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading === "fulfilled" || user) {
+    if (loading === "fulfilled" || token) {
       navigate("/dashboard");
     }
-  }, [loading, user]);
+  }, [loading, token]);
 
   const registerSchema = yup.object().shape({
-    firstName: yup.string().required("To pole jest wymagane"),
-    lastName: yup.string().required("To pole jest wymagane"),
+    name: yup.string().required("To pole jest wymagane"),
+    surname: yup.string().required("To pole jest wymagane"),
     pesel: yup
       .string()
       .matches(/^[0-9]+$/, "Pesel może zawierać tylko cyfry")
@@ -53,6 +51,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormInputs>({
     resolver: yupResolver(registerSchema),
@@ -61,6 +60,7 @@ const Register = () => {
   const onSubmit = (data: FormInputs) => {
     const { confirmPassword, ...dataCopy } = data;
     dispatch(registerUser(dataCopy));
+    reset();
   };
 
   return (
@@ -77,25 +77,25 @@ const Register = () => {
         </div>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-field">
-            <label htmlFor="firstName">Imię</label>
+            <label htmlFor="name">Imię</label>
             <input
-              className={errors.firstName ? "is-invalid" : ""}
+              className={errors.name ? "is-invalid" : ""}
               type="text"
-              {...register("firstName")}
+              {...register("name")}
             />
-            {errors.firstName && (
-              <p className="form-field-error">{errors.firstName.message}</p>
+            {errors.name && (
+              <p className="form-field-error">{errors.name.message}</p>
             )}
           </div>
           <div className="form-field">
-            <label htmlFor="lastName">Nazwisko</label>
+            <label htmlFor="surname">Nazwisko</label>
             <input
-              className={errors.lastName ? "is-invalid" : ""}
+              className={errors.surname ? "is-invalid" : ""}
               type="text"
-              {...register("lastName")}
+              {...register("surname")}
             />
-            {errors.lastName && (
-              <p className="form-field-error">{errors.lastName.message}</p>
+            {errors.surname && (
+              <p className="form-field-error">{errors.surname.message}</p>
             )}
           </div>
           <div className="form-field">

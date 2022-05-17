@@ -1,14 +1,6 @@
-export interface User {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  token: string;
-}
-
 export interface RegisterUser {
-  firstName: string;
-  lastName: string;
+  name: string;
+  surname: string;
   pesel: string;
   email: string;
   password: string;

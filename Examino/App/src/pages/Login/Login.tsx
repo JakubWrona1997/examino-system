@@ -14,18 +14,16 @@ interface FormInputs {
 }
 
 const Login = () => {
-  const { user, loading } = useSelector(
-    (state: RootState) => state.currentUser
-  );
+  const { token, loading } = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading === "fulfilled" || user) {
+    if (loading === "fulfilled" || token) {
       navigate("/dashboard");
     }
-  }, [loading, user]);
+  }, [loading, token]);
 
   const loginSchema = yup.object().shape({
     email: yup
@@ -38,6 +36,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormInputs>({
     resolver: yupResolver(loginSchema),
@@ -45,6 +44,7 @@ const Login = () => {
 
   const onSubmit = (data: FormInputs) => {
     dispatch(loginUser(data));
+    reset();
   };
 
   return (

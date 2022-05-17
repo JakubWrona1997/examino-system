@@ -1,6 +1,7 @@
 {
   "name": "application",
   "version": "0.1.0",
+  "proxy": "http://localhost:5258",
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
