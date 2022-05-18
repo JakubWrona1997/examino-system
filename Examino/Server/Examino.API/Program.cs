@@ -60,6 +60,18 @@ var app = builder.Build();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
+<<<<<<< HEAD
+=======
+//Cors settings
+app.UseCors(builder =>
+{
+    builder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+});
+
+>>>>>>> cad60beb3ebc5ba526d2ba65bd75fe90f1e2de5a
 app.UseAuthentication();
 
 app.UseHttpsRedirection();

@@ -1,17 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { LoginUser, RegisterUser } from "../models/User";
+import { LoginUser, RegisterUser, RegisterError } from "../models/User";
 
 interface IUserState {
   token: string | null;
   loading: "idle" | "pending" | "fulfilled" | "failed";
-  error: string | null | undefined;
+  error: {
+    register: RegisterError | undefined;
+    login: string | undefined;
+  };
 }
 
 const initialState: IUserState = {
   token: null,
   loading: "idle",
-  error: null,
+  error: {
+    register: undefined,
+    login: undefined,
+  },
 };
 
 // Register User
@@ -19,13 +25,13 @@ const initialState: IUserState = {
 export const registerUser = createAsyncThunk<
   string,
   RegisterUser,
-  { rejectValue: string }
+  { rejectValue: RegisterError }
 >("register", async (userData: RegisterUser, thunkAPI) => {
   try {
     const res = await axios.post("/api/patient/register", userData);
     return res.data;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.response.data.errors);
   }
 });
 
@@ -40,7 +46,7 @@ export const loginUser = createAsyncThunk<
     const res = await axios.post("/api/patient/login", userData);
     return res.data;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.response.data);
   }
 });
 
@@ -61,7 +67,7 @@ export const userSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = "failed";
-        state.error = action.payload;
+        state.error.register = action.payload;
       })
       .addCase(loginUser.pending, (state) => {
         state.loading = "pending";
@@ -72,7 +78,7 @@ export const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = "failed";
-        state.error = action.payload;
+        state.error.login = action.payload;
       });
   },
 });
