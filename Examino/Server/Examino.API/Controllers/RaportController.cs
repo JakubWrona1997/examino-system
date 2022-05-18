@@ -18,7 +18,7 @@ namespace Examino.API.Controllers
 
         [HttpGet("{patientId}")]
         [ProducesResponseType(typeof(List<RaportDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetPatientRaports(Guid patientId)
+        public async Task<ActionResult> GetPatientRaports([FromRoute]Guid patientId)
         {
             var raports = await _mediator.Send(new GetPatientRaportQuery(patientId));
 

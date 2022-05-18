@@ -16,7 +16,7 @@ namespace Examino.Domain.Entities
         public string Recommendation { get; set; }
         public string Comment { get; set; }
 
-        public virtual Prescription Prescription { get; set; }
+        public virtual Prescription? Prescription { get; set; }
         public virtual Patient? Patient { get; set; }
         public virtual Doctor?  Doctor { get; set; }
     }

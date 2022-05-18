@@ -39,7 +39,6 @@ namespace Examino.Infrastructure.Repositories
 
         public async Task<Patient> Register(Patient patient, string password)
         {
-
             //haslo musi byc dobre inacze null w bazie
             await _userManager.CreateAsync(patient, password);
             var newMadeUser = _userManager.FindByEmailAsync(patient.Email).Result;

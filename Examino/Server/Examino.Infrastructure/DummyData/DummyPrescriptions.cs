@@ -30,11 +30,18 @@ namespace Examino.Infrastructure.DummyData
                 Medicines = "potassium suplement",
                 RaportId = Guid.Parse("a34d644f-55fc-4a39-addd-a8cc07f89c34")
             };
+            var prescription4 = new Prescription()
+            {
+                Id = Guid.Parse("33842c30-c6b2-4dab-87a6-9e71e4bb0249"),
+                Medicines = "magnesium suplement",
+                RaportId = Guid.Parse("a34d644f-55fc-4a39-addd-a8cc07f89c34")
+            };
 
 
             prescriptions.Add(prescription1);
             prescriptions.Add(prescription2);
             prescriptions.Add(prescription3);
+            prescriptions.Add(prescription4);
             return prescriptions;
         }
     }

@@ -33,11 +33,13 @@ namespace Examino.Application.Functions.Raports.Queries
                         "[Raports].[Examination], " +
                         "[Raports].[Diagnosis], " +
                         "[Raports].[Recommendation], " +
-                        "[Raports].[Comment] " +
-                        "FROM [Raports]" +
-                        "WHERE [Raports].PatientId = @PatientId";
+                        "[Raports].[Comment], " +
+                        "[Prescriptions].[Id], " +
+                        "[Prescriptions].[Medicines] " +
+                        "FROM [Raports] LEFT OUTER JOIN [Prescriptions] on [Raports].[Id] = [Prescriptions].[RaportId] " +
+                        "WHERE [Raports].[PatientId] = @PatientId";
 
-            var foundRaport = await connection.QueryAsync<RaportDto>(sql, new { request.PatientId });
+            var foundRaport = await connection.QueryAsync<RaportDto, PrescriptionDto, RaportDto>(sql, (raport, prescription) => {raport.Prescriptions = prescription; return raport; }, new { request.PatientId });
 
             return foundRaport.AsList();
         }

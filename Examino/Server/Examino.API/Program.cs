@@ -60,7 +60,6 @@ var app = builder.Build();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
-
 app.UseAuthentication();
 
 app.UseHttpsRedirection();
