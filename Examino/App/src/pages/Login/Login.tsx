@@ -14,7 +14,9 @@ interface FormInputs {
 }
 
 const Login = () => {
-  const { token, loading } = useSelector((state: RootState) => state.user);
+  const { token, loading, error } = useSelector(
+    (state: RootState) => state.user
+  );
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -36,7 +38,6 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<FormInputs>({
     resolver: yupResolver(loginSchema),
@@ -44,7 +45,6 @@ const Login = () => {
 
   const onSubmit = (data: FormInputs) => {
     dispatch(loginUser(data));
-    reset();
   };
 
   return (
@@ -78,6 +78,7 @@ const Login = () => {
               <p className="form-field-error">{errors.password.message}</p>
             )}
           </div>
+          {error.login && <p className="login-error">{error.login}</p>}
           <button type="submit" className="form-button">
             Zaloguj
           </button>
