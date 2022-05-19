@@ -11,6 +11,10 @@ a {
   color: $color-black;
 }
 
+li {
+  list-style-type: none;
+}
+
 .dashboard {
   display: flex;
   height: 100vh;
@@ -61,5 +65,9 @@ a {
   &-content {
     width: 100%;
     margin: 2rem;
+    &-header {
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
   }
 }

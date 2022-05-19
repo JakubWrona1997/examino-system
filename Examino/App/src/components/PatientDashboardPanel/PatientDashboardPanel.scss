@@ -1,0 +1,22 @@
+.dashboard-panel-wrapper {
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  .card {
+    &-wrapper {
+      flex: 1 0 41%;
+    }
+    &-header {
+      font-size: 1.4rem;
+    }
+    &-content {
+      margin-top: 1rem;
+      padding: 1rem;
+      min-height: 100px;
+      background-color: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 20px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    }
+  }
+}

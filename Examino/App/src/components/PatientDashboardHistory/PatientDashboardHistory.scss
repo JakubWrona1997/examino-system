@@ -1,0 +1,38 @@
+.dashboard-history-wrapper {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  .card {
+    &-wrapper {
+      margin-top: 1rem;
+      background-color: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 20px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    }
+    &-labels {
+      display: flex;
+      margin: 0;
+      padding: 0 1rem;
+      font-weight: 700;
+      li {
+        flex-basis: 20%;
+      }
+    }
+    &-content {
+      display: flex;
+      margin: 0;
+      padding: 1rem;
+      li {
+        flex-basis: 20%;
+        a {
+          text-decoration: underline;
+          color: blue;
+        }
+      }
+      li:last-child {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
