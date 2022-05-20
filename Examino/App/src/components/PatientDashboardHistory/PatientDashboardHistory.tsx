@@ -7,24 +7,36 @@ const PatientDashboardHistory = () => {
     <React.Fragment>
       <header className="dashboard-content-header">Historia</header>
       <div className="dashboard-history-wrapper">
-        <ul className="card-labels">
-          <li>Nr</li>
-          <li>Doktor</li>
-          <li>Data wizyty</li>
-          <li>Recepta</li>
-        </ul>
+        <div className="card-labels">
+          <table>
+            <tbody>
+              <tr>
+                <th>Nr</th>
+                <th>Doktor</th>
+                <th>Data wizyty</th>
+                <th>Recepta</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div className="card-wrapper">
-          <ul className="card-content">
-            <li>[index]</li>
-            <li>[doctor name]</li>
-            <li>[dd/mm/yyyy]</li>
-            <li>
-              <Link to={`/TODO`}>[receipt number]</Link>
-            </li>
-            <li>
-              <Link to={`/TODO`}>Pokaż szczegóły</Link>
-            </li>
-          </ul>
+          <div className="card-content">
+            <table>
+              <tbody>
+                <tr>
+                  <td>[index]</td>
+                  <td>[doctor name]</td>
+                  <td>[dd/mm/yyyy]</td>
+                  <td>
+                    <Link to={`TODO`}>[receipt number]</Link>
+                  </td>
+                  <td>
+                    <Link to={`TODO`}>Pokaż szczegóły</Link>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </React.Fragment>

@@ -10,28 +10,41 @@
       box-shadow: 20px 20px 40px 0px rgba(0, 0, 0, 0.1);
     }
     &-labels {
-      display: flex;
-      margin: 0;
-      padding: 0 1rem;
-      font-weight: 700;
-      li {
-        flex-basis: 20%;
-      }
-    }
-    &-content {
-      display: flex;
-      margin: 0;
-      padding: 1rem;
-      li {
-        flex-basis: 20%;
-        a {
-          text-decoration: underline;
-          color: blue;
+      table {
+        width: 100%;
+        tr {
+          display: flex;
+          padding: 0 1rem;
+          th {
+            display: flex;
+            flex-basis: 20%;
+            padding: 0;
+          }
         }
       }
-      li:last-child {
-        display: flex;
-        justify-content: flex-end;
+    } 
+    &-content {
+      table {
+        width: 100%;
+        tr {
+          display: flex;
+          padding: 1rem;
+          td {
+            display: flex;
+            flex-basis: 20%;
+            padding: 0;
+            a {
+              color: blue;
+            }
+          }
+          td:last-child {
+            display: flex;
+            justify-content: flex-end;
+            a {
+              color: inherit;
+            }
+          }
+        }
       }
     }
   }
