@@ -17,7 +17,17 @@ namespace Examino.Infrastructure.Services
         {
             _httpContextAccessor = httpContextAccessor;
         }
-        public Guid GetUserId() => Guid.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        public Guid GetUserId()
+        {
+            var result = Guid.Empty;
+
+            if(_httpContextAccessor.HttpContext == null)
+                throw new BadHttpRequestException("Something went wrong", StatusCodes.Status404NotFound);
+                
+            Guid.TryParse(_httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier).Value, out result);
+
+            return result;
+        }   
        
     }
 }
