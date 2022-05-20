@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examino.Domain", "..\Examin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examino.Infrastructure", "..\Examino.Infrastructure\Examino.Infrastructure.csproj", "{F864A7DC-BFFF-4758-A5AC-CAB090F816E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examino.Application", "..\Examino.Application\Examino.Application.csproj", "{5296ACF6-037E-49D9-A4B8-5968FDF56D59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examino.Application", "..\Examino.Application\Examino.Application.csproj", "{5296ACF6-037E-49D9-A4B8-5968FDF56D59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examino.IntegrationTests", "..\Examino.IntegrationTests\Examino.IntegrationTests.csproj", "{EE78B857-2758-46A9-9391-D85860183433}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5296ACF6-037E-49D9-A4B8-5968FDF56D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5296ACF6-037E-49D9-A4B8-5968FDF56D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5296ACF6-037E-49D9-A4B8-5968FDF56D59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE78B857-2758-46A9-9391-D85860183433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE78B857-2758-46A9-9391-D85860183433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE78B857-2758-46A9-9391-D85860183433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE78B857-2758-46A9-9391-D85860183433}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

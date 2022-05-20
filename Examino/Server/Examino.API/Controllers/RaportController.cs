@@ -1,5 +1,6 @@
 ﻿using Examino.Application.Functions.Raports.Commands.CreateRaport;
 using Examino.Application.Functions.Raports.Queries;
+using Examino.Domain.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -11,15 +12,20 @@ namespace Examino.API.Controllers
     public class RaportController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public RaportController(IMediator mediator)
+        private readonly IUserProvider _userProvider;
+
+        public RaportController(IMediator mediator, IUserProvider userProvider)
         {
             _mediator = mediator;
+            _userProvider = userProvider;
         }
 
         [HttpGet("{patientId}")]
         [ProducesResponseType(typeof(List<RaportDto>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetPatientRaports([FromRoute]Guid patientId)
         {
+            //var userId = _userProvider.GetUserId(); 
+
             var raports = await _mediator.Send(new GetPatientRaportQuery(patientId));
 
             return Ok(raports);

@@ -39,7 +39,7 @@ namespace Examino.Application.Functions.Raports.Queries
                         "FROM [Raports] LEFT OUTER JOIN [Prescriptions] on [Raports].[Id] = [Prescriptions].[RaportId] " +
                         "WHERE [Raports].[PatientId] = @PatientId";
 
-            var foundRaport = await connection.QueryAsync<RaportDto, PrescriptionDto, RaportDto>(sql, (raport, prescription) => {raport.Prescriptions = prescription; return raport; }, new { request.PatientId });
+            var foundRaport = await connection.QueryAsync<RaportDto, PrescriptionDto, RaportDto>(sql, (raport, prescription) => {raport.Prescription = prescription; return raport; }, new { request.PatientId });
 
             return foundRaport.AsList();
         }

@@ -1,5 +1,6 @@
 ﻿using Examino.Application.Functions.Login.Commands.Login;
 using Examino.Application.Functions.Registration.PatientRegistration;
+using Examino.Domain.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +17,8 @@ namespace Examino.Application.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IMediator _mediator;
+        //private readonly IUserProvider _userProvider;
+
         public PatientController(IMediator mediator)
         {
             _mediator = mediator;
@@ -46,6 +49,7 @@ namespace Examino.Application.Controllers
             }
 
             return Ok(result.Token);
+            
         }
     }
 }
