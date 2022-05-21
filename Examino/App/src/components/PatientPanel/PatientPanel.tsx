@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./PatientDashboardPanel.scss";
+import "./PatientPanel.scss";
 import patient from "../../assets/patient.svg";
 
-const PatientDashboardPanel = () => {
+const PatientPanel = () => {
   return (
     <React.Fragment>
       <header className="dashboard-content-header">Witaj [user]!</header>
@@ -23,7 +23,9 @@ const PatientDashboardPanel = () => {
                 </tr>
                 <tr className="show-details">
                   <td>
-                    <Link to={`TODO`}>Pokaż szczegóły</Link>
+                    <Link to={`/dashboard/history/raports/${123}/details`}>
+                      Pokaż szczegóły
+                    </Link>
                   </td>
                 </tr>
               </tbody>
@@ -60,7 +62,9 @@ const PatientDashboardPanel = () => {
                 </tr>
                 <tr className="show-details">
                   <td>
-                    <Link to={`TODO`}>Pokaż szczegóły</Link>
+                    <Link to={`/dashboard/history/receipt/${123}/details`}>
+                      Pokaż szczegóły
+                    </Link>
                   </td>
                 </tr>
               </tbody>
@@ -77,9 +81,7 @@ const PatientDashboardPanel = () => {
                   <td>[referral number]</td>
                 </tr>
                 <tr className="show-details">
-                  <td>
-                    <Link to={`TODO`}>Pokaż szczegóły</Link>
-                  </td>
+                  <td>Pokaż szczegóły</td>
                 </tr>
               </tbody>
             </table>
@@ -90,4 +92,4 @@ const PatientDashboardPanel = () => {
   );
 };
 
-export default PatientDashboardPanel;
+export default PatientPanel;

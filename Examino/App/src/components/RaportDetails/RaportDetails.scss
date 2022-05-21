@@ -1,0 +1,36 @@
+.dashboard-history-raport-details-wrapper {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  .card {
+    &-wrapper {
+      background-color: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 20px 20px 40px 0px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+    }
+    &-content {
+      table {
+        width: 100%;
+        tbody {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          tr {
+            display: flex;
+            th {
+              display: flex;
+              justify-content: flex-start;
+              min-width: 150px;
+            }
+            td {
+              a {
+                color: blue;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

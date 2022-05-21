@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./PatientDashboardHistory.scss";
+import "./PatientHistory.scss";
 
-const PatientDashboardHistory = () => {
+const PatientHistory = () => {
   return (
     <React.Fragment>
       <header className="dashboard-content-header">Historia</header>
@@ -28,10 +28,10 @@ const PatientDashboardHistory = () => {
                   <td>[doctor name]</td>
                   <td>[dd/mm/yyyy]</td>
                   <td>
-                    <Link to={`TODO`}>[receipt number]</Link>
+                    <Link to={`receipt/${123}/details`}>[receipt number]</Link>
                   </td>
                   <td>
-                    <Link to={`TODO`}>Pokaż szczegóły</Link>
+                    <Link to={`raports/${123}/details`}>Pokaż szczegóły</Link>
                   </td>
                 </tr>
               </tbody>
@@ -43,4 +43,4 @@ const PatientDashboardHistory = () => {
   );
 };
 
-export default PatientDashboardHistory;
+export default PatientHistory;

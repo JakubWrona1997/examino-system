@@ -21,7 +21,7 @@ export const getRaports = createAsyncThunk<
   Raport[],
   void,
   { state: RootState; rejectValue: string }
->("get", async (_, thunkAPI) => {
+>("raports/get", async (_, thunkAPI) => {
   try {
     // TODO
     const token = thunkAPI.getState().user.token;
@@ -43,7 +43,7 @@ export const createRaport = createAsyncThunk<
   Raport,
   CreateRaport,
   { state: RootState; rejectValue: string }
->("create", async (raportData, thunkAPI) => {
+>("raports/create", async (raportData, thunkAPI) => {
   try {
     // TODO
     const token = thunkAPI.getState().user.token;
@@ -65,7 +65,7 @@ export const updateRaport = createAsyncThunk<
   Raport,
   Raport,
   { state: RootState; rejectValue: string }
->("update", async (raportData, thunkAPI) => {
+>("raports/update", async (raportData, thunkAPI) => {
   try {
     // TODO
     const token = thunkAPI.getState().user.token;
@@ -91,7 +91,7 @@ export const deleteRaport = createAsyncThunk<
   Raport,
   string,
   { state: RootState; rejectValue: string }
->("delete", async (raportId, thunkAPI) => {
+>("raports/delete", async (raportId, thunkAPI) => {
   try {
     // TODO
     const token = thunkAPI.getState().user.token;

@@ -7,9 +7,11 @@ import {
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import PatientDashboard from "./pages/PatientDashboard/PatientDashboard";
-import PatientDashboardPanel from "./components/PatientDashboardPanel/PatientDashboardPanel";
-import PatientDashboardHistory from "./components/PatientDashboardHistory/PatientDashboardHistory";
-import PatientDashboardProfile from "./components/PatientDashboardProfile/PatientDashboardProfile";
+import PatientPanel from "./components/PatientPanel/PatientPanel";
+import PatientHistory from "./components/PatientHistory/PatientHistory";
+import PatientProfile from "./components/PatientProfile/PatientProfile";
+import RaportDetails from "./components/RaportDetails/RaportDetails";
+import ReceiptDetails from "./components/ReceiptDetails/ReceiptDetails";
 
 function App() {
   return (
@@ -18,9 +20,17 @@ function App() {
         <Routes>
           <Route path="dashboard" element={<PatientDashboard />}>
             <Route index element={<Navigate to="panel" />} />
-            <Route path="panel" element={<PatientDashboardPanel />} />
-            <Route path="history" element={<PatientDashboardHistory />} />
-            <Route path="profile" element={<PatientDashboardProfile />} />
+            <Route path="panel" element={<PatientPanel />} />
+            <Route path="history" element={<PatientHistory />} />
+            <Route
+              path="history/raports/:id/details"
+              element={<RaportDetails />}
+            />
+            <Route
+              path="history/receipt/:id/details"
+              element={<ReceiptDetails />}
+            />
+            <Route path="profile" element={<PatientProfile />} />
           </Route>
           <Route path="register" element={<Register />} />
           <Route path="/" element={<Login />} />
