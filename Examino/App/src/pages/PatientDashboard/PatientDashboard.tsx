@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../app/store";
-import { logout } from "../../redux/userSlice";
+import { logout } from "../../features/userSlice";
 import {
   FaHeartbeat,
   FaThLarge,

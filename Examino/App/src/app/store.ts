@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import userReducer from "../redux/userSlice";
+import userReducer from "../features/userSlice";
+import raportReducer from "../features/raportSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    raports: raportReducer,
   },
 });
 

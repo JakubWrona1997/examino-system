@@ -25,7 +25,8 @@
     flex-direction: column;
     justify-content: center;
     width: 400px;
-    margin: 0 2rem;
+    margin: auto 0;
+    overflow: scroll;
     &-header {
       font-size: 3rem;
       font-weight: 700;
@@ -45,8 +46,8 @@
         display: flex;
         flex-direction: column;
         margin-top: 0.5rem;
+        width: 350px;
         input {
-          width: 300px;
           height: 25px;
           font-size: 1rem;
           padding: 0.375rem 0.75rem;
