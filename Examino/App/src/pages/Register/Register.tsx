@@ -109,7 +109,7 @@ const Register = () => {
             register={register}
             registerName="name"
             registerErrors={errors}
-            type="name"
+            type="text"
             label="Imię"
             serverErrors={error.register?.Name}
           />
@@ -117,7 +117,7 @@ const Register = () => {
             register={register}
             registerName="surname"
             registerErrors={errors}
-            type="surname"
+            type="text"
             label="Nazwisko"
             serverErrors={error.register?.Surname}
           />
@@ -125,7 +125,7 @@ const Register = () => {
             register={register}
             registerName="pesel"
             registerErrors={errors}
-            type="pesel"
+            type="text"
             label="Pesel"
             serverErrors={error.register?.PESEL}
           />

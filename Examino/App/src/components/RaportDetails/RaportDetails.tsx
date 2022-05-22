@@ -50,8 +50,8 @@ const RaportDetails = () => {
                 <tr>
                   <th>Recepta</th>
                   <td>
-                    <Link to={`/dashboard/history/receipt/${123}/details`}>
-                      [receipt number]
+                    <Link to={`/dashboard/history/prescription/${123}/details`}>
+                      [prescription number]
                     </Link>
                   </td>
                 </tr>

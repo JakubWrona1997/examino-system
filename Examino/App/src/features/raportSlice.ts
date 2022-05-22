@@ -75,7 +75,7 @@ export const updateRaport = createAsyncThunk<
       },
     };
     const res = await axios.put(
-      `/api/raports/${raportData.Id}/update`,
+      `/api/raports/${raportData.id}/update`,
       raportData,
       config
     );
@@ -143,7 +143,7 @@ export const raportSlice = createSlice({
       .addCase(updateRaport.fulfilled, (state, action) => {
         state.loading = "fulfilled";
         state.raports = state.raports.filter((raport) =>
-          raport.Id === action.payload.Id ? action.payload : raport
+          raport.id === action.payload.id ? action.payload : raport
         );
       })
       .addCase(updateRaport.rejected, (state, action) => {
@@ -156,7 +156,7 @@ export const raportSlice = createSlice({
       .addCase(deleteRaport.fulfilled, (state, action) => {
         state.loading = "fulfilled";
         state.raports = state.raports.filter(
-          (raport) => raport.Id !== action.payload.Id
+          (raport) => raport.id !== action.payload.id
         );
       })
       .addCase(deleteRaport.rejected, (state, action) => {

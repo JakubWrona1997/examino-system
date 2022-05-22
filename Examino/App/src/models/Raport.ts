@@ -1,20 +1,26 @@
 export interface Raport {
-  Id: string;
-  PatientId: string;
-  DoctorId: string;
-  RaportTime: Date;
-  Symptoms: string;
-  Examination: string;
-  Diagnosis: string;
-  Recommendation: string;
-  Comment: string;
+  id: string;
+  patientId: string;
+  doctorId: string;
+  raportTime: Date;
+  symptoms: string;
+  examination: string;
+  diagnosis: string;
+  recommendation: string;
+  comment: string;
+  prescription: {
+    id: string;
+    raportId: string;
+    medicines: string;
+  };
 }
 
 export interface CreateRaport {
-  PatientId: string;
-  Symptoms: string;
-  Examination: string;
-  Diagnosis: string;
-  Recommendation: string;
-  Comment: string;
+  patientId: string;
+  doctorId: string;
+  symptoms: string;
+  examination: string;
+  diagnosis: string;
+  recommendation: string;
+  comment: string;
 }

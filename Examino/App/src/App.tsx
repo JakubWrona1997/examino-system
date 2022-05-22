@@ -11,7 +11,7 @@ import PatientPanel from "./components/PatientPanel/PatientPanel";
 import PatientHistory from "./components/PatientHistory/PatientHistory";
 import PatientProfile from "./components/PatientProfile/PatientProfile";
 import RaportDetails from "./components/RaportDetails/RaportDetails";
-import ReceiptDetails from "./components/ReceiptDetails/ReceiptDetails";
+import PrescriptionDetails from "./components/PrescriptionDetails/PrescriptionDetails";
 
 function App() {
   return (
@@ -27,8 +27,8 @@ function App() {
               element={<RaportDetails />}
             />
             <Route
-              path="history/receipt/:id/details"
-              element={<ReceiptDetails />}
+              path="history/prescription/:id/details"
+              element={<PrescriptionDetails />}
             />
             <Route path="profile" element={<PatientProfile />} />
           </Route>

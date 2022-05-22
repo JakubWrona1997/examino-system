@@ -28,7 +28,9 @@ const PatientHistory = () => {
                   <td>[doctor name]</td>
                   <td>[dd/mm/yyyy]</td>
                   <td>
-                    <Link to={`receipt/${123}/details`}>[receipt number]</Link>
+                    <Link to={`prescription/${123}/details`}>
+                      [prescription number]
+                    </Link>
                   </td>
                   <td>
                     <Link to={`raports/${123}/details`}>Pokaż szczegóły</Link>

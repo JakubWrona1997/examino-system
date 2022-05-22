@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import "./ReceiptDetails.scss";
+import "./PrescriptionDetails.scss";
 
-const ReceiptDetails = () => {
+const PrescriptionDetails = () => {
   const params = useParams();
 
   return (
@@ -10,7 +10,7 @@ const ReceiptDetails = () => {
       <header className="dashboard-content-header">
         Szczegóły recepty [{params.id}]
       </header>
-      <div className="dashboard-history-receipt-details-wrapper">
+      <div className="dashboard-history-prescription-details-wrapper">
         <div className="card-wrapper">
           <div className="card-content">
             <table>
@@ -21,7 +21,7 @@ const ReceiptDetails = () => {
                 </tr>
                 <tr>
                   <th>Numer recepty</th>
-                  <td>[receipt number]</td>
+                  <td>[prescription number]</td>
                 </tr>
                 <tr>
                   <th>Wystawca</th>
@@ -33,7 +33,7 @@ const ReceiptDetails = () => {
                 </tr>
                 <tr>
                   <th>Recepta</th>
-                  <td>[receipt content]</td>
+                  <td>[prescription content]</td>
                 </tr>
               </tbody>
             </table>
@@ -44,4 +44,4 @@ const ReceiptDetails = () => {
   );
 };
 
-export default ReceiptDetails;
+export default PrescriptionDetails;

@@ -58,11 +58,11 @@ const PatientPanel = () => {
               <tbody>
                 <tr>
                   <th>Numer recepty</th>
-                  <td>[receipt number]</td>
+                  <td>[prescription number]</td>
                 </tr>
                 <tr className="show-details">
                   <td>
-                    <Link to={`/dashboard/history/receipt/${123}/details`}>
+                    <Link to={`/dashboard/history/prescription/${123}/details`}>
                       Pokaż szczegóły
                     </Link>
                   </td>
