@@ -27,8 +27,7 @@ namespace Examino.Tests
         [Fact]
         public async Task UserProvider_Should_Return_Logged_UserId()
         {
-            //Arrange
-            var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            //Arrange           
             string id = Guid.NewGuid().ToString();
 
             _httpContextAccessor.Setup(x => x.HttpContext.User.FindFirst(It.IsAny<string>())).Returns(new Claim(ClaimTypes.NameIdentifier, id));
