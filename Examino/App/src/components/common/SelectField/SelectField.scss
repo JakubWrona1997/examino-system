@@ -1,0 +1,34 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  width: 100%;
+  select {
+    height: 40px;
+    font-size: 1rem;
+    padding: 0 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    // Custom arrow
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, #ced4da 50%),
+      linear-gradient(135deg, #ced4da 50%, transparent 50%);
+    background-position:
+      calc(100% - 15px) calc(1em + 1px),
+      calc(100% - 10px) calc(1em + 1px);
+    background-size:
+      5px 5px,
+      5px 5px;
+    background-repeat: no-repeat;
+  }
+  select.is-invalid {
+    border-color: #dc3545;
+  }
+  &-error {
+    color: #dc3545;
+    margin: 0;
+  }
+}
