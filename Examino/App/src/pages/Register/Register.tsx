@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./Register.scss";
+import InputField from "../../components/common/InputField/InputField";
 
 interface FormInputs {
   name: string;
@@ -104,114 +105,53 @@ const Register = () => {
           przez twojego lekarza
         </div>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-field">
-            <label htmlFor="name">Imię</label>
-            <input
-              className={
-                errors.name || error.register?.Name ? "is-invalid" : ""
-              }
-              type="text"
-              {...register("name")}
-            />
-            {errors.name && (
-              <p className="form-field-error">{errors.name.message}</p>
-            )}
-            {error.register?.Name &&
-              error.register.Name.map((err, index) => (
-                <p key={index} className="form-field-error">
-                  {err}
-                </p>
-              ))}
-          </div>
-          <div className="form-field">
-            <label htmlFor="surname">Nazwisko</label>
-            <input
-              className={
-                errors.surname || error.register?.Surname ? "is-invalid" : ""
-              }
-              type="text"
-              {...register("surname")}
-            />
-            {errors.surname && (
-              <p className="form-field-error">{errors.surname.message}</p>
-            )}
-            {error.register?.Surname &&
-              error.register.Surname.map((err, index) => (
-                <p key={index} className="form-field-error">
-                  {err}
-                </p>
-              ))}
-          </div>
-          <div className="form-field">
-            <label htmlFor="pesel">Pesel</label>
-            <input
-              className={
-                errors.pesel || error.register?.PESEL ? "is-invalid" : ""
-              }
-              type="text"
-              {...register("pesel")}
-            />
-            {errors.pesel && (
-              <p className="form-field-error">{errors.pesel.message}</p>
-            )}
-            {error.register?.PESEL &&
-              error.register.PESEL.map((err, index) => (
-                <p key={index} className="form-field-error">
-                  {err}
-                </p>
-              ))}
-          </div>
-          <div className="form-field">
-            <label htmlFor="email">Adres email</label>
-            <input
-              className={
-                errors.email || error.register?.Email ? "is-invalid" : ""
-              }
-              type="email"
-              {...register("email")}
-            />
-            {errors.email && (
-              <p className="form-field-error">{errors.email.message}</p>
-            )}
-            {error.register?.Email &&
-              error.register.Email.map((err, index) => (
-                <p key={index} className="form-field-error">
-                  {err}
-                </p>
-              ))}
-          </div>
-          <div className="form-field">
-            <label htmlFor="password">Hasło</label>
-            <input
-              className={
-                errors.password || error.register?.Password ? "is-invalid" : ""
-              }
-              type="password"
-              {...register("password")}
-            />
-            {errors.password && (
-              <p className="form-field-error">{errors.password.message}</p>
-            )}
-            {error.register?.Password &&
-              error.register.Password.map((err, index) => (
-                <p key={index} className="form-field-error">
-                  {err}
-                </p>
-              ))}
-          </div>
-          <div className="form-field">
-            <label htmlFor="confirmPassword">Potwierdź hasło</label>
-            <input
-              className={errors.confirmPassword ? "is-invalid" : ""}
-              type="password"
-              {...register("confirmPassword")}
-            />
-            {errors.confirmPassword && (
-              <p className="form-field-error">
-                {errors.confirmPassword.message}
-              </p>
-            )}
-          </div>
+          <InputField
+            register={register}
+            registerName="name"
+            registerErrors={errors}
+            type="name"
+            label="Imię"
+            serverErrors={error.register?.Name}
+          />
+          <InputField
+            register={register}
+            registerName="surname"
+            registerErrors={errors}
+            type="surname"
+            label="Nazwisko"
+            serverErrors={error.register?.Surname}
+          />
+          <InputField
+            register={register}
+            registerName="pesel"
+            registerErrors={errors}
+            type="pesel"
+            label="Pesel"
+            serverErrors={error.register?.PESEL}
+          />
+          <InputField
+            register={register}
+            registerName="email"
+            registerErrors={errors}
+            type="email"
+            label="Adres email"
+            serverErrors={error.register?.Email}
+          />
+          <InputField
+            register={register}
+            registerName="password"
+            registerErrors={errors}
+            type="password"
+            label="Hasło"
+            serverErrors={error.register?.Password}
+          />
+          <InputField
+            register={register}
+            registerName="confirmPassword"
+            registerErrors={errors}
+            type="password"
+            label="Potwierdź hasło"
+          />
           <button type="submit" className="form-button">
             Zarejestruj
           </button>

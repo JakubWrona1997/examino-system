@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./Login.scss";
+import InputField from "../../components/common/InputField/InputField";
 
 interface FormInputs {
   email: string;
@@ -56,28 +57,20 @@ const Login = () => {
       <div className="login-form">
         <div className="login-form-header">Zaloguj się</div>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-field">
-            <label htmlFor="email">Adres email</label>
-            <input
-              className={errors.email ? "is-invalid" : ""}
-              type="email"
-              {...register("email")}
-            />
-            {errors.email && (
-              <p className="form-field-error">{errors.email.message}</p>
-            )}
-          </div>
-          <div className="form-field">
-            <label htmlFor="password">Hasło</label>
-            <input
-              className={errors.password ? "is-invalid" : ""}
-              type="password"
-              {...register("password")}
-            />
-            {errors.password && (
-              <p className="form-field-error">{errors.password.message}</p>
-            )}
-          </div>
+          <InputField
+            register={register}
+            registerName="email"
+            registerErrors={errors}
+            type="email"
+            label="Adres email"
+          />
+          <InputField
+            register={register}
+            registerName="password"
+            registerErrors={errors}
+            type="password"
+            label="Hasło"
+          />
           {error.login && <p className="login-error">{error.login}</p>}
           <button type="submit" className="form-button">
             Zaloguj
