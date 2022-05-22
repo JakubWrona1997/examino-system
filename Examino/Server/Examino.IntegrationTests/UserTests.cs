@@ -11,7 +11,7 @@ using Examino.Application.Controllers;
 using MediatR;
 using Examino.Domain.Contracts;
 
-namespace Examino.IntegrationTests
+namespace Examino.Tests
 {
     public class UserTests
     {
