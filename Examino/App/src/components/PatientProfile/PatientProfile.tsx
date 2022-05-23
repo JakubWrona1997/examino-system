@@ -74,7 +74,19 @@ const PatientProfile = () => {
       .string()
       .matches(/^[0-9]+$/, "Waga może zawierać tylko cyfry")
       .required("To pole jest wymagane"),
-    bloodType: yup.string().required("To pole jest wymagane"),
+    bloodType: yup
+      .string()
+      .oneOf([
+        "0 Rh-",
+        "0 Rh+",
+        "A Rh-",
+        "A Rh+",
+        "B Rh-",
+        "B Rh+",
+        "AB Rh-",
+        "AB Rh+",
+      ])
+      .required("To pole jest wymagane"),
   });
 
   const {
@@ -169,12 +181,22 @@ const PatientProfile = () => {
                 type="number"
                 label="Waga [kg]"
               />
-              <InputField
+              <SelectField
                 register={register}
                 registerName="bloodType"
                 registerErrors={errors}
-                type="text"
                 label="Grupa krwi"
+                options={[
+                  "0 Rh-",
+                  "0 Rh+",
+                  "A Rh-",
+                  "A Rh+",
+                  "B Rh-",
+                  "B Rh+",
+                  "AB Rh-",
+                  "AB Rh+",
+                ]}
+                placeholder="Wybierz grupę krwi"
               />
             </div>
           </div>
