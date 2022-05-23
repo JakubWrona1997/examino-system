@@ -11,7 +11,9 @@ interface FormInputs {
   gender: string;
   name: string;
   surname: string;
-  phone: string;
+  phoneNumber: string;
+  postalCode: string;
+  city: string;
   address: string;
   dateOfBirth: string;
   pesel: string;
@@ -50,15 +52,23 @@ const PatientProfile = () => {
       .min(3, "Nazwisko musi mieć minimum 3 znaki")
       .max(50, "Nazwisko może mieć maksimum 50 znaków")
       .required("To pole jest wymagane"),
-    phone: yup
+    phoneNumber: yup
       .string()
       .matches(/^[0-9]+$/, "Numer telefonu może zawierać tylko cyfry")
       .length(9, "Numer telefonu musi zawierać 9 cyfr")
       .required("To pole jest wymagane"),
+    postalCode: yup
+      .string()
+      .matches(/^[0-9]{2}-[0-9]{3}$/, "Kod pocztowy musi mieć format [XX-XXX]")
+      .required("To pole jest wymagane"),
+    city: yup
+      .string()
+      .matches(/^[A-Z]/, "Nazwa miasta musi zaczynać się z dużej litery")
+      .required("To pole jest wymagane"),
     address: yup.string().required("To pole jest wymagane"),
     dateOfBirth: yup
       .date()
-      .typeError("Data nie może być pusta")
+      .typeError("Data urodzenia nie może być pusta")
       .max(new Date(), "Nie możesz urodzić się w przyszłości")
       .required("To pole jest wymagane"),
     pesel: yup
@@ -150,10 +160,24 @@ const PatientProfile = () => {
               />
               <InputField
                 register={register}
-                registerName="phone"
+                registerName="phoneNumber"
                 registerErrors={errors}
                 type="text"
                 label="Numer telefonu"
+              />
+              <InputField
+                register={register}
+                registerName="postalCode"
+                registerErrors={errors}
+                type="text"
+                label="Kod pocztowy"
+              />
+              <InputField
+                register={register}
+                registerName="city"
+                registerErrors={errors}
+                type="text"
+                label="Miasto"
               />
               <InputField
                 register={register}
