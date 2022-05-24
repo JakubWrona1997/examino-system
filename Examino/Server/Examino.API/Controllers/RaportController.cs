@@ -1,4 +1,5 @@
 ﻿using Examino.Application.Functions.Raports.Commands.CreateRaport;
+using Examino.Application.Functions.Raports.Commands.DeleteRaport;
 using Examino.Application.Functions.Raports.Queries;
 using Examino.Domain.Contracts;
 using MediatR;
@@ -37,6 +38,16 @@ namespace Examino.API.Controllers
             var result = await _mediator.Send(createRaportCommand);
 
             return Ok(result.Id);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        public async Task<ActionResult> DeleteRaport([FromRoute]Guid id)
+        {
+            var deleteRaportCommand = new DeleteRaportCommand() { RaportId = id };
+            await _mediator.Send(deleteRaportCommand);
+            return NoContent();
         }
     }
 }
