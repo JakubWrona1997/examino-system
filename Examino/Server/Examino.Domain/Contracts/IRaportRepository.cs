@@ -12,6 +12,6 @@ namespace Examino.Domain.Contracts
         Task<Raport> GetById(Guid id);
         Task<Guid> CreateRaport(Raport raport);
         Task<bool> UpdateRaport(Raport raport, int id);
-        Task<bool> DeleteRaport(Raport raport);
+        Task DeleteRaport(Raport raport);
     }
 }

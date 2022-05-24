@@ -24,9 +24,14 @@ namespace Examino.Infrastructure.Repositories
             return raport.Id;
         }
 
-        public Task<bool> DeleteRaport(Raport raport)
+        public async Task DeleteRaport(Raport raport)
         {
-            throw new NotImplementedException();
+            if (raport == null)
+                await Task.FromResult<object>(null);
+            //Notfoundexception should be implemented here
+
+            _dbContext.Raports.Remove(raport);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<Raport> GetById(Guid id)
