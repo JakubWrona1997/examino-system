@@ -21,13 +21,13 @@ namespace Examino.API.Controllers
             _userProvider = userProvider;
         }
 
-        [HttpGet("{patientId}")]
+        [HttpGet]
         [ProducesResponseType(typeof(List<RaportDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetPatientRaports([FromRoute]Guid patientId)
+        public async Task<ActionResult> GetPatientRaports()
         {
-            //var userId = _userProvider.GetUserId(); 
+            var userId = _userProvider.GetUserId(); 
 
-            var raports = await _mediator.Send(new GetPatientRaportQuery(patientId));
+            var raports = await _mediator.Send(new GetPatientRaportQuery(userId));
 
             return Ok(raports);
         }
