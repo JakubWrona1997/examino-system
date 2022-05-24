@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { Raport } from "../../models/Raport";
 import "./PrescriptionDetails.scss";
 
 const PrescriptionDetails = () => {
+  const [raport, setRaport] = useState<Raport>();
   const params = useParams();
+
+  const { raports } = useSelector((state: RootState) => state.raports);
+
+  useEffect(() => {
+    setRaport(raports.find((raport) => raport.prescription.id === params.id));
+  }, []);
 
   return (
     <React.Fragment>
       <header className="dashboard-content-header">
-        Szczegóły recepty [{params.id}]
+        Szczegóły recepty {params.id}
       </header>
       <div className="dashboard-history-prescription-details-wrapper">
         <div className="card-wrapper">
@@ -17,23 +27,26 @@ const PrescriptionDetails = () => {
               <tbody>
                 <tr>
                   <th>Data wystawienia</th>
-                  <td>[dd/mm/yyyy]</td>
+                  <td>
+                    {raport &&
+                      new Date(raport.raportTime).toLocaleString("pl-PL")}
+                  </td>
                 </tr>
                 <tr>
                   <th>Numer recepty</th>
-                  <td>[prescription number]</td>
+                  <td>{raport?.prescription.id}</td>
                 </tr>
                 <tr>
                   <th>Wystawca</th>
-                  <td>[doctor name]</td>
+                  <td>{raport?.doctorId}</td>
                 </tr>
                 <tr>
                   <th>Pacjent</th>
-                  <td>[patient name]</td>
+                  <td>{raport?.patientId}</td>
                 </tr>
                 <tr>
                   <th>Recepta</th>
-                  <td>[prescription content]</td>
+                  <td>{raport?.prescription.medicines}</td>
                 </tr>
               </tbody>
             </table>

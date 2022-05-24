@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 import "./PatientHistory.scss";
 
 const PatientHistory = () => {
+  const { raports } = useSelector((state: RootState) => state.raports);
+
   return (
     <React.Fragment>
       <header className="dashboard-content-header">Historia</header>
@@ -19,27 +23,35 @@ const PatientHistory = () => {
             </tbody>
           </table>
         </div>
-        <div className="card-wrapper">
-          <div className="card-content">
-            <table>
-              <tbody>
-                <tr>
-                  <td>[index]</td>
-                  <td>[doctor name]</td>
-                  <td>[dd/mm/yyyy]</td>
-                  <td>
-                    <Link to={`prescription/${123}/details`}>
-                      [prescription number]
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to={`raports/${123}/details`}>Pokaż szczegóły</Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        {raports.map((raport, index) => (
+          <div key={index} className="card-wrapper">
+            <div className="card-content">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>{index}</td>
+                    <td>{raport.doctorId}</td>
+                    <td>
+                      {new Date(raport.raportTime).toLocaleString("pl-PL")}
+                    </td>
+                    <td>
+                      <Link
+                        to={`prescription/${raport.prescription.id}/details`}
+                      >
+                        {raport.prescription.id}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`raports/${raport.id}/details`}>
+                        Pokaż szczegóły
+                      </Link>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </React.Fragment>
   );

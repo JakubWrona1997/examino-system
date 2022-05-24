@@ -1,9 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 import "./PatientPanel.scss";
 import patient from "../../assets/patient.svg";
 
 const PatientPanel = () => {
+  const { raports } = useSelector((state: RootState) => state.raports);
+
   return (
     <React.Fragment>
       <header className="dashboard-content-header">Witaj [user]!</header>
@@ -15,15 +19,19 @@ const PatientPanel = () => {
               <tbody>
                 <tr>
                   <th>Doktor</th>
-                  <td>[doctor name]</td>
+                  <td>{raports[0]?.doctorId}</td>
                 </tr>
                 <tr>
                   <th>Data wizyty</th>
-                  <td>[dd/mm/yyyy]</td>
+                  <td>
+                    {new Date(raports[0]?.raportTime).toLocaleString("pl-PL")}
+                  </td>
                 </tr>
                 <tr className="show-details">
                   <td>
-                    <Link to={`/dashboard/history/raports/${123}/details`}>
+                    <Link
+                      to={`/dashboard/history/raports/${raports[0]?.id}/details`}
+                    >
                       Pokaż szczegóły
                     </Link>
                   </td>
@@ -58,11 +66,13 @@ const PatientPanel = () => {
               <tbody>
                 <tr>
                   <th>Numer recepty</th>
-                  <td>[prescription number]</td>
+                  <td>{raports[0]?.prescription.id}</td>
                 </tr>
                 <tr className="show-details">
                   <td>
-                    <Link to={`/dashboard/history/prescription/${123}/details`}>
+                    <Link
+                      to={`/dashboard/history/prescription/${raports[0]?.prescription.id}/details`}
+                    >
                       Pokaż szczegóły
                     </Link>
                   </td>
@@ -78,7 +88,7 @@ const PatientPanel = () => {
               <tbody>
                 <tr>
                   <th>Numer skierowania</th>
-                  <td>[referral number]</td>
+                  <td>23494601124063422697</td>
                 </tr>
                 <tr className="show-details">
                   <td>Pokaż szczegóły</td>
