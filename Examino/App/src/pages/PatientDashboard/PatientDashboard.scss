@@ -34,7 +34,7 @@ li {
         display: flex;
         align-items: center;
         font-size: 1.4rem;
-        margin: 1rem 2rem;
+        margin: 0.5rem 2rem;
         padding: 0.875rem 5rem;
         &-icon {
           display: flex;
@@ -70,7 +70,7 @@ li {
   }
   &-content {
     width: 100%;
-    margin: 2rem;
+    margin: 2rem 2rem 2rem 0;
     &-header {
       font-size: 2.4rem;
       font-weight: 700;

@@ -7,6 +7,7 @@ interface Props {
   registerErrors: any;
   label: string;
   options: string[];
+  placeholder?: string;
 }
 
 const SelectField = ({
@@ -15,6 +16,7 @@ const SelectField = ({
   registerErrors,
   label,
   options,
+  placeholder,
 }: Props) => {
   return (
     <div className="form-field">
@@ -22,7 +24,13 @@ const SelectField = ({
       <select
         {...register(registerName)}
         className={registerErrors[registerName] ? "is-invalid" : ""}
+        defaultValue=""
       >
+        {placeholder && (
+          <option value="" disabled hidden>
+            {placeholder}
+          </option>
+        )}
         {options.map((value) => (
           <option key={value} value={value}>
             {value}
