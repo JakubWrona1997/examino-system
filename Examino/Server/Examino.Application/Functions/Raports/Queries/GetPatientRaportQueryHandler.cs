@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Raports.Queries
 {
-    public class GetPatientRaportQueryHandler : IRequestHandler<GetPatientRaportQuery, List<RaportDto>>
+    public class GetPatientRaportQueryHandler : IRequestHandler<GetPatientRaportQuery, List<RaportViewModel>>
     {
         private readonly ISqlConnectionService _connectionService;
 
@@ -20,11 +20,11 @@ namespace Examino.Application.Functions.Raports.Queries
         {
             _connectionService = connectionService;
         }
-        public async Task<List<RaportDto>> Handle(GetPatientRaportQuery request, CancellationToken cancellationToken)
+        public async Task<List<RaportViewModel>> Handle(GetPatientRaportQuery request, CancellationToken cancellationToken)
         {
             var connection = await _connectionService.GetAsync();
 
-            var sql =   "SELECT " +
+            const string sqlRaport = "SELECT " +
                         "[Raports].[Id]," +
                         "[Raports].[PatientId], " +
                         "[Raports].[DoctorId], " +
@@ -33,15 +33,61 @@ namespace Examino.Application.Functions.Raports.Queries
                         "[Raports].[Examination], " +
                         "[Raports].[Diagnosis], " +
                         "[Raports].[Recommendation], " +
-                        "[Raports].[Comment], " +
-                        "[Prescriptions].[Id], " +
-                        "[Prescriptions].[Medicines] " +
-                        "FROM [Raports] LEFT OUTER JOIN [Prescriptions] on [Raports].[Id] = [Prescriptions].[RaportId] " +
+                        "[Raports].[Comment] " +
+                        "FROM [Raports] " +
                         "WHERE [Raports].[PatientId] = @PatientId";
 
-            var foundRaport = await connection.QueryAsync<RaportDto, PrescriptionDto, RaportDto>(sql, (raport, prescription) => {raport.Prescription = prescription; return raport; }, new { request.PatientId });
+            var foundRaports = await connection.QueryAsync<RaportDto>(sqlRaport, new { request.PatientId });
 
-            return foundRaport.AsList();
+            const string sqlPrescription = "SELECT " +
+                                  "[Prescriptions].[Id], " +
+                                  "[Prescriptions].[RaportId], " +
+                                  "[Prescriptions].[Medicines] " +
+                                  "FROM [Prescriptions] ";
+
+            var foundPrescription = await connection.QueryAsync<PrescriptionDto>(sqlPrescription);
+
+
+            const string sqlPatient = "SELECT " +
+                             "[Users].[Id], " +
+                             "[Users].[Name], " +
+                             "[Users].[Surname] " +
+                             "FROM [Users] " +
+                             "WHERE [Users].[UserType] = @patient";
+
+            var foundPatient = await connection.QueryAsync<PatientDto>(sqlPatient, new { patient = "Patient" });
+
+            const string sqlDoctor = "SELECT " +
+                             "[Users].[Id], " +
+                             "[Users].[Name], " +
+                             "[Users].[Surname] " +
+                             "FROM [Users] " +
+                             "WHERE [USERS].[UserType] = @doctor";
+
+            var foundDoctor = await connection.QueryAsync<DoctorDto>(sqlDoctor, new { doctor = "Doctor" });
+
+            var listOfViewModels = new List<RaportViewModel>();
+
+            foreach (var item in foundRaports)
+            {
+                var doctor = foundDoctor?.Where(doc => doc.Id == item.DoctorId).FirstOrDefault();
+
+                var patient = foundPatient?.Where(pat => pat.Id == item.PatientId).FirstOrDefault();
+
+                var prescriptionFromRaport = foundPrescription?.Where(rap => rap.RaportId == item.Id).FirstOrDefault();
+
+                listOfViewModels.Add(new RaportViewModel
+                {
+                    DoctorName = doctor?.Name,
+                    DoctorSurname = doctor?.Surname,
+                    PatientName = patient?.Name,
+                    PatientSurname = patient?.Surname,
+                    Raport = item,
+                    Prescription = prescriptionFromRaport
+                });
+                
+            }
+            return listOfViewModels;
         }
     }
 }

@@ -18,6 +18,5 @@ namespace Examino.Application.Functions.Raports.Queries
         public string Diagnosis { get; set; }
         public string Recommendation { get; set; }
         public string Comment { get; set; }
-        public PrescriptionDto Prescription { get; set; }
     }
 }

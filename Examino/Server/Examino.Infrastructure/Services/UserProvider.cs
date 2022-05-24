@@ -26,7 +26,6 @@ namespace Examino.Infrastructure.Services
                 
             Guid.TryParse(_httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier).Value, out result);
 
-
             return result;
         }   
        
