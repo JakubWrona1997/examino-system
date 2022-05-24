@@ -16,12 +16,12 @@ const initialState: IRaportState = {
 };
 
 // Get raports
-// GET /api/raports
+// GET /api/raport
 export const getRaports = createAsyncThunk<
   Raport[],
   void,
   { state: RootState; rejectValue: string }
->("raports/get", async (_, thunkAPI) => {
+>("raport/get", async (_, thunkAPI) => {
   try {
     // TODO
     const token = thunkAPI.getState().user.token;
@@ -30,7 +30,7 @@ export const getRaports = createAsyncThunk<
         Authorization: `Bearer ${token}`,
       },
     };
-    const res = await axios.get("/api/raports", config);
+    const res = await axios.get("/api/raport", config);
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -38,12 +38,12 @@ export const getRaports = createAsyncThunk<
 });
 
 // Create raport
-// POST /api/raports/create
+// POST /api/raport/create
 export const createRaport = createAsyncThunk<
   Raport,
   CreateRaport,
   { state: RootState; rejectValue: string }
->("raports/create", async (raportData, thunkAPI) => {
+>("raport/create", async (raportData, thunkAPI) => {
   try {
     // TODO
     const token = thunkAPI.getState().user.token;
@@ -52,7 +52,7 @@ export const createRaport = createAsyncThunk<
         Authorization: `Bearer ${token}`,
       },
     };
-    const res = await axios.post("/api/raports/create", raportData, config);
+    const res = await axios.post("/api/raport/create", raportData, config);
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -60,12 +60,12 @@ export const createRaport = createAsyncThunk<
 });
 
 // Update raport
-// PUT /api/raports/:id/update
+// PUT /api/raport/:id/update
 export const updateRaport = createAsyncThunk<
   Raport,
   Raport,
   { state: RootState; rejectValue: string }
->("raports/update", async (raportData, thunkAPI) => {
+>("raport/update", async (raportData, thunkAPI) => {
   try {
     // TODO
     const token = thunkAPI.getState().user.token;
@@ -75,7 +75,7 @@ export const updateRaport = createAsyncThunk<
       },
     };
     const res = await axios.put(
-      `/api/raports/${raportData.id}/update`,
+      `/api/raport/${raportData.id}/update`,
       raportData,
       config
     );
@@ -86,12 +86,12 @@ export const updateRaport = createAsyncThunk<
 });
 
 // Delete raport
-// DELETE /api/raports/:id/delete
+// DELETE /api/raport/:id/delete
 export const deleteRaport = createAsyncThunk<
   Raport,
   string,
   { state: RootState; rejectValue: string }
->("raports/delete", async (raportId, thunkAPI) => {
+>("raport/delete", async (raportId, thunkAPI) => {
   try {
     // TODO
     const token = thunkAPI.getState().user.token;
@@ -100,7 +100,7 @@ export const deleteRaport = createAsyncThunk<
         Authorization: `Bearer ${token}`,
       },
     };
-    const res = await axios.delete(`/api/raports/${raportId}/delete`, config);
+    const res = await axios.delete(`/api/raport/${raportId}/delete`, config);
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
