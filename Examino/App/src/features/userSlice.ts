@@ -13,6 +13,7 @@ import { Token } from "../models/Token";
 
 interface IUserState {
   user: User | null;
+  userData: UserData;
   loading: "idle" | "pending" | "fulfilled" | "failed";
   error: {
     register: RegisterError | undefined;
@@ -22,6 +23,7 @@ interface IUserState {
 
 const initialState: IUserState = {
   user: null,
+  userData: {} as UserData,
   loading: "idle",
   error: {
     register: undefined,
@@ -77,10 +79,31 @@ export const loginUser = createAsyncThunk<
   }
 });
 
+// Get user data
+// GET /api/patient
+export const getUser = createAsyncThunk<
+  UserData,
+  void,
+  { state: RootState; rejectValue: string }
+>("users/get", async (_, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().user.user?.token;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const res = await axios.get("/api/patient", config);
+    return res.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 // Update User
-// POST /api/patient/update
+// PUT /api/patient/update
 export const updateUser = createAsyncThunk<
-  User,
+  UserData,
   UserData,
   { state: RootState; rejectValue: string }
 >("users/update", async (userData, thunkAPI) => {
@@ -128,12 +151,22 @@ export const userSlice = createSlice({
         state.loading = "failed";
         state.error.login = action.payload;
       })
+      .addCase(getUser.pending, (state) => {
+        state.loading = "pending";
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.loading = "fulfilled";
+        state.userData = action.payload;
+      })
+      .addCase(getUser.rejected, (state) => {
+        state.loading = "failed";
+      })
       .addCase(updateUser.pending, (state) => {
         state.loading = "pending";
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = "fulfilled";
-        state.user = action.payload;
+        state.userData = action.payload;
       })
       .addCase(updateUser.rejected, (state) => {
         state.loading = "failed";
