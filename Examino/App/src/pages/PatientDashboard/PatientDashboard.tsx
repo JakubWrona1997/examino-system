@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../app/store";
+import { getUser } from "../../features/userSlice";
 import { getRaports } from "../../features/raportSlice";
 import { logout } from "../../features/userSlice";
 import {
@@ -21,6 +22,7 @@ const PatientDashboard = () => {
   useEffect(() => {
     if (user) {
       dispatch(getRaports());
+      dispatch(getUser());
     } else {
       navigate("/");
     }
