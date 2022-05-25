@@ -25,12 +25,9 @@ function App() {
               <Route index element={<Navigate to="panel" />} />
               <Route path="panel" element={<PatientPanel />} />
               <Route path="history" element={<PatientHistory />} />
+              <Route path="history/raport/:id" element={<RaportDetails />} />
               <Route
-                path="history/raports/:id/details"
-                element={<RaportDetails />}
-              />
-              <Route
-                path="history/prescription/:id/details"
+                path="history/prescription/:id"
                 element={<PrescriptionDetails />}
               />
               <Route path="profile" element={<PatientProfile />} />

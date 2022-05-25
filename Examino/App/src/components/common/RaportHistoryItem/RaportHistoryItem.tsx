@@ -24,14 +24,12 @@ const RaportHistoryItem = ({ raport, index }: Props) => {
                   {new Date(raport.raport.raportTime).toLocaleString("pl-PL")}
                 </td>
                 <td>
-                  <Link to={`prescription/${raport.prescription.id}/details`}>
-                    {raport.prescriptionCode}
+                  <Link to={`prescription/${raport.prescription.id}`}>
+                    Pokaż receptę
                   </Link>
                 </td>
                 <td>
-                  <Link to={`raports/${raport.raport.id}/details`}>
-                    Pokaż szczegóły
-                  </Link>
+                  <Link to={`raport/${raport.raport.id}`}>Pokaż szczegóły</Link>
                 </td>
               </tr>
             </tbody>

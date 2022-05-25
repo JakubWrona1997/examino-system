@@ -3,7 +3,6 @@ export interface Raport {
   patientSurname: string;
   doctorName: string;
   doctorSurname: string;
-  prescriptionCode: string;
   raport: {
     id: string;
     patientId: string;

@@ -68,9 +68,9 @@ const RaportDetails = () => {
                   <th>Recepta</th>
                   <td>
                     <Link
-                      to={`/patient/history/prescription/${raport?.prescription.id}/details`}
+                      to={`/patient/history/prescription/${raport?.prescription.id}`}
                     >
-                      {raport?.prescriptionCode}
+                      Pokaż receptę
                     </Link>
                   </td>
                 </tr>

@@ -34,7 +34,7 @@ const PrescriptionDetails = () => {
                 </tr>
                 <tr>
                   <th>Numer recepty</th>
-                  <td>{raport?.prescriptionCode}</td>
+                  <td>{raport?.prescription.id}</td>
                 </tr>
                 <tr>
                   <th>Wystawca</th>
