@@ -23,8 +23,10 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading === "fulfilled" || user) {
-      navigate("/dashboard");
+    if (loading === "fulfilled" && user) {
+      if (user.role === "Patient") navigate("/patient");
+      if (user.role === "Doctor") navigate("/doctor");
+      if (user.role === "Admin") navigate("/admin");
     }
   }, [loading, user]);
 
