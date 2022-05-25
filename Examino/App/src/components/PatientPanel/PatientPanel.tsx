@@ -6,11 +6,14 @@ import "./PatientPanel.scss";
 import patient from "../../assets/patient.svg";
 
 const PatientPanel = () => {
+  const { user } = useSelector((state: RootState) => state.user);
   const { raports } = useSelector((state: RootState) => state.raports);
 
   return (
     <React.Fragment>
-      <header className="dashboard-content-header">Witaj [user]!</header>
+      <header className="dashboard-content-header">
+        Witaj {user?.name.split(" ", 1)}!
+      </header>
       <div className="dashboard-panel-wrapper">
         {raports.length > 0 && (
           <div className="card-wrapper">

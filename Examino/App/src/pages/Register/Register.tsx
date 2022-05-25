@@ -19,7 +19,7 @@ interface FormInputs {
 }
 
 const Register = () => {
-  const { token, loading, error } = useSelector(
+  const { user, loading, error } = useSelector(
     (state: RootState) => state.user
   );
 
@@ -27,10 +27,10 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading === "fulfilled" || token) {
+    if (loading === "fulfilled" || user) {
       navigate("/dashboard");
     }
-  }, [loading, token]);
+  }, [loading, user]);
 
   const registerSchema = yup.object().shape({
     name: yup

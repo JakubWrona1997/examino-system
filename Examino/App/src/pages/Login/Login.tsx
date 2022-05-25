@@ -15,7 +15,7 @@ interface FormInputs {
 }
 
 const Login = () => {
-  const { token, loading, error } = useSelector(
+  const { user, loading, error } = useSelector(
     (state: RootState) => state.user
   );
 
@@ -23,10 +23,10 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading === "fulfilled" || token) {
+    if (loading === "fulfilled" || user) {
       navigate("/dashboard");
     }
-  }, [loading, token]);
+  }, [loading, user]);
 
   const loginSchema = yup.object().shape({
     email: yup

@@ -14,17 +14,17 @@ import {
 import "./PatientDashboard.scss";
 
 const PatientDashboard = () => {
-  const { token } = useSelector((state: RootState) => state.user);
+  const { user } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (token) {
+    if (user) {
       dispatch(getRaports());
     } else {
       navigate("/");
     }
-  }, [token]);
+  }, [user]);
 
   const handleLogout = () => {
     dispatch(logout());

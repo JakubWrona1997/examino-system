@@ -24,7 +24,7 @@ export const getRaports = createAsyncThunk<
 >("raport/get", async (_, thunkAPI) => {
   try {
     // TODO
-    const token = thunkAPI.getState().user.token;
+    const token = thunkAPI.getState().user.user?.token;
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ export const createRaport = createAsyncThunk<
 >("raport/create", async (raportData, thunkAPI) => {
   try {
     // TODO
-    const token = thunkAPI.getState().user.token;
+    const token = thunkAPI.getState().user.user?.token;
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -68,7 +68,7 @@ export const updateRaport = createAsyncThunk<
 >("raport/update", async (raportData, thunkAPI) => {
   try {
     // TODO
-    const token = thunkAPI.getState().user.token;
+    const token = thunkAPI.getState().user.user?.token;
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -94,7 +94,7 @@ export const deleteRaport = createAsyncThunk<
 >("raport/delete", async (raportId, thunkAPI) => {
   try {
     // TODO
-    const token = thunkAPI.getState().user.token;
+    const token = thunkAPI.getState().user.user?.token;
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,

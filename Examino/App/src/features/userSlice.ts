@@ -1,9 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../app/store";
 import axios from "axios";
-import { LoginUser, RegisterUser, RegisterError } from "../models/User";
+import jwt_decode from "jwt-decode";
+import {
+  LoginUser,
+  RegisterUser,
+  RegisterError,
+  UserData,
+  User,
+} from "../models/User";
+import { Token } from "../models/Token";
 
 interface IUserState {
-  token: string | null;
+  user: User | null;
   loading: "idle" | "pending" | "fulfilled" | "failed";
   error: {
     register: RegisterError | undefined;
@@ -12,7 +21,7 @@ interface IUserState {
 }
 
 const initialState: IUserState = {
-  token: null,
+  user: null,
   loading: "idle",
   error: {
     register: undefined,
@@ -23,13 +32,22 @@ const initialState: IUserState = {
 // Register User
 // POST /api/patient/register
 export const registerUser = createAsyncThunk<
-  string,
+  User,
   RegisterUser,
   { rejectValue: RegisterError }
->("register", async (userData: RegisterUser, thunkAPI) => {
+>("users/register", async (userData, thunkAPI) => {
   try {
     const res = await axios.post("/api/patient/register", userData);
-    return res.data;
+    const decoded: Token = jwt_decode(res.data);
+    return {
+      name: decoded[
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+      ],
+      role: decoded[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ],
+      token: res.data,
+    };
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data.errors);
   }
@@ -38,12 +56,42 @@ export const registerUser = createAsyncThunk<
 // Login User
 // POST /api/patient/login
 export const loginUser = createAsyncThunk<
-  string,
+  User,
   LoginUser,
   { rejectValue: string }
->("login", async (userData: LoginUser, thunkAPI) => {
+>("users/login", async (userData, thunkAPI) => {
   try {
     const res = await axios.post("/api/patient/login", userData);
+    const decoded: Token = jwt_decode(res.data);
+    return {
+      name: decoded[
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+      ],
+      role: decoded[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ],
+      token: res.data,
+    };
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
+// Update User
+// POST /api/patient/update
+export const updateUser = createAsyncThunk<
+  User,
+  UserData,
+  { state: RootState; rejectValue: string }
+>("users/update", async (userData, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().user.user?.token;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const res = await axios.put("/api/patient/update", userData, config);
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -63,7 +111,7 @@ export const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = "fulfilled";
-        state.token = action.payload;
+        state.user = action.payload;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = "failed";
@@ -74,11 +122,21 @@ export const userSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = "fulfilled";
-        state.token = action.payload;
+        state.user = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = "failed";
         state.error.login = action.payload;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.loading = "pending";
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.loading = "fulfilled";
+        state.user = action.payload;
+      })
+      .addCase(updateUser.rejected, (state) => {
+        state.loading = "failed";
       });
   },
 });
