@@ -33,6 +33,7 @@ namespace Examino.Application.Functions.Prescriptions.Queries
                         "[Users].[Height], " +
                         "[Users].[Weight], " +
                         "[Users].[PostalCode], " +
+                        "[Users].[BloodType], " +
                         "[Users].[PhoneNumber] " +
                         "FROM [Users] " +
                         "WHERE [Users].[Id] = @UserId";
