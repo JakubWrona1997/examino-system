@@ -12,7 +12,7 @@ namespace Examino.Application.Functions.Prescriptions.Queries
         public string Name { get; set; }
         public string Surname { get; set; }
         private DateTime BirthDay { get; set; }
-        public string DateofBirth { get { return BirthDay.ToShortDateString(); } set { } }
+        public string DateofBirth { get { return this.BirthDay.ToString("yyyy-MM-dd"); } set { } }
         public string PESEL { get; set; }
         public string? Address { get; set; }
         public string? City { get; set; }
