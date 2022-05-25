@@ -29,7 +29,9 @@ const PrescriptionDetails = () => {
                   <th>Data wystawienia</th>
                   <td>
                     {raport &&
-                      new Date(raport.raportTime).toLocaleString("pl-PL")}
+                      new Date(raport.raportDto.raportTime).toLocaleString(
+                        "pl-PL"
+                      )}
                   </td>
                 </tr>
                 <tr>
@@ -38,11 +40,15 @@ const PrescriptionDetails = () => {
                 </tr>
                 <tr>
                   <th>Wystawca</th>
-                  <td>{raport?.doctorId}</td>
+                  <td>
+                    {raport?.doctorName}&nbsp;{raport?.doctorSurname}
+                  </td>
                 </tr>
                 <tr>
                   <th>Pacjent</th>
-                  <td>{raport?.patientId}</td>
+                  <td>
+                    {raport?.patientName}&nbsp;{raport?.patientSurname}
+                  </td>
                 </tr>
                 <tr>
                   <th>Recepta</th>
