@@ -12,25 +12,28 @@ import PatientHistory from "./components/PatientHistory/PatientHistory";
 import PatientProfile from "./components/PatientProfile/PatientProfile";
 import RaportDetails from "./components/RaportDetails/RaportDetails";
 import PrescriptionDetails from "./components/PrescriptionDetails/PrescriptionDetails";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <main>
         <Routes>
-          <Route path="dashboard" element={<PatientDashboard />}>
-            <Route index element={<Navigate to="panel" />} />
-            <Route path="panel" element={<PatientPanel />} />
-            <Route path="history" element={<PatientHistory />} />
-            <Route
-              path="history/raports/:id/details"
-              element={<RaportDetails />}
-            />
-            <Route
-              path="history/prescription/:id/details"
-              element={<PrescriptionDetails />}
-            />
-            <Route path="profile" element={<PatientProfile />} />
+          <Route element={<ProtectedRoute allowedRole="Patient" />}>
+            <Route path="patient" element={<PatientDashboard />}>
+              <Route index element={<Navigate to="panel" />} />
+              <Route path="panel" element={<PatientPanel />} />
+              <Route path="history" element={<PatientHistory />} />
+              <Route
+                path="history/raports/:id/details"
+                element={<RaportDetails />}
+              />
+              <Route
+                path="history/prescription/:id/details"
+                element={<PrescriptionDetails />}
+              />
+              <Route path="profile" element={<PatientProfile />} />
+            </Route>
           </Route>
           <Route path="register" element={<Register />} />
           <Route path="/" element={<Login />} />

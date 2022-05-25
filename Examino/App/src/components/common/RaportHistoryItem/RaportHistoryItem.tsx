@@ -25,7 +25,7 @@ const RaportHistoryItem = ({ raport, index }: Props) => {
                 </td>
                 <td>
                   <Link to={`prescription/${raport.prescription.id}/details`}>
-                    {raport.prescription.id}
+                    {raport.prescriptionCode}
                   </Link>
                 </td>
                 <td>

@@ -17,9 +17,7 @@ const PrescriptionDetails = () => {
 
   return (
     <React.Fragment>
-      <header className="dashboard-content-header">
-        Szczegóły recepty {params.id}
-      </header>
+      <header className="dashboard-content-header">Szczegóły recepty</header>
       <div className="dashboard-history-prescription-details-wrapper">
         <div className="card-wrapper">
           <div className="card-content">
@@ -36,7 +34,7 @@ const PrescriptionDetails = () => {
                 </tr>
                 <tr>
                   <th>Numer recepty</th>
-                  <td>{raport?.prescription.id}</td>
+                  <td>{raport?.prescriptionCode}</td>
                 </tr>
                 <tr>
                   <th>Wystawca</th>
