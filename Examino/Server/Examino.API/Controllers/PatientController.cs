@@ -57,7 +57,7 @@ namespace Examino.Application.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(UserViewModel), (int)HttpStatusCode.OK)]
-        public async Task <ActionResult<UserViewModel>> GetUserDetails()
+        public async Task <ActionResult> GetUserDetails()
         {
             var userId = _userProvider.GetUserId();
 
