@@ -21,7 +21,7 @@ namespace Examino.API.Controllers
             _userProvider = userProvider;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [ProducesResponseType(typeof(List<RaportViewModel>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetPatientRaports()
         {
