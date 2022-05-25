@@ -1,4 +1,5 @@
 ﻿using Examino.Application.Functions.Login.Commands.Login;
+using Examino.Application.Functions.Prescriptions.Queries;
 using Examino.Application.Functions.Registration.PatientRegistration;
 using Examino.Domain.Contracts;
 using MediatR;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Examino.Application.Controllers
@@ -17,11 +19,12 @@ namespace Examino.Application.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IMediator _mediator;
-        //private readonly IUserProvider _userProvider;
+        private readonly IUserProvider _userProvider;
 
-        public PatientController(IMediator mediator)
+        public PatientController(IMediator mediator, IUserProvider userProvider)
         {
             _mediator = mediator;
+            _userProvider = userProvider;
         }
 
         [HttpPost("register")]
@@ -50,6 +53,17 @@ namespace Examino.Application.Controllers
 
             return Ok(result.Token);
             
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(UserViewModel), (int)HttpStatusCode.OK)]
+        public async Task <ActionResult<UserViewModel>> GetUserDetails()
+        {
+            var userId = _userProvider.GetUserId();
+
+            var user = await _mediator.Send(new GetUserDetailsQuery(userId));
+
+            return Ok(user);
         }
     }
 }

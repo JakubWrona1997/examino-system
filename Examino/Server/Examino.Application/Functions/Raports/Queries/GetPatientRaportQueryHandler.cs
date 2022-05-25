@@ -68,13 +68,13 @@ namespace Examino.Application.Functions.Raports.Queries
 
             var listOfViewModels = new List<RaportViewModel>();
 
-            foreach (var item in foundRaports)
+            foreach (var raport in foundRaports)
             {
-                var doctor = foundDoctor?.Where(doc => doc.Id == item.DoctorId).FirstOrDefault();
+                var doctor = foundDoctor?.Where(doc => doc.Id == raport.DoctorId).FirstOrDefault();
 
-                var patient = foundPatient?.Where(pat => pat.Id == item.PatientId).FirstOrDefault();
+                var patient = foundPatient?.Where(pat => pat.Id == raport.PatientId).FirstOrDefault();
 
-                var prescriptionFromRaport = foundPrescription?.Where(rap => rap.RaportId == item.Id).FirstOrDefault();
+                var prescriptionFromRaport = foundPrescription?.Where(rap => rap.RaportId == raport.Id).FirstOrDefault();
 
                 listOfViewModels.Add(new RaportViewModel
                 {
@@ -82,7 +82,7 @@ namespace Examino.Application.Functions.Raports.Queries
                     DoctorSurname = doctor?.Surname,
                     PatientName = patient?.Name,
                     PatientSurname = patient?.Surname,
-                    Raport = item,
+                    Raport = raport,
                     Prescription = prescriptionFromRaport
                 });
                 
