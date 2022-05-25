@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,8 @@ namespace Examino.Application.Functions.Prescriptions.Queries
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public DateTime? BirthDay { get; set; }
+        private DateTime BirthDay { get; set; }
+        public string DateofBirth { get { return BirthDay.ToShortDateString(); } set { } }
         public string PESEL { get; set; }
         public string? Address { get; set; }
         public string? City { get; set; }
