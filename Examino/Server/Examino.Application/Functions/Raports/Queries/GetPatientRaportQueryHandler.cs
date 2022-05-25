@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -76,14 +77,17 @@ namespace Examino.Application.Functions.Raports.Queries
 
                 var prescriptionFromRaport = foundPrescription?.Where(rap => rap.RaportId == raport.Id).FirstOrDefault();
 
+                var prescriptionShortId = Regex.Replace(Convert.ToBase64String(prescriptionFromRaport.Id.ToByteArray()), "[/+=]", "");
+
                 listOfViewModels.Add(new RaportViewModel
                 {
                     DoctorName = doctor?.Name,
                     DoctorSurname = doctor?.Surname,
                     PatientName = patient?.Name,
                     PatientSurname = patient?.Surname,
+                    PrescriptionCode = prescriptionShortId,
                     Raport = raport,
-                    Prescription = prescriptionFromRaport
+                    Prescription = prescriptionFromRaport                    
                 });
                 
             }

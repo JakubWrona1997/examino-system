@@ -12,6 +12,7 @@ namespace Examino.Application.Functions.Raports.Queries
         public string PatientSurname { get; set; }
         public string DoctorName { get; set; }
         public string DoctorSurname { get; set; }
+        public string PrescriptionCode{ get; set; }
         public RaportDto Raport { get; set; }
         public PrescriptionDto Prescription { get; set; }
     }
