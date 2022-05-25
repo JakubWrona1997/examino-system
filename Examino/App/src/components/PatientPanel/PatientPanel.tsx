@@ -38,7 +38,7 @@ const PatientPanel = () => {
                   <tr className="show-details">
                     <td>
                       <Link
-                        to={`/dashboard/history/raports/${raports[0]?.raport.id}/details`}
+                        to={`/patient/history/raports/${raports[0]?.raport.id}/details`}
                       >
                         Pokaż szczegóły
                       </Link>
@@ -76,12 +76,12 @@ const PatientPanel = () => {
                 <tbody>
                   <tr>
                     <th>Numer recepty</th>
-                    <td>{raports[0]?.prescription.id}</td>
+                    <td>{raports[0]?.prescriptionCode}</td>
                   </tr>
                   <tr className="show-details">
                     <td>
                       <Link
-                        to={`/dashboard/history/prescription/${raports[0]?.prescription.id}/details`}
+                        to={`/patient/history/prescription/${raports[0]?.prescription.id}/details`}
                       >
                         Pokaż szczegóły
                       </Link>
