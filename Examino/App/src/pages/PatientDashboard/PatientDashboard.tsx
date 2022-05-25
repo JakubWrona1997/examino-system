@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../app/store";
 import { getUser } from "../../features/userSlice";
@@ -13,6 +13,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import "./PatientDashboard.scss";
+import NavigationItem from "../../components/common/NavigationItem/NavigationItem";
 
 const PatientDashboard = () => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -30,7 +31,6 @@ const PatientDashboard = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/");
   };
 
   return (
@@ -41,39 +41,19 @@ const PatientDashboard = () => {
           &nbsp;Examino
         </div>
         <div className="dashboard-navigation-links">
-          <NavLink
-            to="panel"
-            className={(navData) => (navData.isActive ? "link active" : "link")}
-          >
-            <span className="link-icon">
-              <FaThLarge />
-            </span>
-            Panel
-          </NavLink>
-          <NavLink
+          <NavigationItem to="panel" label="Panel" icon={<FaThLarge />} />
+          <NavigationItem
             to="history"
-            className={(navData) => (navData.isActive ? "link active" : "link")}
-          >
-            <span className="link-icon">
-              <FaCalendarAlt />
-            </span>
-            Historia
-          </NavLink>
-          <NavLink
-            to="profile"
-            className={(navData) => (navData.isActive ? "link active" : "link")}
-          >
-            <span className="link-icon">
-              <FaUserAlt />
-            </span>
-            Profil
-          </NavLink>
-          <button type="button" className="link" onClick={handleLogout}>
-            <span className="link-icon">
-              <FaSignOutAlt />
-            </span>
-            Wyloguj
-          </button>
+            label="Historia"
+            icon={<FaCalendarAlt />}
+          />
+          <NavigationItem to="profile" label="Profil" icon={<FaUserAlt />} />
+          <NavigationItem
+            to="/"
+            label="Wyloguj"
+            icon={<FaSignOutAlt />}
+            onClick={handleLogout}
+          />
         </div>
       </div>
       <div className="dashboard-content">

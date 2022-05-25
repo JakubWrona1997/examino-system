@@ -1,14 +1,11 @@
-$color-black: #000000;
-$color-white: #ffffff;
-
 body {
   background-color: #f7f9fb;
-  color: $color-black;
+  color: #000;
 }
 
 a {
   text-decoration: none;
-  color: $color-black;
+  color: #000;
 }
 
 li {
@@ -30,42 +27,6 @@ li {
     }
     &-links {
       margin-top: 3rem;
-      .link {
-        display: flex;
-        align-items: center;
-        font-size: 1.4rem;
-        margin: 0.5rem 2rem;
-        padding: 0.875rem 5rem;
-        &-icon {
-          display: flex;
-          position: absolute;
-          left: 50px;
-          padding: 0.5rem;
-          border-radius: 0.5rem;
-          box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.1);
-        }
-        &:hover {
-          background-color: $color-white;
-          border-radius: 0.5rem;
-          box-shadow: 20px 20px 40px 0px rgba(0, 0, 0, 0.1);
-        }
-        &.active {
-          background-color: $color-white;
-          border-radius: 0.5rem;
-          box-shadow: 20px 20px 40px 0px rgba(0, 0, 0, 0.1);
-          .link-icon {
-            background-color: $color-black;
-            svg {
-              color: $color-white;
-            }
-          }
-        }
-      }
-      button.link {
-        border: none;
-        background-color: inherit;
-        cursor: pointer;
-      }
     }
   }
   &-content {
