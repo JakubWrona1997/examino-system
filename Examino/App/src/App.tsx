@@ -7,6 +7,7 @@ import {
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import PatientDashboard from "./pages/PatientDashboard/PatientDashboard";
+import DoctorDashboard from "./pages/DoctorDashboard/DoctorDashboard";
 import PatientPanel from "./components/PatientPanel/PatientPanel";
 import PatientHistory from "./components/PatientHistory/PatientHistory";
 import PatientProfile from "./components/PatientProfile/PatientProfile";
@@ -34,6 +35,9 @@ function App() {
               />
               <Route path="profile" element={<PatientProfile />} />
             </Route>
+          </Route>
+          <Route element={<ProtectedRoute allowedRole="Doctor" />}>
+            <Route path="doctor" element={<DoctorDashboard />}></Route>
           </Route>
           <Route path="register" element={<Register />} />
           <Route path="/" element={<Login />} />

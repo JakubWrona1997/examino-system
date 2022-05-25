@@ -1,0 +1,40 @@
+body {
+  background-color: #f7f9fb;
+  color: #000;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+li {
+  list-style-type: none;
+}
+
+.dashboard {
+  display: flex;
+  height: 100vh;
+  &-navigation {
+    margin-top: 2rem;
+    width: 300px;
+    &-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+    &-links {
+      margin-top: 3rem;
+    }
+  }
+  &-content {
+    width: 100%;
+    margin: 2rem 2rem 2rem 0;
+    &-header {
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+  }
+}
