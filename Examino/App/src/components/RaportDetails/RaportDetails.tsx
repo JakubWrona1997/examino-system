@@ -12,7 +12,7 @@ const RaportDetails = () => {
   const { raports } = useSelector((state: RootState) => state.raports);
 
   useEffect(() => {
-    setRaport(raports.find((raport) => raport.id === params.id));
+    setRaport(raports.find((raport) => raport.raportDto.id === params.id));
   }, []);
 
   return (
@@ -29,36 +29,40 @@ const RaportDetails = () => {
                   <th>Data wizyty</th>
                   <td>
                     {raport &&
-                      new Date(raport.raportTime).toLocaleString("pl-PL")}
+                      new Date(raport.raportDto.raportTime).toLocaleString(
+                        "pl-PL"
+                      )}
                   </td>
                 </tr>
                 <tr>
                   <th>Doktor</th>
-                  <td>{raport?.doctorId}</td>
+                  <td>
+                    {raport?.doctorName}&nbsp;{raport?.doctorSurname}
+                  </td>
                 </tr>
                 <tr>
                   <th>Pacjent</th>
-                  <td>{raport?.patientId}</td>
+                  <td>{raport?.raportDto.patientId}</td>
                 </tr>
                 <tr>
                   <th>Symptomy</th>
-                  <td>{raport?.symptoms}</td>
+                  <td>{raport?.raportDto.symptoms}</td>
                 </tr>
                 <tr>
                   <th>Badanie</th>
-                  <td>{raport?.examination}</td>
+                  <td>{raport?.raportDto.examination}</td>
                 </tr>
                 <tr>
                   <th>Diagnoza</th>
-                  <td>{raport?.diagnosis}</td>
+                  <td>{raport?.raportDto.diagnosis}</td>
                 </tr>
                 <tr>
                   <th>Zalecenia</th>
-                  <td>{raport?.recommendation}</td>
+                  <td>{raport?.raportDto.recommendation}</td>
                 </tr>
                 <tr>
                   <th>Komentarz</th>
-                  <td>{raport?.comment}</td>
+                  <td>{raport?.raportDto.comment}</td>
                 </tr>
                 <tr>
                   <th>Recepta</th>

@@ -19,18 +19,22 @@ const PatientPanel = () => {
               <tbody>
                 <tr>
                   <th>Doktor</th>
-                  <td>{raports[0]?.doctorId}</td>
+                  <td>
+                    {raports[0]?.doctorName}&nbsp;{raports[0]?.doctorSurname}
+                  </td>
                 </tr>
                 <tr>
                   <th>Data wizyty</th>
                   <td>
-                    {new Date(raports[0]?.raportTime).toLocaleString("pl-PL")}
+                    {new Date(raports[0]?.raportDto.raportTime).toLocaleString(
+                      "pl-PL"
+                    )}
                   </td>
                 </tr>
                 <tr className="show-details">
                   <td>
                     <Link
-                      to={`/dashboard/history/raports/${raports[0]?.id}/details`}
+                      to={`/dashboard/history/raports/${raports[0]?.raportDto.id}/details`}
                     >
                       Pokaż szczegóły
                     </Link>

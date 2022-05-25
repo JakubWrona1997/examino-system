@@ -30,9 +30,13 @@ const PatientHistory = () => {
                 <tbody>
                   <tr>
                     <td>{index}</td>
-                    <td>{raport.doctorId}</td>
                     <td>
-                      {new Date(raport.raportTime).toLocaleString("pl-PL")}
+                      {raport.doctorName}&nbsp;{raport.doctorSurname}
+                    </td>
+                    <td>
+                      {new Date(raport.raportDto.raportTime).toLocaleString(
+                        "pl-PL"
+                      )}
                     </td>
                     <td>
                       <Link
@@ -42,7 +46,7 @@ const PatientHistory = () => {
                       </Link>
                     </td>
                     <td>
-                      <Link to={`raports/${raport.id}/details`}>
+                      <Link to={`raports/${raport.raportDto.id}/details`}>
                         Pokaż szczegóły
                       </Link>
                     </td>
