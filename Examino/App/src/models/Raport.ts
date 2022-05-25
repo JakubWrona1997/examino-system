@@ -3,7 +3,7 @@ export interface Raport {
   patientSurname: string;
   doctorName: string;
   doctorSurname: string;
-  raportDto: {
+  raport: {
     id: string;
     patientId: string;
     doctorId: string;

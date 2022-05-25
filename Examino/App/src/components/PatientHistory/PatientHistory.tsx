@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import "./PatientHistory.scss";
+import RaportHistoryItem from "../common/RaportHistoryItem/RaportHistoryItem";
 
 const PatientHistory = () => {
   const { raports } = useSelector((state: RootState) => state.raports);
@@ -11,7 +11,7 @@ const PatientHistory = () => {
     <React.Fragment>
       <header className="dashboard-content-header">Historia</header>
       <div className="dashboard-history-wrapper">
-        <div className="card-labels">
+        <div className="dashboard-history-labels">
           <table>
             <tbody>
               <tr>
@@ -24,37 +24,11 @@ const PatientHistory = () => {
           </table>
         </div>
         {raports.map((raport, index) => (
-          <div key={index} className="card-wrapper">
-            <div className="card-content">
-              <table>
-                <tbody>
-                  <tr>
-                    <td>{index}</td>
-                    <td>
-                      {raport.doctorName}&nbsp;{raport.doctorSurname}
-                    </td>
-                    <td>
-                      {new Date(raport.raportDto.raportTime).toLocaleString(
-                        "pl-PL"
-                      )}
-                    </td>
-                    <td>
-                      <Link
-                        to={`prescription/${raport.prescription.id}/details`}
-                      >
-                        {raport.prescription.id}
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to={`raports/${raport.raportDto.id}/details`}>
-                        Pokaż szczegóły
-                      </Link>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <RaportHistoryItem
+            key={raport.raport.id}
+            raport={raport}
+            index={index + 1}
+          />
         ))}
       </div>
     </React.Fragment>

@@ -29,7 +29,7 @@ const PrescriptionDetails = () => {
                   <th>Data wystawienia</th>
                   <td>
                     {raport &&
-                      new Date(raport.raportDto.raportTime).toLocaleString(
+                      new Date(raport.raport.raportTime).toLocaleString(
                         "pl-PL"
                       )}
                   </td>

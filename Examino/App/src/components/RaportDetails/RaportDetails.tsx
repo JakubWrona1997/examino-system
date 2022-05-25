@@ -12,7 +12,7 @@ const RaportDetails = () => {
   const { raports } = useSelector((state: RootState) => state.raports);
 
   useEffect(() => {
-    setRaport(raports.find((raport) => raport.raportDto.id === params.id));
+    setRaport(raports.find((raport) => raport.raport.id === params.id));
   }, []);
 
   return (
@@ -29,7 +29,7 @@ const RaportDetails = () => {
                   <th>Data wizyty</th>
                   <td>
                     {raport &&
-                      new Date(raport.raportDto.raportTime).toLocaleString(
+                      new Date(raport.raport.raportTime).toLocaleString(
                         "pl-PL"
                       )}
                   </td>
@@ -42,27 +42,29 @@ const RaportDetails = () => {
                 </tr>
                 <tr>
                   <th>Pacjent</th>
-                  <td>{raport?.raportDto.patientId}</td>
+                  <td>
+                    {raport?.patientName}&nbsp;{raport?.patientSurname}
+                  </td>
                 </tr>
                 <tr>
                   <th>Symptomy</th>
-                  <td>{raport?.raportDto.symptoms}</td>
+                  <td>{raport?.raport.symptoms}</td>
                 </tr>
                 <tr>
                   <th>Badanie</th>
-                  <td>{raport?.raportDto.examination}</td>
+                  <td>{raport?.raport.examination}</td>
                 </tr>
                 <tr>
                   <th>Diagnoza</th>
-                  <td>{raport?.raportDto.diagnosis}</td>
+                  <td>{raport?.raport.diagnosis}</td>
                 </tr>
                 <tr>
                   <th>Zalecenia</th>
-                  <td>{raport?.raportDto.recommendation}</td>
+                  <td>{raport?.raport.recommendation}</td>
                 </tr>
                 <tr>
                   <th>Komentarz</th>
-                  <td>{raport?.raportDto.comment}</td>
+                  <td>{raport?.raport.comment}</td>
                 </tr>
                 <tr>
                   <th>Recepta</th>

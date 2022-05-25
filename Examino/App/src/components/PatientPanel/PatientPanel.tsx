@@ -26,7 +26,7 @@ const PatientPanel = () => {
                 <tr>
                   <th>Data wizyty</th>
                   <td>
-                    {new Date(raports[0]?.raportDto.raportTime).toLocaleString(
+                    {new Date(raports[0]?.raport.raportTime).toLocaleString(
                       "pl-PL"
                     )}
                   </td>
@@ -34,7 +34,7 @@ const PatientPanel = () => {
                 <tr className="show-details">
                   <td>
                     <Link
-                      to={`/dashboard/history/raports/${raports[0]?.raportDto.id}/details`}
+                      to={`/dashboard/history/raports/${raports[0]?.raport.id}/details`}
                     >
                       Pokaż szczegóły
                     </Link>
