@@ -31,12 +31,13 @@ namespace Examino.Infrastructure.DummyData
                 NormalizedUserName = "BARTEKSKRZYPEK@GMAIL.COM",
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                BloodType = "B-",
+                BloodType = "B Rh-",
                 Height = 175,
                 Weight = 80,
                 LockoutEnabled = false,
                 PostalCode= "34-331",
-                PasswordHash = hasher.HashPassword(null, "Patient123!")
+                PasswordHash = hasher.HashPassword(null, "Patient123!"),
+                Gender = "Man"
             };
             Patient patient2 = new Patient()
             {
@@ -55,12 +56,13 @@ namespace Examino.Infrastructure.DummyData
                 NormalizedUserName = "MICHALGWIZD@GMAIL.COM",
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                BloodType="B+",
+                BloodType="B Rh+",
                 Height=172,
                 Weight=70,
                 LockoutEnabled = false,
                 PostalCode ="80-001",
-                PasswordHash = hasher.HashPassword(null, "Patient123!")
+                PasswordHash = hasher.HashPassword(null, "Patient123!"),
+                Gender="Man"
 
             };
             Patient patient3 = new Patient()
@@ -80,12 +82,13 @@ namespace Examino.Infrastructure.DummyData
                 NormalizedUserName = "JAKUB1999@GMAIL.COM",
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                BloodType = "A+",
+                BloodType = "A Rh+",
                 Height = 192,
                 Weight = 90,
                 LockoutEnabled = false,
                 PostalCode = "34-500",
-                PasswordHash = hasher.HashPassword(null, "Patient123!")
+                PasswordHash = hasher.HashPassword(null, "Patient123!"),
+                Gender="Man"
 
             };
 

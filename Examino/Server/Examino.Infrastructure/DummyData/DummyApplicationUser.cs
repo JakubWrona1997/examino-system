@@ -33,7 +33,8 @@ namespace Examino.Infrastructure.DummyData
                 SecurityStamp = Guid.NewGuid().ToString(),
                 LockoutEnabled = false,
                 PostalCode="30-004",
-                PasswordHash= hasher.HashPassword(null, "Admin123!")
+                PasswordHash= hasher.HashPassword(null, "Admin123!"),
+                Gender = "Man"
 
             };
             return admin;
