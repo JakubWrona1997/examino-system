@@ -21,7 +21,7 @@ namespace Examino.Application.Functions.Login.Commands.Login
         public  Task<LoginCommandResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var result = _loginService.GenerateJwt(request.Email, request.Password);
-            if (result is null)  return Task.FromResult(new LoginCommandResponse(404, false));
+            if (result is null)  return Task.FromResult(new LoginCommandResponse(404,"Niepoporawny Email lub Hasło",false));
             return Task.FromResult( new LoginCommandResponse(result));          
         }
     }
