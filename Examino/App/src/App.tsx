@@ -3,7 +3,9 @@ import {
   Routes,
   Route,
   Navigate,
+  Outlet,
 } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import PatientDashboard from "./pages/PatientDashboard/PatientDashboard";
@@ -13,7 +15,6 @@ import PatientHistory from "./components/PatientHistory/PatientHistory";
 import PatientProfile from "./components/PatientProfile/PatientProfile";
 import RaportDetails from "./components/RaportDetails/RaportDetails";
 import PrescriptionDetails from "./components/PrescriptionDetails/PrescriptionDetails";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   return (
@@ -24,12 +25,14 @@ function App() {
             <Route path="patient" element={<PatientDashboard />}>
               <Route index element={<Navigate to="panel" />} />
               <Route path="panel" element={<PatientPanel />} />
-              <Route path="history" element={<PatientHistory />} />
-              <Route path="history/raport/:id" element={<RaportDetails />} />
-              <Route
-                path="history/prescription/:id"
-                element={<PrescriptionDetails />}
-              />
+              <Route path="history" element={<Outlet />}>
+                <Route index element={<PatientHistory />} />
+                <Route path="raport/:id" element={<RaportDetails />} />
+                <Route
+                  path="prescription/:id"
+                  element={<PrescriptionDetails />}
+                />
+              </Route>
               <Route path="profile" element={<PatientProfile />} />
             </Route>
           </Route>

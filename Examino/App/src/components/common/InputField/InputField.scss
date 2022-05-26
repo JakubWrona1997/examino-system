@@ -13,6 +13,9 @@
   input.is-invalid {
     border-color: #dc3545;
   }
+  input[type="date" i] {
+    font-family: inherit;
+  }
   &-error {
     color: #dc3545;
     margin: 0;

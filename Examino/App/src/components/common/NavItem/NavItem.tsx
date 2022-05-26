@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./NavigationItem.scss";
+import "./NavItem.scss";
 
 interface Props {
   to: string;
@@ -9,7 +9,7 @@ interface Props {
   onClick?: () => void;
 }
 
-const NavigationItem = ({ to, label, icon, onClick }: Props) => {
+const NavItem = ({ to, label, icon, onClick }: Props) => {
   return (
     <NavLink
       to={to}
@@ -22,4 +22,4 @@ const NavigationItem = ({ to, label, icon, onClick }: Props) => {
   );
 };
 
-export default NavigationItem;
+export default NavItem;

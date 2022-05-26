@@ -13,7 +13,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import "./DoctorDashboard.scss";
-import NavigationItem from "../../components/common/NavigationItem/NavigationItem";
+import NavItem from "../../components/common/NavItem/NavItem";
 
 const DoctorDashboard = () => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -40,15 +40,11 @@ const DoctorDashboard = () => {
           &nbsp;Examino
         </div>
         <div className="dashboard-navigation-links">
-          <NavigationItem to="panel" label="Panel" icon={<FaThLarge />} />
-          <NavigationItem to="form" label="Formularz" icon={<FaFileAlt />} />
-          <NavigationItem
-            to="schedule"
-            label="Terminarz"
-            icon={<FaCalendarAlt />}
-          />
-          <NavigationItem to="profile" label="Profil" icon={<FaUserAlt />} />
-          <NavigationItem
+          <NavItem to="panel" label="Panel" icon={<FaThLarge />} />
+          <NavItem to="form" label="Formularz" icon={<FaFileAlt />} />
+          <NavItem to="schedule" label="Terminarz" icon={<FaCalendarAlt />} />
+          <NavItem to="profile" label="Profil" icon={<FaUserAlt />} />
+          <NavItem
             to="/"
             label="Wyloguj"
             icon={<FaSignOutAlt />}
