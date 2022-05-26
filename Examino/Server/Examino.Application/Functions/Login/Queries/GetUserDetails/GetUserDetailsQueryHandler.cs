@@ -26,7 +26,7 @@ namespace Examino.Application.Functions.Prescriptions.Queries
                         "[Users].[Id]," +
                         "[Users].[Name], " +
                         "[Users].[Surname], " +
-                        "[Users].[BirthDay], " +
+                        "[Users].[BirthDay] AS [DateOfBirth], " +
                         "[Users].[PESEL], " +
                         "[Users].[Address], " +
                         "[Users].[City], " +
@@ -34,6 +34,7 @@ namespace Examino.Application.Functions.Prescriptions.Queries
                         "[Users].[Weight], " +
                         "[Users].[PostalCode], " +
                         "[Users].[BloodType], " +
+                        "[Users].[Gender], " +
                         "[Users].[PhoneNumber] " +
                         "FROM [Users] " +
                         "WHERE [Users].[Id] = @UserId";
