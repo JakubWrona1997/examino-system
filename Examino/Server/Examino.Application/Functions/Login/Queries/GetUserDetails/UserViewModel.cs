@@ -19,5 +19,6 @@ namespace Examino.Application.Functions.Prescriptions.Queries
         public int? Height { get; set; }
         public int? Weight { get; set; }
         public string? BloodType { get; set; }
+        public string? Gender { get; set; }
     }
 }
