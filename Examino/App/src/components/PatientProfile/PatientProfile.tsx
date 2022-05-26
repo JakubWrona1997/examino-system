@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RootState, useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
+import { format } from "date-fns";
 import "./PatientProfile.scss";
 import InputField from "../common/InputField/InputField";
 import SelectField from "../common/SelectField/SelectField";
@@ -109,6 +110,7 @@ const PatientProfile = () => {
     resolver: yupResolver(editProfileSchema),
     defaultValues: {
       ...userData,
+      dateOfBirth: format(new Date(userData.dateOfBirth), "yyyy-MM-dd"),
     },
   });
 
