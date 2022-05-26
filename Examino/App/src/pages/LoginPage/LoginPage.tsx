@@ -6,15 +6,15 @@ import { loginUser } from "../../features/userSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import "./Login.scss";
-import InputField from "../../components/common/InputField/InputField";
+import "./LoginPage.scss";
+import InputField from "../../components/common/Forms/InputField/InputField";
 
 interface FormInputs {
   email: string;
   password: string;
 }
 
-const Login = () => {
+const LoginPage = () => {
   const { user, loading, error } = useSelector(
     (state: RootState) => state.user
   );
@@ -86,4 +86,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

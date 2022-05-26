@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 import axios from "axios";
-import { CreateRaport, Raport } from "../models/Raport";
+import { RaportViewModel } from "../models/Raports/RaportViewModel";
+import { RaportCreateViewModel } from "../models/Raports/RaportCreateViewModel";
 
 interface IRaportState {
-  raports: Raport[];
+  raports: RaportViewModel[];
   loading: "idle" | "pending" | "fulfilled" | "failed";
   error: string | undefined;
 }
@@ -18,7 +19,7 @@ const initialState: IRaportState = {
 // Get raports
 // GET /api/raport
 export const getRaports = createAsyncThunk<
-  Raport[],
+  RaportViewModel[],
   void,
   { state: RootState; rejectValue: string }
 >("raport/get", async (_, thunkAPI) => {
@@ -40,8 +41,8 @@ export const getRaports = createAsyncThunk<
 // Create raport
 // POST /api/raport/create
 export const createRaport = createAsyncThunk<
-  Raport,
-  CreateRaport,
+  RaportViewModel,
+  RaportCreateViewModel,
   { state: RootState; rejectValue: string }
 >("raport/create", async (raportData, thunkAPI) => {
   try {
@@ -62,8 +63,8 @@ export const createRaport = createAsyncThunk<
 // Update raport
 // PUT /api/raport/:id/update
 export const updateRaport = createAsyncThunk<
-  Raport,
-  Raport,
+  RaportViewModel,
+  RaportViewModel,
   { state: RootState; rejectValue: string }
 >("raport/update", async (raportData, thunkAPI) => {
   try {
@@ -88,7 +89,7 @@ export const updateRaport = createAsyncThunk<
 // Delete raport
 // DELETE /api/raport/:id/delete
 export const deleteRaport = createAsyncThunk<
-  Raport,
+  RaportViewModel,
   string,
   { state: RootState; rejectValue: string }
 >("raport/delete", async (raportId, thunkAPI) => {
@@ -108,7 +109,7 @@ export const deleteRaport = createAsyncThunk<
 });
 
 export const raportSlice = createSlice({
-  name: "raports",
+  name: "raport",
   initialState,
   reducers: {
     reset: () => initialState,

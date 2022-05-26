@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../app/store";
-import { getUser } from "../../features/userSlice";
-import { getRaports } from "../../features/raportSlice";
-import { logout } from "../../features/userSlice";
+import { RootState, useAppDispatch } from "../../../app/store";
+import { getUser } from "../../../features/userSlice";
+import { getRaports } from "../../../features/raportSlice";
+import { logout } from "../../../features/userSlice";
 import {
   FaHeartbeat,
   FaThLarge,
@@ -12,10 +12,10 @@ import {
   FaUserAlt,
   FaSignOutAlt,
 } from "react-icons/fa";
-import "./PatientDashboard.scss";
-import NavItem from "../../components/common/NavItem/NavItem";
+import "./PatientDashboardPage.scss";
+import NavItem from "../../../components/layout/NavItem/NavItem";
 
-const PatientDashboard = () => {
+const PatientDashboardPage = () => {
   const { user } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -59,4 +59,4 @@ const PatientDashboard = () => {
   );
 };
 
-export default PatientDashboard;
+export default PatientDashboardPage;

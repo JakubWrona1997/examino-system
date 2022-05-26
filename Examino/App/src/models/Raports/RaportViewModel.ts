@@ -1,4 +1,4 @@
-export interface Raport {
+export interface RaportViewModel {
   patientName: string;
   patientSurname: string;
   doctorName: string;
@@ -19,14 +19,4 @@ export interface Raport {
     raportId: string;
     medicines: string;
   };
-}
-
-export interface CreateRaport {
-  patientId: string;
-  doctorId: string;
-  symptoms: string;
-  examination: string;
-  diagnosis: string;
-  recommendation: string;
-  comment: string;
 }

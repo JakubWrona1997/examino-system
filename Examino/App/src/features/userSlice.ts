@@ -1,29 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
-import {
-  LoginUser,
-  RegisterUser,
-  RegisterError,
-  UserData,
-  User,
-} from "../models/User";
-import { Token } from "../models/Token";
+import { UserViewModel } from "../models/Users/UserViewModel";
+import { UserDataViewModel } from "../models/Users/UserDataViewModel";
+import { UserLoginDataViewModel } from "../models/Users/UserLoginDataViewModel";
+import { UserRegisterDataViewModel } from "../models/Users/UserRegisterDataViewModel";
+import { UserRegisterErrorsViewModel } from "../models/Users/UserRegisterErrorsViewModel";
+import tokenDecode from "../utils/tokenDecode";
 
 interface IUserState {
-  user: User | null;
-  userData: UserData;
+  user: UserViewModel | null;
+  userData: UserDataViewModel;
   loading: "idle" | "pending" | "fulfilled" | "failed";
   error: {
-    register: RegisterError | undefined;
+    register: UserRegisterErrorsViewModel | undefined;
     login: string | undefined;
   };
 }
 
 const initialState: IUserState = {
   user: null,
-  userData: {} as UserData,
+  userData: {} as UserDataViewModel,
   loading: "idle",
   error: {
     register: undefined,
@@ -34,22 +31,13 @@ const initialState: IUserState = {
 // Register User
 // POST /api/patient/register
 export const registerUser = createAsyncThunk<
-  User,
-  RegisterUser,
-  { rejectValue: RegisterError }
->("users/register", async (userData, thunkAPI) => {
+  UserViewModel,
+  UserRegisterDataViewModel,
+  { rejectValue: UserRegisterErrorsViewModel }
+>("user/register", async (userData, thunkAPI) => {
   try {
     const res = await axios.post("/api/patient/register", userData);
-    const decoded: Token = jwt_decode(res.data);
-    return {
-      name: decoded[
-        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
-      ],
-      role: decoded[
-        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-      ],
-      token: res.data,
-    };
+    return tokenDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data.errors);
   }
@@ -58,22 +46,13 @@ export const registerUser = createAsyncThunk<
 // Login User
 // POST /api/patient/login
 export const loginUser = createAsyncThunk<
-  User,
-  LoginUser,
+  UserViewModel,
+  UserLoginDataViewModel,
   { rejectValue: string }
->("users/login", async (userData, thunkAPI) => {
+>("user/login", async (userData, thunkAPI) => {
   try {
     const res = await axios.post("/api/patient/login", userData);
-    const decoded: Token = jwt_decode(res.data);
-    return {
-      name: decoded[
-        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
-      ],
-      role: decoded[
-        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-      ],
-      token: res.data,
-    };
+    return tokenDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
@@ -82,10 +61,10 @@ export const loginUser = createAsyncThunk<
 // Get user data
 // GET /api/patient
 export const getUser = createAsyncThunk<
-  UserData,
+  UserDataViewModel,
   void,
   { state: RootState; rejectValue: string }
->("users/get", async (_, thunkAPI) => {
+>("user/get", async (_, thunkAPI) => {
   try {
     const token = thunkAPI.getState().user.user?.token;
     const config = {
@@ -103,10 +82,10 @@ export const getUser = createAsyncThunk<
 // Update User
 // PUT /api/patient/update
 export const updateUser = createAsyncThunk<
-  UserData,
-  UserData,
+  UserDataViewModel,
+  UserDataViewModel,
   { state: RootState; rejectValue: string }
->("users/update", async (userData, thunkAPI) => {
+>("user/update", async (userData, thunkAPI) => {
   try {
     const token = thunkAPI.getState().user.user?.token;
     const config = {

@@ -6,8 +6,8 @@ import { registerUser } from "../../features/userSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import "./Register.scss";
-import InputField from "../../components/common/InputField/InputField";
+import "./RegisterPage.scss";
+import InputField from "../../components/common/Forms/InputField/InputField";
 
 interface FormInputs {
   name: string;
@@ -18,7 +18,7 @@ interface FormInputs {
   confirmPassword: string;
 }
 
-const Register = () => {
+const RegisterPage = () => {
   const { user, loading, error } = useSelector(
     (state: RootState) => state.user
   );
@@ -166,4 +166,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterPage;

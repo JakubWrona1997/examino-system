@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
-import { Raport } from "../../models/Raport";
+import { RootState } from "../../../app/store";
+import { RaportViewModel } from "../../../models/Raports/RaportViewModel";
 import "./RaportDetails.scss";
 
 const RaportDetails = () => {
-  const [raport, setRaport] = useState<Raport>();
+  const [raport, setRaport] = useState<RaportViewModel>();
   const params = useParams();
 
   const { raports } = useSelector((state: RootState) => state.raports);

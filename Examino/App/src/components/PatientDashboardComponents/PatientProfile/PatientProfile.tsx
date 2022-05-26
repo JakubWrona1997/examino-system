@@ -2,12 +2,12 @@ import React from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { RootState, useAppDispatch } from "../../app/store";
+import { RootState, useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import "./PatientProfile.scss";
-import InputField from "../common/InputField/InputField";
-import SelectField from "../common/SelectField/SelectField";
+import InputField from "../../common/Forms/InputField/InputField";
+import SelectField from "../../common/Forms/SelectField/SelectField";
 
 interface FormInputs {
   gender: string;

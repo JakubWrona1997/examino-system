@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { RootState } from "../../../app/store";
 import "./PatientPanel.scss";
-import patient from "../../assets/patient.svg";
+import patient from "../../../assets/patient.svg";
 
 const PatientPanel = () => {
   const { user } = useSelector((state: RootState) => state.user);

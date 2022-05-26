@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { RootState } from "../../../app/store";
 import "./PatientHistory.scss";
-import RaportHistoryItem from "../common/RaportHistoryItem/RaportHistoryItem";
+import RaportItem from "../../common/RaportItem/RaportItem";
 
 const PatientHistory = () => {
   const { raports } = useSelector((state: RootState) => state.raports);
@@ -26,7 +26,7 @@ const PatientHistory = () => {
               </table>
             </div>
             {raports.map((raport, index) => (
-              <RaportHistoryItem
+              <RaportItem
                 key={raport.raport.id}
                 raport={raport}
                 index={index + 1}

@@ -5,16 +5,16 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import Register from "./pages/Register/Register";
-import Login from "./pages/Login/Login";
-import PatientDashboard from "./pages/PatientDashboard/PatientDashboard";
-import DoctorDashboard from "./pages/DoctorDashboard/DoctorDashboard";
-import PatientPanel from "./components/PatientPanel/PatientPanel";
-import PatientHistory from "./components/PatientHistory/PatientHistory";
-import PatientProfile from "./components/PatientProfile/PatientProfile";
-import RaportDetails from "./components/RaportDetails/RaportDetails";
-import PrescriptionDetails from "./components/PrescriptionDetails/PrescriptionDetails";
+import ProtectedRoute from "./components/common/ProtectedRoute/ProtectedRoute";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import PatientDashboardPage from "./pages/DashboardPages/PatientDashboardPage/PatientDashboardPage";
+import DoctorDashboardPage from "./pages/DashboardPages/DoctorDashboardPage/DoctorDashboardPage";
+import PatientPanel from "./components/PatientDashboardComponents/PatientPanel/PatientPanel";
+import PatientHistory from "./components/PatientDashboardComponents/PatientHistory/PatientHistory";
+import PatientProfile from "./components/PatientDashboardComponents/PatientProfile/PatientProfile";
+import RaportDetails from "./components/PatientDashboardComponents/RaportDetails/RaportDetails";
+import PrescriptionDetails from "./components/PatientDashboardComponents/PrescriptionDetails/PrescriptionDetails";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
       <main>
         <Routes>
           <Route element={<ProtectedRoute allowedRole="Patient" />}>
-            <Route path="patient" element={<PatientDashboard />}>
+            <Route path="patient" element={<PatientDashboardPage />}>
               <Route index element={<Navigate to="panel" />} />
               <Route path="panel" element={<PatientPanel />} />
               <Route path="history" element={<Outlet />}>
@@ -37,10 +37,10 @@ function App() {
             </Route>
           </Route>
           <Route element={<ProtectedRoute allowedRole="Doctor" />}>
-            <Route path="doctor" element={<DoctorDashboard />}></Route>
+            <Route path="doctor" element={<DoctorDashboardPage />}></Route>
           </Route>
-          <Route path="register" element={<Register />} />
-          <Route path="/" element={<Login />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="/" element={<LoginPage />} />
         </Routes>
       </main>
     </Router>

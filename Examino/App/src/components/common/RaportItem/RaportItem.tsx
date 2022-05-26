@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Raport } from "../../../models/Raport";
-import "./RaportHistoryItem.scss";
+import { RaportViewModel } from "../../../models/Raports/RaportViewModel";
+import "./RaportItem.scss";
 
 interface Props {
-  raport: Raport;
+  raport: RaportViewModel;
   index: number;
 }
 
-const RaportHistoryItem = ({ raport, index }: Props) => {
+const RaportItem = ({ raport, index }: Props) => {
   return (
     <React.Fragment>
       <div className="raport-history-wrapper">
@@ -44,4 +44,4 @@ const RaportHistoryItem = ({ raport, index }: Props) => {
   );
 };
 
-export default RaportHistoryItem;
+export default RaportItem;
