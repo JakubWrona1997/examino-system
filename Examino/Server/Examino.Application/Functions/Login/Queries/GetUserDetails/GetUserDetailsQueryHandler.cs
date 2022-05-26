@@ -23,21 +23,21 @@ namespace Examino.Application.Functions.Prescriptions.Queries
             var connection = await _connectionService.GetAsync();
 
             const string sqlUser = "SELECT " +
-                        "[Users].[Id]," +
-                        "[Users].[Name], " +
-                        "[Users].[Surname], " +
-                        "[Users].[BirthDay] AS [DateOfBirth], " +
-                        "[Users].[PESEL], " +
-                        "[Users].[Address], " +
-                        "[Users].[City], " +
-                        "[Users].[Height], " +
-                        "[Users].[Weight], " +
-                        "[Users].[PostalCode], " +
-                        "[Users].[BloodType], " +
-                        "[Users].[Gender], " +
-                        "[Users].[PhoneNumber] " +
-                        "FROM [Users] " +
-                        "WHERE [Users].[Id] = @UserId";
+                                   "[Users].[Id]," +
+                                   "[Users].[Name], " +
+                                   "[Users].[Surname], " +
+                                   "[Users].[BirthDay] AS [DateOfBirth], " +
+                                   "[Users].[PESEL], " +
+                                   "[Users].[Address], " +
+                                   "[Users].[City], " +
+                                   "[Users].[Height], " +
+                                   "[Users].[Weight], " +
+                                   "[Users].[PostalCode], " +
+                                   "[Users].[BloodType], " +
+                                   "[Users].[Gender], " +
+                                   "[Users].[PhoneNumber] " +
+                                   "FROM [Users] " +
+                                   "WHERE [Users].[Id] = @UserId";
 
             var foundUser = await connection.QueryFirstAsync<UserViewModel>(sqlUser, new { request.UserId });
 

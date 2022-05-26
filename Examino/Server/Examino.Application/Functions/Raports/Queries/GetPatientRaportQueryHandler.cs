@@ -26,44 +26,44 @@ namespace Examino.Application.Functions.Raports.Queries
             var connection = await _connectionService.GetAsync();
 
             const string sqlRaport = "SELECT " +
-                        "[Raports].[Id]," +
-                        "[Raports].[PatientId], " +
-                        "[Raports].[DoctorId], " +
-                        "[Raports].[RaportTime], " +
-                        "[Raports].[Symptoms], " +
-                        "[Raports].[Examination], " +
-                        "[Raports].[Diagnosis], " +
-                        "[Raports].[Recommendation], " +
-                        "[Raports].[Comment] " +
-                        "FROM [Raports] " +
-                        "WHERE [Raports].[PatientId] = @PatientId";
+                                     "[Raports].[Id]," +
+                                     "[Raports].[PatientId], " +
+                                     "[Raports].[DoctorId], " +
+                                     "[Raports].[RaportTime], " +
+                                     "[Raports].[Symptoms], " +
+                                     "[Raports].[Examination], " +
+                                     "[Raports].[Diagnosis], " +
+                                     "[Raports].[Recommendation], " +
+                                     "[Raports].[Comment] " +
+                                     "FROM [Raports] " +
+                                     "WHERE [Raports].[PatientId] = @PatientId";
 
             var foundRaports = await connection.QueryAsync<RaportDto>(sqlRaport, new { request.PatientId });
 
             const string sqlPrescription = "SELECT " +
-                                  "[Prescriptions].[Id], " +
-                                  "[Prescriptions].[RaportId], " +
-                                  "[Prescriptions].[Medicines] " +
-                                  "FROM [Prescriptions] ";
+                                           "[Prescriptions].[Id], " +
+                                           "[Prescriptions].[RaportId], " +
+                                           "[Prescriptions].[Medicines] " +
+                                           "FROM [Prescriptions] ";
 
             var foundPrescription = await connection.QueryAsync<PrescriptionDto>(sqlPrescription);
 
 
             const string sqlPatient = "SELECT " +
-                             "[Users].[Id], " +
-                             "[Users].[Name], " +
-                             "[Users].[Surname] " +
-                             "FROM [Users] " +
-                             "WHERE [Users].[UserType] = @patient";
+                                      "[Users].[Id], " +
+                                      "[Users].[Name], " +
+                                      "[Users].[Surname] " +
+                                      "FROM [Users] " +
+                                      "WHERE [Users].[UserType] = @patient";
 
             var foundPatient = await connection.QueryAsync<PatientDto>(sqlPatient, new { patient = "Patient" });
 
             const string sqlDoctor = "SELECT " +
-                             "[Users].[Id], " +
-                             "[Users].[Name], " +
-                             "[Users].[Surname] " +
-                             "FROM [Users] " +
-                             "WHERE [USERS].[UserType] = @doctor";
+                                     "[Users].[Id], " +
+                                     "[Users].[Name], " +
+                                     "[Users].[Surname] " +
+                                     "FROM [Users] " +
+                                     "WHERE [USERS].[UserType] = @doctor";
 
             var foundDoctor = await connection.QueryAsync<DoctorDto>(sqlDoctor, new { doctor = "Doctor" });
 

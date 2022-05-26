@@ -5,7 +5,6 @@ namespace Examino.Application.Functions.Raports.Commands.CreateRaport
 {
     public record CreateRaportCommand : IRequest<CreateRaportCommandResponse>
     {
-        //public Guid Id { get; set; }
         public Guid PatientId { get; set; }
         public Guid DoctorId { get; set; }
         public DateTimeOffset RaportTime { get; private set; } = DateTimeOffset.Now;
