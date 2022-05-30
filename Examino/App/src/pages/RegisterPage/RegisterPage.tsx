@@ -109,48 +109,48 @@ const RegisterPage = () => {
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <InputField
             register={register}
-            registerName="name"
-            registerErrors={errors}
+            name="name"
+            errors={errors}
             type="text"
             label="Imię"
             serverErrors={error.register?.Name}
           />
           <InputField
             register={register}
-            registerName="surname"
-            registerErrors={errors}
+            name="surname"
+            errors={errors}
             type="text"
             label="Nazwisko"
             serverErrors={error.register?.Surname}
           />
           <InputField
             register={register}
-            registerName="pesel"
-            registerErrors={errors}
+            name="pesel"
+            errors={errors}
             type="text"
             label="Pesel"
             serverErrors={error.register?.PESEL}
           />
           <InputField
             register={register}
-            registerName="email"
-            registerErrors={errors}
+            name="email"
+            errors={errors}
             type="email"
             label="Adres email"
             serverErrors={error.register?.Email}
           />
           <InputField
             register={register}
-            registerName="password"
-            registerErrors={errors}
+            name="password"
+            errors={errors}
             type="password"
             label="Hasło"
             serverErrors={error.register?.Password}
           />
           <InputField
             register={register}
-            registerName="confirmPassword"
-            registerErrors={errors}
+            name="confirmPassword"
+            errors={errors}
             type="password"
             label="Potwierdź hasło"
           />

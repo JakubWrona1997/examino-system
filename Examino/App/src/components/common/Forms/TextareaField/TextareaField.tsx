@@ -3,8 +3,8 @@ import "./TextareaField.scss";
 
 interface Props {
   register: UseFormRegister<any>;
-  registerName: string;
-  registerErrors: any;
+  name: string;
+  errors: any;
   label: string;
   placeholder?: string;
   serverErrors?: string[];
@@ -12,24 +12,22 @@ interface Props {
 
 const TextareaField = ({
   register,
-  registerName,
-  registerErrors,
+  name,
+  errors,
   label,
   placeholder,
   serverErrors,
 }: Props) => {
   return (
     <div className="form-field">
-      <label htmlFor={registerName}>{label}</label>
+      <label htmlFor={name}>{label}</label>
       <textarea
-        {...register(registerName)}
-        className={registerErrors[registerName] ? "is-invalid" : ""}
+        {...register(name)}
+        className={errors[name] ? "is-invalid" : ""}
         placeholder={placeholder}
       />
-      {registerErrors[registerName] && (
-        <div className="form-field-error">
-          {registerErrors[registerName].message}
-        </div>
+      {errors[name] && (
+        <div className="form-field-error">{errors[name].message}</div>
       )}
       {serverErrors &&
         serverErrors.map((err, index) => (

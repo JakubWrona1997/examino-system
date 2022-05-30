@@ -3,8 +3,8 @@ import "./SelectField.scss";
 
 interface Props {
   register: UseFormRegister<any>;
-  registerName: string;
-  registerErrors: any;
+  name: string;
+  errors: any;
   label: string;
   options: string[];
   placeholder?: string;
@@ -12,18 +12,18 @@ interface Props {
 
 const SelectField = ({
   register,
-  registerName,
-  registerErrors,
+  name,
+  errors,
   label,
   options,
   placeholder,
 }: Props) => {
   return (
     <div className="form-field">
-      <label htmlFor={registerName}>{label}</label>
+      <label htmlFor={name}>{label}</label>
       <select
-        {...register(registerName)}
-        className={registerErrors[registerName] ? "is-invalid" : ""}
+        {...register(name)}
+        className={errors[name] ? "is-invalid" : ""}
         defaultValue=""
       >
         {placeholder && (
@@ -37,10 +37,8 @@ const SelectField = ({
           </option>
         ))}
       </select>
-      {registerErrors[registerName] && (
-        <p className="form-field-error">
-          {registerErrors[registerName].message}
-        </p>
+      {errors[name] && (
+        <p className="form-field-error">{errors[name].message}</p>
       )}
     </div>
   );

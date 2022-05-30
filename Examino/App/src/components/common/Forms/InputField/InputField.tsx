@@ -3,8 +3,8 @@ import "./InputField.scss";
 
 interface Props {
   register: UseFormRegister<any>;
-  registerName: string;
-  registerErrors: any;
+  name: string;
+  errors: any;
   type: string;
   label: string;
   placeholder?: string;
@@ -13,8 +13,8 @@ interface Props {
 
 const InputField = ({
   register,
-  registerName,
-  registerErrors,
+  name,
+  errors,
   type,
   label,
   placeholder,
@@ -22,23 +22,21 @@ const InputField = ({
 }: Props) => {
   return (
     <div className="form-field">
-      <label htmlFor={registerName}>{label}</label>
+      <label htmlFor={name}>{label}</label>
       <input
-        {...register(registerName)}
-        className={registerErrors[registerName] ? "is-invalid" : ""}
+        {...register(name)}
+        className={errors[name] ? "is-invalid" : ""}
         type={type}
         placeholder={placeholder}
       />
-      {registerErrors[registerName] && (
-        <p className="form-field-error">
-          {registerErrors[registerName].message}
-        </p>
+      {errors[name] && (
+        <div className="form-field-error">{errors[name].message}</div>
       )}
       {serverErrors &&
         serverErrors.map((err, index) => (
-          <p key={index} className="form-field-error">
+          <div key={index} className="form-field-error">
             {err}
-          </p>
+          </div>
         ))}
     </div>
   );
