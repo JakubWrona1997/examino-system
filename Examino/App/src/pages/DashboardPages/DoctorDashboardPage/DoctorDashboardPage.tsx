@@ -30,6 +30,7 @@ const DoctorDashboardPage = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/");
   };
 
   return (

@@ -31,6 +31,7 @@ const PatientDashboardPage = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/");
   };
 
   return (

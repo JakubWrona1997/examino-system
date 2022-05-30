@@ -49,7 +49,7 @@ const PrescriptionDetails = () => {
                   </td>
                 </tr>
                 <tr>
-                  <th>Recepta</th>
+                  <th>Leki</th>
                   <td>{raport?.prescription.medicines}</td>
                 </tr>
               </tbody>
