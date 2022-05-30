@@ -20,8 +20,12 @@ const customStyles: StylesConfig<SelectFieldOptionViewModel, false> = {
   }),
   valueContainer: (provided) => ({
     ...provided,
-    height: "40",
     padding: "0 0.75rem",
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    margin: "0",
+    color: "inherit",
   }),
   input: (provided) => ({
     ...provided,
