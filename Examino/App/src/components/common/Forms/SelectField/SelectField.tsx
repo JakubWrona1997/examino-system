@@ -1,17 +1,40 @@
-import { UseFormRegister } from "react-hook-form";
+import { Controller, Control } from "react-hook-form";
+import Select, { StylesConfig } from "react-select";
+import { SelectFieldOptionViewModel } from "../../../../models/Forms/SelectFieldOptionViewModel";
 import "./SelectField.scss";
 
 interface Props {
-  register: UseFormRegister<any>;
+  control: Control<any>;
   name: string;
   errors: any;
   label: string;
-  options: string[];
+  options: SelectFieldOptionViewModel[];
   placeholder?: string;
 }
 
+const customStyles: StylesConfig<SelectFieldOptionViewModel, false> = {
+  control: (provided) => ({
+    ...provided,
+    height: "40",
+    minHeight: "40",
+  }),
+  valueContainer: (provided) => ({
+    ...provided,
+    height: "40",
+    padding: "0 0.75rem",
+  }),
+  input: (provided) => ({
+    ...provided,
+    margin: "0",
+    padding: "0",
+  }),
+  indicatorSeparator: () => ({
+    display: "none",
+  }),
+};
+
 const SelectField = ({
-  register,
+  control,
   name,
   errors,
   label,
@@ -21,24 +44,23 @@ const SelectField = ({
   return (
     <div className="form-field">
       <label htmlFor={name}>{label}</label>
-      <select
-        {...register(name)}
-        className={errors[name] ? "is-invalid" : ""}
-        defaultValue=""
-      >
-        {placeholder && (
-          <option value="" disabled hidden>
-            {placeholder}
-          </option>
-        )}
-        {options.map((value) => (
-          <option key={value} value={value}>
-            {value}
-          </option>
-        ))}
-      </select>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { value, onChange } }) => {
+          return (
+            <Select
+              options={options}
+              placeholder={placeholder ? placeholder : ""}
+              value={options.filter((option) => value?.includes(option.value))}
+              onChange={(option) => onChange(option?.value)}
+              styles={customStyles}
+            />
+          );
+        }}
+      />
       {errors[name] && (
-        <p className="form-field-error">{errors[name].message}</p>
+        <div className="form-field-error">{errors[name].message}</div>
       )}
     </div>
   );
