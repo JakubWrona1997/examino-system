@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../app/store";
 import { getUser } from "../../../features/userSlice";
 import { getRaports } from "../../../features/raportSlice";
-import { logout } from "../../../features/userSlice";
+import { logoutUser } from "../../../features/userSlice";
 import {
   FaHeartbeat,
   FaThLarge,
@@ -30,7 +30,7 @@ const PatientDashboardPage = () => {
   }, [user]);
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logoutUser());
     navigate("/");
   };
 

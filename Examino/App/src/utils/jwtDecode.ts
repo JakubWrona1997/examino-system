@@ -2,7 +2,7 @@ import jwt_decode from "jwt-decode";
 import { TokenViewModel } from "../models/Token/TokenViewModel";
 import { UserViewModel } from "../models/Users/UserViewModel";
 
-const tokenDecode = (token: string): UserViewModel => {
+const jwtDecode = (token: string): UserViewModel => {
   const decoded: TokenViewModel = jwt_decode(token);
 
   return {
@@ -14,4 +14,4 @@ const tokenDecode = (token: string): UserViewModel => {
   };
 };
 
-export default tokenDecode;
+export default jwtDecode;
