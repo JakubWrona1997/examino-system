@@ -8,6 +8,8 @@ import { format } from "date-fns";
 import "./PatientProfile.scss";
 import InputField from "../../common/Forms/InputField/InputField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
+import { BloodTypeOptions } from "../../../constants/BloodTypeOptions";
+import { GenderOptions } from "../../../constants/GenderOptions";
 
 interface FormInputs {
   gender: string;
@@ -104,6 +106,7 @@ const PatientProfile = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInputs>({
@@ -127,11 +130,11 @@ const PatientProfile = () => {
             <header className="card-header">Dane osobowe</header>
             <div className="card-content">
               <SelectField
-                register={register}
+                control={control}
                 name="gender"
                 errors={errors}
                 label="Płeć"
-                options={["Mężczyzna", "Kobieta"]}
+                options={GenderOptions}
                 placeholder="Wybierz płeć"
               />
               <InputField
@@ -210,20 +213,11 @@ const PatientProfile = () => {
                 label="Waga [kg]"
               />
               <SelectField
-                register={register}
+                control={control}
                 name="bloodType"
                 errors={errors}
                 label="Grupa krwi"
-                options={[
-                  "0 Rh-",
-                  "0 Rh+",
-                  "A Rh-",
-                  "A Rh+",
-                  "B Rh-",
-                  "B Rh+",
-                  "AB Rh-",
-                  "AB Rh+",
-                ]}
+                options={BloodTypeOptions}
                 placeholder="Wybierz grupę krwi"
               />
             </div>
