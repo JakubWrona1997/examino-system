@@ -8,6 +8,8 @@ import { format } from "date-fns";
 import "./PatientProfile.scss";
 import InputField from "../../common/Forms/InputField/InputField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
+import { BloodTypeOptions } from "../../../constants/BloodTypeOptions";
+import { GenderOptions } from "../../../constants/GenderOptions";
 
 interface FormInputs {
   gender: string;
@@ -104,6 +106,7 @@ const PatientProfile = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInputs>({
@@ -127,66 +130,66 @@ const PatientProfile = () => {
             <header className="card-header">Dane osobowe</header>
             <div className="card-content">
               <SelectField
-                register={register}
-                registerName="gender"
-                registerErrors={errors}
+                control={control}
+                name="gender"
+                errors={errors}
                 label="Płeć"
-                options={["Mężczyzna", "Kobieta"]}
+                options={GenderOptions}
                 placeholder="Wybierz płeć"
               />
               <InputField
                 register={register}
-                registerName="name"
-                registerErrors={errors}
+                name="name"
+                errors={errors}
                 type="text"
                 label="Imię"
               />
               <InputField
                 register={register}
-                registerName="surname"
-                registerErrors={errors}
+                name="surname"
+                errors={errors}
                 type="text"
                 label="Nazwisko"
               />
               <InputField
                 register={register}
-                registerName="pesel"
-                registerErrors={errors}
+                name="pesel"
+                errors={errors}
                 type="text"
                 label="Pesel"
               />
               <InputField
                 register={register}
-                registerName="dateOfBirth"
-                registerErrors={errors}
+                name="dateOfBirth"
+                errors={errors}
                 type="date"
                 label="Data urodzenia"
               />
               <InputField
                 register={register}
-                registerName="phoneNumber"
-                registerErrors={errors}
+                name="phoneNumber"
+                errors={errors}
                 type="text"
                 label="Numer telefonu"
               />
               <InputField
                 register={register}
-                registerName="postalCode"
-                registerErrors={errors}
+                name="postalCode"
+                errors={errors}
                 type="text"
                 label="Kod pocztowy"
               />
               <InputField
                 register={register}
-                registerName="city"
-                registerErrors={errors}
+                name="city"
+                errors={errors}
                 type="text"
                 label="Miasto"
               />
               <InputField
                 register={register}
-                registerName="address"
-                registerErrors={errors}
+                name="address"
+                errors={errors}
                 type="text"
                 label="Adres"
               />
@@ -197,33 +200,24 @@ const PatientProfile = () => {
             <div className="card-content">
               <InputField
                 register={register}
-                registerName="height"
-                registerErrors={errors}
+                name="height"
+                errors={errors}
                 type="number"
                 label="Wzrost [cm]"
               />
               <InputField
                 register={register}
-                registerName="weight"
-                registerErrors={errors}
+                name="weight"
+                errors={errors}
                 type="number"
                 label="Waga [kg]"
               />
               <SelectField
-                register={register}
-                registerName="bloodType"
-                registerErrors={errors}
+                control={control}
+                name="bloodType"
+                errors={errors}
                 label="Grupa krwi"
-                options={[
-                  "0 Rh-",
-                  "0 Rh+",
-                  "A Rh-",
-                  "A Rh+",
-                  "B Rh-",
-                  "B Rh+",
-                  "AB Rh-",
-                  "AB Rh+",
-                ]}
+                options={BloodTypeOptions}
                 placeholder="Wybierz grupę krwi"
               />
             </div>

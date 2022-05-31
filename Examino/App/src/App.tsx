@@ -15,6 +15,8 @@ import PatientHistory from "./components/PatientDashboardComponents/PatientHisto
 import PatientProfile from "./components/PatientDashboardComponents/PatientProfile/PatientProfile";
 import RaportDetails from "./components/PatientDashboardComponents/RaportDetails/RaportDetails";
 import PrescriptionDetails from "./components/PatientDashboardComponents/PrescriptionDetails/PrescriptionDetails";
+import DoctorPanel from "./components/DoctorDashboardComponents/DoctorPanel/DoctorPanel";
+import DoctorForm from "./components/DoctorDashboardComponents/DoctorForm/DoctorForm";
 
 function App() {
   return (
@@ -37,7 +39,11 @@ function App() {
             </Route>
           </Route>
           <Route element={<ProtectedRoute allowedRole="Doctor" />}>
-            <Route path="doctor" element={<DoctorDashboardPage />}></Route>
+            <Route path="doctor" element={<DoctorDashboardPage />}>
+              <Route index element={<Navigate to="panel" />} />
+              <Route path="panel" element={<DoctorPanel />} />
+              <Route path="form" element={<DoctorForm />} />
+            </Route>
           </Route>
           <Route path="register" element={<RegisterPage />} />
           <Route path="/" element={<LoginPage />} />

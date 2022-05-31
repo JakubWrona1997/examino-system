@@ -3,21 +3,16 @@
   flex-direction: column;
   margin-top: 0.5rem;
   width: 100%;
-  input {
-    height: 38px;
-    font-size: 1rem;
-    padding: 0 0.75rem;
+  textarea {
+    font: inherit;
+    padding: 0.5rem 0.75rem;
     border: 1px solid #ccc;
     border-radius: 0.25rem;
   }
-  input.is-invalid {
+  textarea.is-invalid {
     border-color: #dc3545;
-  }
-  input[type="date" i] {
-    font-family: inherit;
   }
   &-error {
     color: #dc3545;
-    margin: 0;
   }
 }

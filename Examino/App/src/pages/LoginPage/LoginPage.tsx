@@ -23,10 +23,10 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading === "fulfilled" && user) {
-      if (user.role === "Patient") navigate("/patient");
-      if (user.role === "Doctor") navigate("/doctor");
-      if (user.role === "Admin") navigate("/admin");
+    if (loading === "fulfilled" || user) {
+      if (user?.role === "Patient") navigate("/patient");
+      if (user?.role === "Doctor") navigate("/doctor");
+      if (user?.role === "Admin") navigate("/admin");
     }
   }, [loading, user]);
 
@@ -61,15 +61,15 @@ const LoginPage = () => {
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <InputField
             register={register}
-            registerName="email"
-            registerErrors={errors}
+            name="email"
+            errors={errors}
             type="email"
             label="Adres email"
           />
           <InputField
             register={register}
-            registerName="password"
-            registerErrors={errors}
+            name="password"
+            errors={errors}
             type="password"
             label="Hasło"
           />

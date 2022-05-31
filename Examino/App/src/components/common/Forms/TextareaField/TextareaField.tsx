@@ -1,21 +1,19 @@
 import { UseFormRegister } from "react-hook-form";
-import "./InputField.scss";
+import "./TextareaField.scss";
 
 interface Props {
   register: UseFormRegister<any>;
   name: string;
   errors: any;
-  type: string;
   label: string;
   placeholder?: string;
   serverErrors?: string[];
 }
 
-const InputField = ({
+const TextareaField = ({
   register,
   name,
   errors,
-  type,
   label,
   placeholder,
   serverErrors,
@@ -23,10 +21,9 @@ const InputField = ({
   return (
     <div className="form-field">
       <label htmlFor={name}>{label}</label>
-      <input
+      <textarea
         {...register(name)}
         className={errors[name] ? "is-invalid" : ""}
-        type={type}
         placeholder={placeholder}
       />
       {errors[name] && (
@@ -42,4 +39,4 @@ const InputField = ({
   );
 };
 
-export default InputField;
+export default TextareaField;

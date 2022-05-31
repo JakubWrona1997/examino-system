@@ -6,7 +6,8 @@ import { UserDataViewModel } from "../models/Users/UserDataViewModel";
 import { UserLoginDataViewModel } from "../models/Users/UserLoginDataViewModel";
 import { UserRegisterDataViewModel } from "../models/Users/UserRegisterDataViewModel";
 import { UserRegisterErrorsViewModel } from "../models/Users/UserRegisterErrorsViewModel";
-import tokenDecode from "../utils/tokenDecode";
+import jwtDecode from "../utils/jwtDecode";
+import userFromLocalStorage from "../utils/userFromLocalStorage";
 
 interface IUserState {
   user: UserViewModel | null;
@@ -19,7 +20,7 @@ interface IUserState {
 }
 
 const initialState: IUserState = {
-  user: null,
+  user: userFromLocalStorage(),
   userData: {} as UserDataViewModel,
   loading: "idle",
   error: {
@@ -37,7 +38,8 @@ export const registerUser = createAsyncThunk<
 >("user/register", async (userData, thunkAPI) => {
   try {
     const res = await axios.post("/api/patient/register", userData);
-    return tokenDecode(res.data);
+    localStorage.setItem("token", res.data);
+    return jwtDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data.errors);
   }
@@ -52,7 +54,8 @@ export const loginUser = createAsyncThunk<
 >("user/login", async (userData, thunkAPI) => {
   try {
     const res = await axios.post("/api/patient/login", userData);
-    return tokenDecode(res.data);
+    localStorage.setItem("token", res.data);
+    return jwtDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
@@ -104,7 +107,10 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    logout: () => initialState,
+    logoutUser: (state) => {
+      localStorage.removeItem("token");
+      state.user = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -153,5 +159,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { logoutUser } = userSlice.actions;
 export default userSlice.reducer;
