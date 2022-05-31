@@ -3,6 +3,8 @@ using Examino.Application.Functions.Raports.Commands.DeleteRaport;
 using Examino.Application.Functions.Raports.Queries;
 using Examino.Domain.Contracts;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -23,6 +25,7 @@ namespace Examino.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<RaportViewModel>), (int)HttpStatusCode.OK)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<List<RaportViewModel>>> GetPatientRaports()
         {
             var userId = _userProvider.GetUserId(); 
@@ -33,6 +36,7 @@ namespace Examino.API.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Guid>> CreateRaport([FromBody] CreateRaportCommand createRaportCommand)
         {
             var result = await _mediator.Send(createRaportCommand);
@@ -43,6 +47,7 @@ namespace Examino.API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> DeleteRaport([FromRoute]Guid id)
         {
             var deleteRaportCommand = new DeleteRaportCommand() { RaportId = id };

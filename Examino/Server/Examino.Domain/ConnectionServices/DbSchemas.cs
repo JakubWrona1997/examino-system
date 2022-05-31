@@ -15,5 +15,7 @@ namespace Examino.Domain.ConnectionServices
     {
         private static readonly string _schema = DbSchemas.Dbo;
         public static string Raports { get; } = $"[{_schema}].[{nameof(Raports)}]";
+        public static string Users { get; } = $"[{_schema}].[{nameof(Users)}]";
+        public static string Prescriptions { get; } = $"[{_schema}].[{nameof(Prescriptions)}]";        
     }
 }

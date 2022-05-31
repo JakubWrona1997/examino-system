@@ -30,8 +30,7 @@ namespace Examino.Application.Responses
         }
 
         public BaseResponse(int statusCode, string message,bool success)
-        {
-          
+        {          
             Success = success;
             Message = message;
             StatusCode = statusCode;

@@ -453,4 +453,4 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 ##custom files
-appsettings.Development.json
+Examino/Server/Examino.API/appsettings.Development.json

@@ -3,6 +3,7 @@ using Examino.Application.Functions.Prescriptions.Queries;
 using Examino.Application.Functions.Registration.PatientRegistration;
 using Examino.Domain.Contracts;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -57,6 +58,7 @@ namespace Examino.Application.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(UserViewModel), (int)HttpStatusCode.OK)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task <ActionResult<UserViewModel>> GetUserDetails()
         {
             var userId = _userProvider.GetUserId();

@@ -25,26 +25,23 @@ namespace Examino.Application.Functions.Raports.Queries
         {
             var connection = await _connectionService.GetAsync();
 
-            const string sqlRaport = "SELECT " +
-                                     "[Raports].[Id]," +
-                                     "[Raports].[PatientId], " +
-                                     "[Raports].[DoctorId], " +
-                                     "[Raports].[RaportTime], " +
-                                     "[Raports].[Symptoms], " +
-                                     "[Raports].[Examination], " +
-                                     "[Raports].[Diagnosis], " +
-                                     "[Raports].[Recommendation], " +
-                                     "[Raports].[Comment] " +
-                                     "FROM [Raports] " +
-                                     "WHERE [Raports].[PatientId] = @PatientId";
+            string sqlRaport =      $@"SELECT {nameof(Raport.Id)},
+                                              {nameof(Raport.PatientId)},
+                                              {nameof(Raport.RaportTime)},
+                                              {nameof(Raport.Symptoms)},
+                                              {nameof(Raport.Examination)},
+                                              {nameof(Raport.Diagnosis)},
+                                              {nameof(Raport.Recommendation)},
+                                              {nameof(Raport.Comment)}
+                                              FROM {(Dbo.Raports)}
+                                              WHERE {nameof(Raport.PatientId)} = @PatientId";
 
             var foundRaports = await connection.QueryAsync<RaportDto>(sqlRaport, new { request.PatientId });
 
-            const string sqlPrescription = "SELECT " +
-                                           "[Prescriptions].[Id], " +
-                                           "[Prescriptions].[RaportId], " +
-                                           "[Prescriptions].[Medicines] " +
-                                           "FROM [Prescriptions] ";
+            string sqlPrescription = $@"SELECT {nameof(Prescription.Id)},
+                                               {nameof(Prescription.RaportId)},
+                                               {nameof(Prescription.Medicines)}
+                                               FROM {(Dbo.Prescriptions)}";
 
             var foundPrescription = await connection.QueryAsync<PrescriptionDto>(sqlPrescription);
 
@@ -54,7 +51,7 @@ namespace Examino.Application.Functions.Raports.Queries
                                       "[Users].[Name], " +
                                       "[Users].[Surname] " +
                                       "FROM [Users] " +
-                                      "WHERE [Users].[UserType] = @patient";
+                                      "WHERE [Users].[UserType] = @patient";           
 
             var foundPatient = await connection.QueryAsync<PatientDto>(sqlPatient, new { patient = "Patient" });
 

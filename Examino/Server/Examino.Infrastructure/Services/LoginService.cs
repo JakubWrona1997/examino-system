@@ -34,9 +34,11 @@ namespace Examino.Infrastructure.Services
             _authenticationSettings = authenticationSettings;
         }
         public string GenerateJwt(string email, string password)
-        {
+        {           
             PasswordVerificationResult result;
+
             var user = _userManager.FindByEmailAsync(email).Result;
+
             if (user is null)
             {
                 return null;
