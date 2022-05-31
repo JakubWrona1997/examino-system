@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+appsettings.Development.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -452,5 +453,3 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-##custom files
-Examino/Server/Examino.API/appsettings.Development.json
