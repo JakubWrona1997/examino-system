@@ -22,25 +22,18 @@ const PatientProfile = () => {
     phoneNumber: yup
       .string()
       .matches(/^[0-9]+$/, "Numer telefonu może zawierać tylko cyfry")
-      .length(9, "Numer telefonu musi zawierać 9 cyfr")
-      .required("To pole jest wymagane"),
+      .length(9, "Numer telefonu musi zawierać 9 cyfr"),
     postalCode: yup
       .string()
-      .matches(/^[0-9]{2}-[0-9]{3}$/, "Kod pocztowy musi mieć format [XX-XXX]")
-      .required("To pole jest wymagane"),
+      .matches(/^[0-9]{2}-[0-9]{3}$/, "Kod pocztowy musi mieć format [XX-XXX]"),
     city: yup
       .string()
-      .matches(/^[A-Z]/, "Nazwa miasta musi zaczynać się z dużej litery")
-      .required("To pole jest wymagane"),
+      .matches(/^[A-Z]/, "Nazwa miasta musi zaczynać się z dużej litery"),
     address: yup.string().required("To pole jest wymagane"),
     height: yup
       .string()
-      .matches(/^[0-9]+$/, "Wzrost może zawierać tylko cyfry")
-      .required("To pole jest wymagane"),
-    weight: yup
-      .string()
-      .matches(/^[0-9]+$/, "Waga może zawierać tylko cyfry")
-      .required("To pole jest wymagane"),
+      .matches(/^[0-9]+$/, "Wzrost może zawierać tylko cyfry"),
+    weight: yup.string().matches(/^[0-9]+$/, "Waga może zawierać tylko cyfry"),
     bloodType: yup
       .string()
       .oneOf([
@@ -52,8 +45,7 @@ const PatientProfile = () => {
         "B Rh+",
         "AB Rh-",
         "AB Rh+",
-      ])
-      .required("To pole jest wymagane"),
+      ]),
   });
 
   const {
