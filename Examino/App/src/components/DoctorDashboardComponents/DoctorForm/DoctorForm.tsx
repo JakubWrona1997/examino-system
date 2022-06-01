@@ -1,14 +1,19 @@
 import React from "react";
+import { useAppDispatch } from "../../../app/store";
+import { createRaport } from "../../../features/raportSlice";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RaportCreateViewModel } from "../../../models/Raports/RaportCreateViewModel";
+import { PrescriptionCreateViewModel } from "../../../models/Prescriptions/PrescriptionCreateViewModel";
 import "./DoctorForm.scss";
 import TextareaField from "../../common/Forms/TextareaField/TextareaField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
 
 const DoctorForm = () => {
-  const raportSchema = yup.object().shape({
+  const dispatch = useAppDispatch();
+
+  const formSchema = yup.object().shape({
     patientId: yup.string().required("To pole jest wymagane"),
     sympthoms: yup.string().required("To pole jest wymagane"),
     examination: yup.string().required("To pole jest wymagane"),
@@ -23,12 +28,21 @@ const DoctorForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RaportCreateViewModel>({
-    resolver: yupResolver(raportSchema),
+  } = useForm<RaportCreateViewModel & PrescriptionCreateViewModel>({
+    resolver: yupResolver(formSchema),
   });
 
-  const onSubmit = (data: RaportCreateViewModel) => {
-    // TODO - dispatch raport create
+  const onSubmit = (
+    data: RaportCreateViewModel & PrescriptionCreateViewModel
+  ) => {
+    const { prescription, ...raportData } = data;
+    dispatch(createRaport(raportData));
+
+    // const prescriptionData = {
+    //   patientId: data.patientId,
+    //   prescription: data.prescription,
+    // };
+    // dispatch(createPrescription(prescriptionData))
   };
 
   return (
@@ -43,7 +57,7 @@ const DoctorForm = () => {
                 name="patientId"
                 errors={errors}
                 label="Pacjent"
-                options={[{ value: "patientId", label: "patientName" }]} // TODO - patient options
+                options={[]} // TODO - patient options
               />
               <TextareaField
                 register={register}
