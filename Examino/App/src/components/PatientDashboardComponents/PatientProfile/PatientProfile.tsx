@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RootState, useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
+import { updateUser } from "../../../features/userSlice";
 import { format } from "date-fns";
 import "./PatientProfile.scss";
 import InputField from "../../common/Forms/InputField/InputField";
@@ -59,17 +60,23 @@ const PatientProfile = () => {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<UserDataViewModel>({
     resolver: yupResolver(editProfileSchema),
-    defaultValues: {
-      ...userData,
-      dateOfBirth: format(new Date(userData.dateOfBirth), "yyyy-MM-dd"),
-    },
   });
 
+  useEffect(() => {
+    if (userData && userData.dateOfBirth) {
+      reset({
+        ...userData,
+        dateOfBirth: format(new Date(userData.dateOfBirth), "yyyy-MM-dd"),
+      });
+    }
+  }, [userData, reset]);
+
   const onSubmit = (data: UserUpdateDataViewModel) => {
-    // TODO - dispatch update
+    dispatch(updateUser(data));
   };
 
   return (
