@@ -9,6 +9,15 @@
     border: 1px solid #ccc;
     border-radius: 0.25rem;
   }
+  textarea:focus-visible {
+    outline: none;
+  }
+  textarea::placeholder {
+    color: #808080;
+  }
+  textarea:disabled {
+    background-color: #f2f2f2;
+  }
   textarea.is-invalid {
     border-color: #dc3545;
   }

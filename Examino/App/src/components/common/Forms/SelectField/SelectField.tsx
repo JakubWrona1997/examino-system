@@ -10,13 +10,20 @@ interface Props {
   label: string;
   options: SelectFieldOptionViewModel[];
   placeholder?: string;
+  disabled?: boolean;
 }
 
 const customStyles: StylesConfig<SelectFieldOptionViewModel, false> = {
-  control: (provided) => ({
+  control: (provided, { isDisabled }) => ({
     ...provided,
     height: "40",
     minHeight: "40",
+    borderColor: "#ccc",
+    boxShadow: "none",
+    "&:hover": {
+      borderColor: "#ccc",
+    },
+    color: isDisabled ? "#545454" : "inherit",
   }),
   valueContainer: (provided) => ({
     ...provided,
@@ -44,6 +51,7 @@ const SelectField = ({
   label,
   options,
   placeholder,
+  disabled,
 }: Props) => {
   return (
     <div className="form-field">
@@ -59,6 +67,7 @@ const SelectField = ({
               value={options.filter((option) => value?.includes(option.value))}
               onChange={(option) => onChange(option?.value)}
               styles={customStyles}
+              isDisabled={disabled}
             />
           );
         }}

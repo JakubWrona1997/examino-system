@@ -8,15 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./RegisterPage.scss";
 import InputField from "../../components/common/Forms/InputField/InputField";
-
-interface FormInputs {
-  name: string;
-  surname: string;
-  pesel: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import { UserRegisterDataViewModel } from "../../models/Users/UserRegisterDataViewModel";
 
 const RegisterPage = () => {
   const { user, loading, error } = useSelector(
@@ -85,13 +77,12 @@ const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormInputs>({
+  } = useForm<UserRegisterDataViewModel>({
     resolver: yupResolver(registerSchema),
   });
 
-  const onSubmit = (data: FormInputs) => {
-    const { confirmPassword, ...dataCopy } = data;
-    dispatch(registerUser(dataCopy));
+  const onSubmit = (data: UserRegisterDataViewModel) => {
+    dispatch(registerUser(data));
   };
 
   return (

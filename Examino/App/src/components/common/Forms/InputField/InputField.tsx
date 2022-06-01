@@ -9,6 +9,7 @@ interface Props {
   label: string;
   placeholder?: string;
   serverErrors?: string[];
+  disabled?: boolean;
 }
 
 const InputField = ({
@@ -19,6 +20,7 @@ const InputField = ({
   label,
   placeholder,
   serverErrors,
+  disabled,
 }: Props) => {
   return (
     <div className="form-field">
@@ -28,6 +30,7 @@ const InputField = ({
         className={errors[name] ? "is-invalid" : ""}
         type={type}
         placeholder={placeholder}
+        disabled={disabled}
       />
       {errors[name] && (
         <div className="form-field-error">{errors[name].message}</div>

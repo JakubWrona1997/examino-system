@@ -52,9 +52,11 @@ namespace Examino.Application.Controllers
             {
                 return StatusCode(result.StatusCode, result.Message);
             }
-
-            return Ok(result.Token);
-            
+            CookieOptions cookieOptions = new CookieOptions();
+            cookieOptions.HttpOnly = true;
+            cookieOptions.Expires = DateTime.Now.AddDays(15);
+            HttpContext.Response.Cookies.Append("tokenCookie", result.Token.ToString(), cookieOptions);
+            return Ok();
         }
 
         [HttpPost("logout")]
@@ -68,7 +70,7 @@ namespace Examino.Application.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(UserViewModel), (int)HttpStatusCode.OK)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task <ActionResult<UserViewModel>> GetUserDetails()
+        public async Task<ActionResult<UserViewModel>> GetUserDetails()
         {
             var userId = _userProvider.GetUserId();
 
