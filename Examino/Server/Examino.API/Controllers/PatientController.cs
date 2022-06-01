@@ -56,7 +56,8 @@ namespace Examino.Application.Controllers
             cookieOptions.HttpOnly = true;
             cookieOptions.Expires = DateTime.Now.AddDays(15);
             HttpContext.Response.Cookies.Append("tokenCookie", result.Token.ToString(), cookieOptions);
-            return Ok();
+
+            return Ok(result.Token.ToString());
         }
 
         [HttpPost("logout")]
@@ -64,6 +65,13 @@ namespace Examino.Application.Controllers
         {            
 
             return Ok();
+        }
+
+        [HttpGet("auth")]
+        public async Task<ActionResult> Get()
+        {
+            var token = _userProvider.GetToken();
+            return Ok(token);
         }
 
         [HttpGet]

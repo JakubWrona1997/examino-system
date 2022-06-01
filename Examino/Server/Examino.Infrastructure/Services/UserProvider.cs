@@ -29,5 +29,11 @@ namespace Examino.Infrastructure.Services
 
             return result;
         }
+        public string GetToken()
+        {
+            var token = _httpContextAccessor.HttpContext.Request.Cookies["tokenCookie"];
+
+            return token;
+        }
     }
 }
