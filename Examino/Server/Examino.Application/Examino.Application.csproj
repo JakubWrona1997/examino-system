@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Folder Include="Functions\Prescriptions\Queries\" />
-    <Folder Include="Functions\Raports\Commands\UpdateRaport\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Prescriptions.Queries
+namespace Examino.Application.Functions.Users.Login.Queries.GetUserDetails
 {
     public class GetUserDetailsQueryHandler : IRequestHandler<GetUserDetailsQuery, UserViewModel>
     {

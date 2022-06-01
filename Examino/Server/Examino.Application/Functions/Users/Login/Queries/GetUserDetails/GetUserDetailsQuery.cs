@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Prescriptions.Queries
+namespace Examino.Application.Functions.Users.Login.Queries.GetUserDetails
 {
     public class GetUserDetailsQuery : IRequest<UserViewModel>
     {

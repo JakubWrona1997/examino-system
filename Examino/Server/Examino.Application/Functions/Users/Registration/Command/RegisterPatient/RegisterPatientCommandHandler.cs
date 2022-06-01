@@ -5,7 +5,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Registration.PatientRegistration.Command
+namespace Examino.Application.Functions.Users.Registration.Command.RegisterPatient
 {
     public class RegisterPatientCommandHandler : IRequestHandler<RegisterPatientCommand, RegisterPatientCommandResponse>
     {

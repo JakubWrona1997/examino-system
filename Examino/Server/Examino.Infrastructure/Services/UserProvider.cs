@@ -1,5 +1,6 @@
 ﻿using Examino.Domain.Contracts;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,6 @@ namespace Examino.Infrastructure.Services
             Guid.TryParse(_httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier).Value, out result);
 
             return result;
-        }       
+        }
     }
 }

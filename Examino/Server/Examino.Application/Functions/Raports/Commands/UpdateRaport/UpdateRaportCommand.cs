@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Domain.Contracts
+namespace Examino.Application.Functions.Raports.Commands.UpdateRaport
 {
-    public interface IUserProvider
+    public record UpdateRaportCommand
     {
-        public Guid GetUserId();     
+
     }
 }

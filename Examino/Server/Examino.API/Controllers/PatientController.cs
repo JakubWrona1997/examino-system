@@ -1,6 +1,7 @@
-﻿using Examino.Application.Functions.Login.Commands.Login;
-using Examino.Application.Functions.Prescriptions.Queries;
-using Examino.Application.Functions.Registration.PatientRegistration;
+﻿using Examino.Application.Functions.Users.Login.Commands.UserLogin;
+using Examino.Application.Functions.Users.Login.Queries.GetUserDetails;
+using Examino.Application.Functions.Users.Registration.Command.RegisterPatient;
+using Examino.Application.Functions.Users.UserDetails.UpdateUserDetails;
 using Examino.Domain.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -56,6 +57,14 @@ namespace Examino.Application.Controllers
             
         }
 
+        [HttpPost("logout")]
+        public async Task<ActionResult> Logout()
+        {
+            
+
+            return Ok();
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(UserViewModel), (int)HttpStatusCode.OK)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -66,6 +75,19 @@ namespace Examino.Application.Controllers
             var user = await _mediator.Send(new GetUserDetailsQuery(userId));
 
             return Ok(user);
+        }
+
+        [HttpPut]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> UpdateUserDetails([FromBody]UpdateUserDetailsCommand updateUserDetailsCommand)
+        {
+            var userId = _userProvider.GetUserId();
+
+            updateUserDetailsCommand.UserId = userId;
+
+            await _mediator.Send(updateUserDetailsCommand);
+
+            return Ok();
         }
     }
 }

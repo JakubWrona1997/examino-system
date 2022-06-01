@@ -1,7 +1,7 @@
-﻿using Examino.Application.Functions.Registration.PatientRegistration.Command;
+﻿using Examino.Application.Functions.Users.Registration.Command.RegisterPatient;
 using MediatR;
 
-namespace Examino.Application.Functions.Registration.PatientRegistration
+namespace Examino.Application.Functions.Users.Registration.Command.RegisterPatient
 {
     public record RegisterPatientCommand : IRequest<RegisterPatientCommandResponse>
     {

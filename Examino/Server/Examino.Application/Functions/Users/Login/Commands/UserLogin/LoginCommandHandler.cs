@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Login.Commands.Login
+namespace Examino.Application.Functions.Users.Login.Commands.UserLogin
 {
     public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginCommandResponse>
     {

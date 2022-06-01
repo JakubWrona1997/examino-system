@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Prescriptions.Queries
+namespace Examino.Application.Functions.Users.Login.Queries.GetUserDetails
 {
     public class UserViewModel
     {
@@ -20,5 +20,6 @@ namespace Examino.Application.Functions.Prescriptions.Queries
         public int? Weight { get; set; }
         public string? BloodType { get; set; }
         public string? Gender { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }

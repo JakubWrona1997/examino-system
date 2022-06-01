@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Raports.Queries
+namespace Examino.Application.Functions.Raports.Queries.GetPatientRaport
 {
     public class GetPatientRaportQueryHandler : IRequestHandler<GetPatientRaportQuery, List<RaportViewModel>>
     {
@@ -27,6 +27,7 @@ namespace Examino.Application.Functions.Raports.Queries
 
             string sqlRaport =      $@"SELECT {nameof(Raport.Id)},
                                               {nameof(Raport.PatientId)},
+                                              {nameof(Raport.DoctorId)},
                                               {nameof(Raport.RaportTime)},
                                               {nameof(Raport.Symptoms)},
                                               {nameof(Raport.Examination)},
@@ -68,11 +69,11 @@ namespace Examino.Application.Functions.Raports.Queries
 
             foreach (var raport in foundRaports)
             {
-                var doctor = foundDoctor?.Where(doc => doc.Id == raport.DoctorId).FirstOrDefault();
+                var doctor = foundDoctor?.FirstOrDefault(doc => doc.Id == raport.DoctorId);
 
-                var patient = foundPatient?.Where(pat => pat.Id == raport.PatientId).FirstOrDefault();
+                var patient = foundPatient?.FirstOrDefault(pat => pat.Id == raport.PatientId);
 
-                var prescriptionFromRaport = foundPrescription?.Where(rap => rap.RaportId == raport.Id).FirstOrDefault();
+                var prescriptionFromRaport = foundPrescription?.FirstOrDefault(rap => rap.RaportId == raport.Id);
 
                 listOfViewModels.Add(new RaportViewModel
                 {
