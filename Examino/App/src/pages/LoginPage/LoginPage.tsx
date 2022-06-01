@@ -8,11 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./LoginPage.scss";
 import InputField from "../../components/common/Forms/InputField/InputField";
-
-interface FormInputs {
-  email: string;
-  password: string;
-}
+import { UserLoginDataViewModel } from "../../models/Users/UserLoginDataViewModel";
 
 const LoginPage = () => {
   const { user, loading, error } = useSelector(
@@ -42,11 +38,11 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormInputs>({
+  } = useForm<UserLoginDataViewModel>({
     resolver: yupResolver(loginSchema),
   });
 
-  const onSubmit = (data: FormInputs) => {
+  const onSubmit = (data: UserLoginDataViewModel) => {
     dispatch(loginUser(data));
   };
 

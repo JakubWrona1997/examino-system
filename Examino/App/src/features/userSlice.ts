@@ -3,6 +3,7 @@ import { RootState } from "../app/store";
 import axios from "axios";
 import { UserViewModel } from "../models/Users/UserViewModel";
 import { UserDataViewModel } from "../models/Users/UserDataViewModel";
+import { UserUpdateDataViewModel } from "../models/Users/UserUpdatedDataViewModel";
 import { UserLoginDataViewModel } from "../models/Users/UserLoginDataViewModel";
 import { UserRegisterDataViewModel } from "../models/Users/UserRegisterDataViewModel";
 import { UserRegisterErrorsViewModel } from "../models/Users/UserRegisterErrorsViewModel";
@@ -86,7 +87,7 @@ export const getUser = createAsyncThunk<
 // PUT /api/patient/update
 export const updateUser = createAsyncThunk<
   UserDataViewModel,
-  UserDataViewModel,
+  UserUpdateDataViewModel,
   { state: RootState; rejectValue: string }
 >("user/update", async (userData, thunkAPI) => {
   try {
