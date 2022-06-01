@@ -68,6 +68,7 @@ namespace Examino.Application.Controllers
         }
 
         [HttpGet("auth")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Get()
         {
             var token = _userProvider.GetToken();
