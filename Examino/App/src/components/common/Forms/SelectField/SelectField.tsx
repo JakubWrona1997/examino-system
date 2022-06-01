@@ -17,6 +17,11 @@ const customStyles: StylesConfig<SelectFieldOptionViewModel, false> = {
     ...provided,
     height: "40",
     minHeight: "40",
+    borderColor: "#ccc",
+    boxShadow: "none",
+    "&:hover": {
+      borderColor: "#ccc",
+    },
   }),
   valueContainer: (provided) => ({
     ...provided,

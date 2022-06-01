@@ -1,7 +1,7 @@
 .dashboard {
   display: flex;
-  height: 100vh;
   &-navigation {
+    position: fixed;
     margin-top: 2rem;
     width: 300px;
     &-logo {
@@ -16,7 +16,9 @@
     }
   }
   &-content {
-    width: 100%;
+    position: relative;
+    left: 300px;
+    width: calc(100% - 300px - 2rem);
     margin: 2rem 2rem 2rem 0;
     &-header {
       font-size: 2.4rem;

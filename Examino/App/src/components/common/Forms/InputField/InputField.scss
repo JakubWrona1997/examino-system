@@ -10,6 +10,9 @@
     border: 1px solid #ccc;
     border-radius: 0.25rem;
   }
+  input:focus-visible {
+    outline: none;
+  }
   input.is-invalid {
     border-color: #dc3545;
   }

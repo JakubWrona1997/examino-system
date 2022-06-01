@@ -9,6 +9,9 @@
     border: 1px solid #ccc;
     border-radius: 0.25rem;
   }
+  textarea:focus-visible {
+    outline: none;
+  }
   textarea.is-invalid {
     border-color: #dc3545;
   }
