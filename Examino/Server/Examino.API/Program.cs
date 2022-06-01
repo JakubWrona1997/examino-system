@@ -68,6 +68,7 @@ app.UseCors(builder =>
         .AllowAnyMethod()
         .AllowAnyHeader();
 });
+app.UseMiddleware<AuthorizationHeader>();
 
 app.UseAuthentication();
 
@@ -78,8 +79,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseMiddleware<AuthorizationHeader>();
 
 app.UseAuthorization();
 
