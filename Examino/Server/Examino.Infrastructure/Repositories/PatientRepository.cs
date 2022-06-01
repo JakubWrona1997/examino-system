@@ -1,12 +1,11 @@
-<<<<<<< HEAD
-﻿using AutoMapper;
+using AutoMapper;
+using Dapper;
+using Examino.Domain;
 using Examino.Domain.Contracts;
 using Examino.Domain.DTOs;
-=======
 ﻿using Dapper;
 using Examino.Domain;
 using Examino.Domain.Contracts;
->>>>>>> 67b40dbb51e1958aa65367b2fc10ca126b8c5db8
 using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,23 +19,15 @@ namespace Examino.Infrastructure.Repositories
 {
     public class PatientRepository : IPatientRepository
     {
-<<<<<<< HEAD
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _db;
-
-        public PatientRepository(UserManager<ApplicationUser> userManager, ApplicationDbContext db, IMapper mapper)
-        {
-            _mapper = mapper;
-=======
         private readonly ISqlConnectionService _connectionService;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ApplicationDbContext _db;
 
-        public PatientRepository(UserManager<ApplicationUser> userManager, ApplicationDbContext db, ISqlConnectionService connectionService)
+        public PatientRepository(UserManager<ApplicationUser> userManager, ApplicationDbContext db, ISqlConnectionService connectionService, IMapper mapper)
         {
             _connectionService = connectionService;
->>>>>>> 67b40dbb51e1958aa65367b2fc10ca126b8c5db8
+            _mapper = mapper;
             _userManager = userManager;
             _db = db;
         }

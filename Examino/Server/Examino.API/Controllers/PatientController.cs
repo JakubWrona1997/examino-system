@@ -61,8 +61,7 @@ namespace Examino.Application.Controllers
 
         [HttpPost("logout")]
         public async Task<ActionResult> Logout()
-        {
-            
+        {            
 
             return Ok();
         }
@@ -89,7 +88,7 @@ namespace Examino.Application.Controllers
 
             await _mediator.Send(updateUserDetailsCommand);
 
-            return Ok();
+            return RedirectToAction("GetUserDetails");
         }
     }
 }
