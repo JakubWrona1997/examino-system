@@ -79,6 +79,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<AuthorizationHeader>();
+
 app.UseAuthorization();
 
 app.MapControllers();
