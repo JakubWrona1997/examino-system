@@ -54,7 +54,7 @@ export const loginUser = createAsyncThunk<
   { rejectValue: string }
 >("user/login", async (userData, thunkAPI) => {
   try {
-    const res = await axios.post("/api/patient/login", userData);
+    const res = await axios.post("/api/patient/login", userData, {withCredentials: true});
     localStorage.setItem("token", res.data);
     return jwtDecode(res.data);
   } catch (error: any) {
@@ -76,7 +76,7 @@ export const getUser = createAsyncThunk<
         Authorization: `Bearer ${token}`,
       },
     };
-    const res = await axios.get("/api/patient", config);
+    const res = await axios.get("/api/patient", config,);
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);

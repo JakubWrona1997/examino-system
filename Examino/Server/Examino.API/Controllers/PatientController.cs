@@ -52,9 +52,16 @@ namespace Examino.Application.Controllers
             {
                 return StatusCode(result.StatusCode, result.Message);
             }
-            CookieOptions cookieOptions = new CookieOptions();
-            cookieOptions.HttpOnly = true;
-            cookieOptions.Expires = DateTime.Now.AddDays(15);
+            CookieOptions cookieOptions = new CookieOptions()
+            {
+                Path = "/",
+                HttpOnly = true,
+                Domain = "localhost",
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = DateTime.Now.AddDays(15)
+            };
+            
             HttpContext.Response.Cookies.Append("tokenCookie", result.Token.ToString(), cookieOptions);
 
             return Ok(result.Token.ToString());
@@ -62,7 +69,7 @@ namespace Examino.Application.Controllers
 
         [HttpPost("logout")]
         public async Task<ActionResult> Logout()
-        {            
+        {
 
             return Ok();
         }
@@ -89,7 +96,7 @@ namespace Examino.Application.Controllers
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> UpdateUserDetails([FromBody]UpdateUserDetailsCommand updateUserDetailsCommand)
+        public async Task<ActionResult> UpdateUserDetails([FromBody] UpdateUserDetailsCommand updateUserDetailsCommand)
         {
             var userId = _userProvider.GetUserId();
 

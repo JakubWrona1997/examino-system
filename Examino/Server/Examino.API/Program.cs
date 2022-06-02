@@ -26,7 +26,9 @@ builder.Services.AddAuthentication(option =>
     option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(cfg =>
+})
+.AddCookie()
+.AddJwtBearer(cfg =>
 {
     cfg.RequireHttpsMetadata = false;
     cfg.SaveToken = true;
@@ -60,14 +62,15 @@ var app = builder.Build();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
-
 app.UseCors(builder =>
 {
     builder
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader();
+    .AllowCredentials()
+    .SetIsOriginAllowed(origin => true)
+    .AllowAnyMethod()
+    .AllowAnyHeader();
 });
+
 app.UseMiddleware<AuthorizationHeader>();
 
 app.UseAuthentication();
