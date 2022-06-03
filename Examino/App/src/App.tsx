@@ -13,20 +13,23 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import PatientDashboardPage from "./pages/DashboardPages/PatientDashboardPage/PatientDashboardPage";
 import DoctorDashboardPage from "./pages/DashboardPages/DoctorDashboardPage/DoctorDashboardPage";
+import RaportDetails from "./components/RaportDetails/RaportDetails";
+import PrescriptionDetails from "./components/PrescriptionDetails/PrescriptionDetails";
 import PatientPanel from "./components/PatientDashboardComponents/PatientPanel/PatientPanel";
 import PatientHistory from "./components/PatientDashboardComponents/PatientHistory/PatientHistory";
 import PatientProfile from "./components/PatientDashboardComponents/PatientProfile/PatientProfile";
-import RaportDetails from "./components/PatientDashboardComponents/RaportDetails/RaportDetails";
-import PrescriptionDetails from "./components/PatientDashboardComponents/PrescriptionDetails/PrescriptionDetails";
 import DoctorPanel from "./components/DoctorDashboardComponents/DoctorPanel/DoctorPanel";
+import DoctorHistory from "./components/DoctorDashboardComponents/DoctorHistory/DoctorHistory";
 import DoctorForm from "./components/DoctorDashboardComponents/DoctorForm/DoctorForm";
+import DoctorSchedule from "./components/DoctorDashboardComponents/DoctorSchedule/DoctorSchedule";
+import DoctorProfile from "./components/DoctorDashboardComponents/DoctorProfile/DoctorProfile";
 
 function App() {
   return (
     <AuthenticationRoute>
       <Router>
         <Routes>
-          <Route element={<ProtectedRoute allowedRole="Patient" />}>
+          <Route element={<ProtectedRoute allowedRole="patient" />}>
             <Route path="patient" element={<PatientDashboardPage />}>
               <Route index element={<Navigate to="panel" />} />
               <Route path="panel" element={<PatientPanel />} />
@@ -41,11 +44,21 @@ function App() {
               <Route path="profile" element={<PatientProfile />} />
             </Route>
           </Route>
-          <Route element={<ProtectedRoute allowedRole="Doctor" />}>
+          <Route element={<ProtectedRoute allowedRole="doctor" />}>
             <Route path="doctor" element={<DoctorDashboardPage />}>
               <Route index element={<Navigate to="panel" />} />
               <Route path="panel" element={<DoctorPanel />} />
+              <Route path="history" element={<Outlet />}>
+                <Route index element={<DoctorHistory />} />
+                <Route path="raport/:id" element={<RaportDetails />} />
+                <Route
+                  path="prescription/:id"
+                  element={<PrescriptionDetails />}
+                />
+              </Route>
               <Route path="form" element={<DoctorForm />} />
+              <Route path="schedule" element={<DoctorSchedule />} />
+              <Route path="profile" element={<DoctorProfile />} />
             </Route>
           </Route>
           <Route path="register" element={<RegisterPage />} />
