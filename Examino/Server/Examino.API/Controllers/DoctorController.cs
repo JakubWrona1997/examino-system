@@ -1,49 +1,26 @@
 ﻿using Examino.Application.Functions.Users.Login.Commands.UserLogin;
-using Examino.Application.Functions.Users.Login.Queries.GetPatientDetails;
-using Examino.Application.Functions.Users.Registration.Command.RegisterPatient;
-using Examino.Application.Functions.Users.UserDetails.UpdateUserDetails;
+using Examino.Application.Functions.Users.Login.Queries.GetDoctorDetails;
 using Examino.Domain.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
-namespace Examino.Application.Controllers
+namespace Examino.API.Controllers
 {
-    [Route("api/patient")]
+    [Route("api/doctor")]
     [ApiController]
-    public class PatientController : ControllerBase
+    public class DoctorController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IUserProvider _userProvider;
 
-        public PatientController(IMediator mediator, IUserProvider userProvider)
+        public DoctorController(IMediator mediator, IUserProvider userProvider)
         {
             _mediator = mediator;
             _userProvider = userProvider;
         }
-
-        [HttpPost("register")]
-        public async Task<ActionResult> RegisterPatientAsync([FromBody] RegisterPatientCommand RegisterPatientData)
-        {
-            var result = await _mediator.Send(RegisterPatientData);
-
-            if (result.Success == false)
-            {
-                return StatusCode(result.StatusCode, result.Message);
-            }
-
-            var RedirectedStatus = await Login(new LoginCommand { Email = result.Email, Password = result.Password });
-
-            return RedirectedStatus;
-        }
-
         [HttpPost("login")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Login([FromBody] LoginCommand loginCommand)
@@ -62,7 +39,7 @@ namespace Examino.Application.Controllers
                 SameSite = SameSiteMode.None,
                 Expires = DateTime.Now.AddDays(15)
             };
-            
+
             HttpContext.Response.Cookies.Append("tokenCookie", result.Token.ToString(), cookieOptions);
 
             return Ok(result.Token.ToString());
@@ -84,28 +61,15 @@ namespace Examino.Application.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(PatientViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(DoctorViewModel), (int)HttpStatusCode.OK)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<PatientViewModel>> GetPatientDetails()
+        public async Task<ActionResult<DoctorViewModel>> GetPatientDetails()
         {
             var userId = _userProvider.GetUserId();
 
-            var user = await _mediator.Send(new GetPatientDetailsQuery(userId));
+            var user = await _mediator.Send(new GetDoctorDetailsQuery(userId));
 
             return Ok(user);
-        }
-
-        [HttpPut]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> UpdateUserDetails([FromBody] UpdateUserDetailsCommand updateUserDetailsCommand)
-        {
-            var userId = _userProvider.GetUserId();
-
-            updateUserDetailsCommand.UserId = userId;
-
-            await _mediator.Send(updateUserDetailsCommand);
-
-            return Ok();
         }
     }
 }

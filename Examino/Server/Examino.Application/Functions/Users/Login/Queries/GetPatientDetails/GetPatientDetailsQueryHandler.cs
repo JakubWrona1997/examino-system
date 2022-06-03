@@ -1,5 +1,7 @@
 ﻿using Dapper;
 using Examino.Domain;
+using Examino.Domain.ConnectionServices;
+using Examino.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -22,22 +24,22 @@ namespace Examino.Application.Functions.Users.Login.Queries.GetPatientDetails
         {
             var connection = await _connectionService.GetAsync();
 
-            const string sqlUser = "SELECT " +
-                                   "[Users].[Id]," +
-                                   "[Users].[Name], " +
-                                   "[Users].[Surname], " +
-                                   "[Users].[BirthDay] AS [DateOfBirth], " +
-                                   "[Users].[PESEL], " +
-                                   "[Users].[Address], " +
-                                   "[Users].[City], " +
-                                   "[Users].[Height], " +
-                                   "[Users].[Weight], " +
-                                   "[Users].[PostalCode], " +
-                                   "[Users].[BloodType], " +
-                                   "[Users].[Gender], " +
-                                   "[Users].[PhoneNumber] " +
-                                   "FROM [Users] " +
-                                   "WHERE [Users].[Id] = @UserId";
+            string sqlUser = $@"SELECT
+                                {(Dbo.Users)}.{nameof(Patient.Id)},
+                                {(Dbo.Users)}.{nameof(Patient.Name)},
+                                {(Dbo.Users)}.{nameof(Patient.Surname)},
+                                {(Dbo.Users)}.{nameof(Patient.BirthDay)} AS [DateOfBirth],
+                                {(Dbo.Users)}.{nameof(Patient.PESEL)},
+                                {(Dbo.Users)}.{nameof(Patient.Address)},
+                                {(Dbo.Users)}.{nameof(Patient.City)},
+                                {(Dbo.Users)}.{nameof(Patient.Height)},
+                                {(Dbo.Users)}.{nameof(Patient.Weight)},
+                                {(Dbo.Users)}.{nameof(Patient.PostalCode)},
+                                {(Dbo.Users)}.{nameof(Patient.BloodType)},
+                                {(Dbo.Users)}.{nameof(Patient.Gender)},
+                                {(Dbo.Users)}.{nameof(Patient.PhoneNumber)}
+                                FROM {(Dbo.Users)}
+                                WHERE {(Dbo.Users)}.{nameof(Patient.Id)} = @UserId";
 
             var foundUser = await connection.QueryFirstAsync<PatientViewModel>(sqlUser, new { request.UserId });
 

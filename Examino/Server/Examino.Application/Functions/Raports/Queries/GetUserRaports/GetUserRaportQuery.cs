@@ -9,14 +9,14 @@ namespace Examino.Application.Functions.Raports.Queries.GetUserRaports
 {
     public class GetUserRaportQuery : IRequest<List<RaportViewModel>>
     {
-        public Guid PatientId { get;} = Guid.Empty;
-        public Guid DoctorId { get;} = Guid.Empty;
+        public Guid PatientId { get; set; } = Guid.Empty;
+        public Guid DoctorId { get; set; } = Guid.Empty;
         public GetUserRaportQuery(Guid userId, string role)
         {
             if(role == "Patient")
                 PatientId = userId;
             if(role == "Doctor")
-                DoctorId = userId;
+                DoctorId = userId;           
         }
 
     }

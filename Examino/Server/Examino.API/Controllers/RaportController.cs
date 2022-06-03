@@ -1,7 +1,7 @@
 ﻿using Examino.Application.Functions.Raports.Commands.CreateRaport;
 using Examino.Application.Functions.Raports.Commands.DeleteRaport;
 using Examino.Application.Functions.Raports.Queries;
-using Examino.Application.Functions.Raports.Queries.GetPatientRaport;
+using Examino.Application.Functions.Raports.Queries.GetUserRaports;
 using Examino.Domain.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
