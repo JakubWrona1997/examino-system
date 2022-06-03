@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserViewModel } from "../models/Users/UserViewModel";
 import { UserDataViewModel } from "../models/Users/UserDataViewModel";
-import { UserUpdateDataViewModel } from "../models/Users/UserUpdatedDataViewModel";
+import { PatientUpdateDataViewModel } from "../models/Users/PatientUpdateDataViewModel";
 import { UserLoginDataViewModel } from "../models/Users/UserLoginDataViewModel";
 import { UserRegisterDataViewModel } from "../models/Users/UserRegisterDataViewModel";
 import { UserRegisterErrorsViewModel } from "../models/Users/UserRegisterErrorsViewModel";
@@ -30,7 +30,7 @@ const initialState: IUserState = {
   alert: undefined,
 };
 
-// Register User
+// Register user
 // POST /api/patient/register
 export const registerUser = createAsyncThunk<
   UserViewModel,
@@ -45,7 +45,7 @@ export const registerUser = createAsyncThunk<
   }
 });
 
-// Login User
+// Login user
 // POST /api/patient/login
 export const loginUser = createAsyncThunk<
   UserViewModel,
@@ -62,7 +62,7 @@ export const loginUser = createAsyncThunk<
 
 // Get user data
 // GET /api/patient
-export const getUser = createAsyncThunk<
+export const getUserData = createAsyncThunk<
   UserDataViewModel,
   void,
   { rejectValue: string }
@@ -75,13 +75,13 @@ export const getUser = createAsyncThunk<
   }
 });
 
-// Update User
+// Update Patient
 // PUT /api/patient/update
-export const updateUser = createAsyncThunk<
+export const updatePatient = createAsyncThunk<
   void,
-  UserUpdateDataViewModel,
+  PatientUpdateDataViewModel,
   { rejectValue: string }
->("user/update", async (userData, thunkAPI) => {
+>("patient/update", async (userData, thunkAPI) => {
   try {
     const res = await axios.put("/api/patient", userData);
     return res.data;
@@ -141,17 +141,10 @@ export const userSlice = createSlice({
         state.loading = "failed";
         state.error.login = action.payload;
       })
-      .addCase(getUser.pending, (state) => {
-        state.loading = "pending";
-      })
-      .addCase(getUser.fulfilled, (state, action) => {
-        state.loading = "fulfilled";
+      .addCase(getUserData.fulfilled, (state, action) => {
         state.userData = action.payload;
       })
-      .addCase(getUser.rejected, (state) => {
-        state.loading = "failed";
-      })
-      .addCase(updateUser.fulfilled, (state) => {
+      .addCase(updatePatient.fulfilled, (state) => {
         state.alert = "Profil zaktualizowano pomyślnie";
       })
       .addCase(authenticateUser.fulfilled, (state, action) => {

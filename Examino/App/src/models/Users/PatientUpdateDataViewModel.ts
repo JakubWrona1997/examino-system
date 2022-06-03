@@ -1,4 +1,4 @@
-export interface UserUpdateDataViewModel {
+export interface PatientUpdateDataViewModel {
   phoneNumber: string;
   postalCode: string;
   city: string;

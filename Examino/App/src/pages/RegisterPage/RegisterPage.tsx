@@ -20,9 +20,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (loading === "fulfilled" || user) {
-      if (user?.role === "Patient") navigate("/patient");
-      if (user?.role === "Doctor") navigate("/doctor");
-      if (user?.role === "Admin") navigate("/admin");
+      navigate(`/${user?.role}`);
     }
   }, [loading, user]);
 

@@ -4,14 +4,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RootState, useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { removeAlert, getUser, updateUser } from "../../../features/userSlice";
+import {
+  removeAlert,
+  getUserData,
+  updatePatient,
+} from "../../../features/userSlice";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 import "./PatientProfile.scss";
 import InputField from "../../common/Forms/InputField/InputField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
 import { UserDataViewModel } from "../../../models/Users/UserDataViewModel";
-import { UserUpdateDataViewModel } from "../../../models/Users/UserUpdatedDataViewModel";
+import { PatientUpdateDataViewModel } from "../../../models/Users/PatientUpdateDataViewModel";
 import { BloodTypeOptions } from "../../../constants/BloodTypeOptions";
 import { GenderOptions } from "../../../constants/GenderOptions";
 
@@ -75,9 +79,9 @@ const PatientProfile = () => {
     };
   }, [alert]);
 
-  const onSubmit = async (data: UserUpdateDataViewModel) => {
-    await dispatch(updateUser(data));
-    dispatch(getUser());
+  const onSubmit = async (data: PatientUpdateDataViewModel) => {
+    await dispatch(updatePatient(data));
+    dispatch(getUserData());
   };
 
   return (

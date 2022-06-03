@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../app/store";
-import { RaportViewModel } from "../../../models/Raports/RaportViewModel";
+import { RootState } from "../../app/store";
+import { RaportViewModel } from "../../models/Raports/RaportViewModel";
 import "./RaportDetails.scss";
 
 const RaportDetails = () => {
   const [raport, setRaport] = useState<RaportViewModel>();
   const params = useParams();
 
+  const { user } = useSelector((state: RootState) => state.user);
   const { raports } = useSelector((state: RootState) => state.raports);
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const RaportDetails = () => {
                   <th>Recepta</th>
                   <td>
                     <Link
-                      to={`/patient/history/prescription/${raport?.prescription.id}`}
+                      to={`/${user?.role}/history/prescription/${raport?.prescription.id}`}
                     >
                       Pokaż receptę
                     </Link>

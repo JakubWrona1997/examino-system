@@ -2,11 +2,13 @@ import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../app/store";
-import { getUser, logoutUser } from "../../../features/userSlice";
+import { getRaports } from "../../../features/raportSlice";
+import { getUserData, logoutUser } from "../../../features/userSlice";
 import {
   FaHeartbeat,
   FaThLarge,
   FaFileAlt,
+  FaClipboard,
   FaCalendarAlt,
   FaUserAlt,
   FaSignOutAlt,
@@ -21,7 +23,8 @@ const DoctorDashboardPage = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(getUser());
+      dispatch(getRaports());
+      dispatch(getUserData());
     } else {
       navigate("/");
     }
@@ -41,8 +44,9 @@ const DoctorDashboardPage = () => {
         </div>
         <div className="dashboard-navigation-links">
           <NavItem to="panel" label="Panel" icon={<FaThLarge />} />
+          <NavItem to="history" label="Historia" icon={<FaCalendarAlt />} />
           <NavItem to="form" label="Formularz" icon={<FaFileAlt />} />
-          <NavItem to="schedule" label="Terminarz" icon={<FaCalendarAlt />} />
+          <NavItem to="schedule" label="Terminarz" icon={<FaClipboard />} />
           <NavItem to="profile" label="Profil" icon={<FaUserAlt />} />
           <NavItem
             to="/"

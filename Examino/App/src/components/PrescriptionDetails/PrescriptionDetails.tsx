@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../app/store";
-import { RaportViewModel } from "../../../models/Raports/RaportViewModel";
+import { RootState } from "../../app/store";
+import { RaportViewModel } from "../../models/Raports/RaportViewModel";
 import "./PrescriptionDetails.scss";
 
 const PrescriptionDetails = () => {

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../app/store";
-import { getUser, logoutUser } from "../../../features/userSlice";
+import { getUserData, logoutUser } from "../../../features/userSlice";
 import { getRaports } from "../../../features/raportSlice";
 import {
   FaHeartbeat,
@@ -22,7 +22,7 @@ const PatientDashboardPage = () => {
   useEffect(() => {
     if (user) {
       dispatch(getRaports());
-      dispatch(getUser());
+      dispatch(getUserData());
     } else {
       navigate("/");
     }
