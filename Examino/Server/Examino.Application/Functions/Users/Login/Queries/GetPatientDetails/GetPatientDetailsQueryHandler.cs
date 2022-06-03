@@ -8,17 +8,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.Login.Queries.GetUserDetails
+namespace Examino.Application.Functions.Users.Login.Queries.GetPatientDetails
 {
-    public class GetUserDetailsQueryHandler : IRequestHandler<GetUserDetailsQuery, UserViewModel>
+    public class GetPatientDetailsQueryHandler : IRequestHandler<GetPatientDetailsQuery, PatientViewModel>
     {
         private readonly ISqlConnectionService _connectionService;
 
-        public GetUserDetailsQueryHandler(ISqlConnectionService connectionService)
+        public GetPatientDetailsQueryHandler(ISqlConnectionService connectionService)
         {
             _connectionService = connectionService;
         }
-        public async Task<UserViewModel> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<PatientViewModel> Handle(GetPatientDetailsQuery request, CancellationToken cancellationToken)
         {
             var connection = await _connectionService.GetAsync();
 
@@ -39,7 +39,7 @@ namespace Examino.Application.Functions.Users.Login.Queries.GetUserDetails
                                    "FROM [Users] " +
                                    "WHERE [Users].[Id] = @UserId";
 
-            var foundUser = await connection.QueryFirstAsync<UserViewModel>(sqlUser, new { request.UserId });
+            var foundUser = await connection.QueryFirstAsync<PatientViewModel>(sqlUser, new { request.UserId });
 
             return foundUser;
         }

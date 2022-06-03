@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.Login.Queries.GetUserDetails
+namespace Examino.Application.Functions.Users.Login.Queries.GetDoctorDetails
 {
-    public class GetUserDetailsQuery : IRequest<UserViewModel>
+    public class GetDoctorDetailsQuery : IRequest<DoctorViewModel>
     {
         public Guid UserId { get; set; }
-        public GetUserDetailsQuery(Guid id)
+        public GetDoctorDetailsQuery(Guid id)
         {
             UserId = id;
         }
