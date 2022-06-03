@@ -82,9 +82,7 @@ export const deleteRaport = createAsyncThunk<
 export const raportSlice = createSlice({
   name: "raport",
   initialState,
-  reducers: {
-    reset: () => initialState,
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getRaports.pending, (state) => {
@@ -140,5 +138,4 @@ export const raportSlice = createSlice({
   },
 });
 
-export const { reset } = raportSlice.actions;
 export default raportSlice.reducer;
