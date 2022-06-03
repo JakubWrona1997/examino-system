@@ -15,8 +15,8 @@ namespace Examino.Application.Functions.Users.Login.Queries.GetDoctorDetails
         public string? Address { get; set; }
         public string? City { get; set; }
         public string? PostalCode { get; set; }
-        public int? Qualification { get; set; }
-        public int? Specialization { get; set; }
+        public string? Qualification { get; set; }
+        public string? Specialization { get; set; }
         public string? Gender { get; set; }
         public string? PhoneNumber { get; set; }
     }
