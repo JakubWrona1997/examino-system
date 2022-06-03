@@ -16,6 +16,7 @@ interface IUserState {
     register: UserRegisterErrorsViewModel | undefined;
     login: string | undefined;
   };
+  alert: string | undefined;
 }
 
 const initialState: IUserState = {
@@ -26,6 +27,7 @@ const initialState: IUserState = {
     register: undefined,
     login: undefined,
   },
+  alert: undefined,
 };
 
 // Register User
@@ -76,12 +78,12 @@ export const getUser = createAsyncThunk<
 // Update User
 // PUT /api/patient/update
 export const updateUser = createAsyncThunk<
-  UserDataViewModel,
+  void,
   UserUpdateDataViewModel,
   { rejectValue: string }
 >("user/update", async (userData, thunkAPI) => {
   try {
-    const res = await axios.put("/api/patient/update", userData);
+    const res = await axios.put("/api/patient", userData);
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -110,6 +112,9 @@ export const userSlice = createSlice({
     logoutUser: () => {
       axios.post("/api/patient/logout");
       return initialState;
+    },
+    removeAlert: (state) => {
+      state.alert = initialState.alert;
     },
   },
   extraReducers: (builder) => {
@@ -146,15 +151,8 @@ export const userSlice = createSlice({
       .addCase(getUser.rejected, (state) => {
         state.loading = "failed";
       })
-      .addCase(updateUser.pending, (state) => {
-        state.loading = "pending";
-      })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.loading = "fulfilled";
-        state.userData = action.payload;
-      })
-      .addCase(updateUser.rejected, (state) => {
-        state.loading = "failed";
+      .addCase(updateUser.fulfilled, (state) => {
+        state.alert = "Profil zaktualizowano pomyślnie";
       })
       .addCase(authenticateUser.fulfilled, (state, action) => {
         state.user = action.payload;
@@ -162,5 +160,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { logoutUser } = userSlice.actions;
+export const { logoutUser, removeAlert } = userSlice.actions;
 export default userSlice.reducer;

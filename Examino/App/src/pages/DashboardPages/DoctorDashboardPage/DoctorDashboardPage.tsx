@@ -25,7 +25,7 @@ const DoctorDashboardPage = () => {
     } else {
       navigate("/");
     }
-  }, [user]);
+  }, []);
 
   const handleLogout = () => {
     dispatch(logoutUser());

@@ -4,8 +4,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RootState, useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { updateUser } from "../../../features/userSlice";
+import { removeAlert, getUser, updateUser } from "../../../features/userSlice";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
 import "./PatientProfile.scss";
 import InputField from "../../common/Forms/InputField/InputField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
@@ -15,7 +16,7 @@ import { BloodTypeOptions } from "../../../constants/BloodTypeOptions";
 import { GenderOptions } from "../../../constants/GenderOptions";
 
 const PatientProfile = () => {
-  const { userData } = useSelector((state: RootState) => state.user);
+  const { userData, alert } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   const editProfileSchema = yup.object().shape({
@@ -67,8 +68,16 @@ const PatientProfile = () => {
     }
   }, [userData, reset]);
 
-  const onSubmit = (data: UserUpdateDataViewModel) => {
-    dispatch(updateUser(data));
+  useEffect(() => {
+    if (alert) toast.info(alert);
+    return () => {
+      if (alert) dispatch(removeAlert());
+    };
+  }, [alert]);
+
+  const onSubmit = async (data: UserUpdateDataViewModel) => {
+    await dispatch(updateUser(data));
+    dispatch(getUser());
   };
 
   return (

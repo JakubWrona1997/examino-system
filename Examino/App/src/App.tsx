@@ -5,6 +5,8 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import AuthenticationRoute from "./components/AuthenticationRoute/AuthenticationRoute";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -21,38 +23,37 @@ import DoctorForm from "./components/DoctorDashboardComponents/DoctorForm/Doctor
 
 function App() {
   return (
-    <Router>
-      <AuthenticationRoute>
-        <main>
-          <Routes>
-            <Route element={<ProtectedRoute allowedRole="Patient" />}>
-              <Route path="patient" element={<PatientDashboardPage />}>
-                <Route index element={<Navigate to="panel" />} />
-                <Route path="panel" element={<PatientPanel />} />
-                <Route path="history" element={<Outlet />}>
-                  <Route index element={<PatientHistory />} />
-                  <Route path="raport/:id" element={<RaportDetails />} />
-                  <Route
-                    path="prescription/:id"
-                    element={<PrescriptionDetails />}
-                  />
-                </Route>
-                <Route path="profile" element={<PatientProfile />} />
+    <AuthenticationRoute>
+      <Router>
+        <Routes>
+          <Route element={<ProtectedRoute allowedRole="Patient" />}>
+            <Route path="patient" element={<PatientDashboardPage />}>
+              <Route index element={<Navigate to="panel" />} />
+              <Route path="panel" element={<PatientPanel />} />
+              <Route path="history" element={<Outlet />}>
+                <Route index element={<PatientHistory />} />
+                <Route path="raport/:id" element={<RaportDetails />} />
+                <Route
+                  path="prescription/:id"
+                  element={<PrescriptionDetails />}
+                />
               </Route>
+              <Route path="profile" element={<PatientProfile />} />
             </Route>
-            <Route element={<ProtectedRoute allowedRole="Doctor" />}>
-              <Route path="doctor" element={<DoctorDashboardPage />}>
-                <Route index element={<Navigate to="panel" />} />
-                <Route path="panel" element={<DoctorPanel />} />
-                <Route path="form" element={<DoctorForm />} />
-              </Route>
+          </Route>
+          <Route element={<ProtectedRoute allowedRole="Doctor" />}>
+            <Route path="doctor" element={<DoctorDashboardPage />}>
+              <Route index element={<Navigate to="panel" />} />
+              <Route path="panel" element={<DoctorPanel />} />
+              <Route path="form" element={<DoctorForm />} />
             </Route>
-            <Route path="register" element={<RegisterPage />} />
-            <Route path="/" element={<LoginPage />} />
-          </Routes>
-        </main>
-      </AuthenticationRoute>
-    </Router>
+          </Route>
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="/" element={<LoginPage />} />
+        </Routes>
+        <ToastContainer />
+      </Router>
+    </AuthenticationRoute>
   );
 }
 
