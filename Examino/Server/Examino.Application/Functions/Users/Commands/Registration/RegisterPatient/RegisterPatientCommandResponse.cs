@@ -2,7 +2,7 @@
 using FluentValidation.Results;
 using System;
 
-namespace Examino.Application.Functions.Users.Registration.Command.RegisterPatient
+namespace Examino.Application.Functions.Users.Commands.Registration.RegisterPatient
 {
     public class RegisterPatientCommandResponse : BaseResponse
     {

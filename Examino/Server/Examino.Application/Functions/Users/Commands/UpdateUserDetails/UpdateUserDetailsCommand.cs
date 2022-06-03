@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.UserDetails.UpdateUserDetails
+namespace Examino.Application.Functions.Users.Commands.UpdateUserDetails
 {
     public record UpdateUserDetailsCommand : IRequest
     {

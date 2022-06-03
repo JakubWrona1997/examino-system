@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.Login.Queries.GetDoctorDetails
+namespace Examino.Application.Functions.Users.Queries.UserDetails.GetDoctorDetails
 {
     public class GetDoctorDetailsQueryHandler : IRequestHandler<GetDoctorDetailsQuery, DoctorViewModel>
     {

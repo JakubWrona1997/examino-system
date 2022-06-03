@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.UserDetails.UpdateUserDetails
+namespace Examino.Application.Functions.Users.Commands.UpdateUserDetails
 {
     public class UpdateUserDetailsCommandHandler : IRequestHandler<UpdateUserDetailsCommand>
     {
