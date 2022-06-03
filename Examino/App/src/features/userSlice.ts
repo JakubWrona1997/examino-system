@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../app/store";
 import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserViewModel } from "../models/Users/UserViewModel";
 import { UserDataViewModel } from "../models/Users/UserDataViewModel";
 import { UserUpdateDataViewModel } from "../models/Users/UserUpdatedDataViewModel";
@@ -8,7 +7,6 @@ import { UserLoginDataViewModel } from "../models/Users/UserLoginDataViewModel";
 import { UserRegisterDataViewModel } from "../models/Users/UserRegisterDataViewModel";
 import { UserRegisterErrorsViewModel } from "../models/Users/UserRegisterErrorsViewModel";
 import jwtDecode from "../utils/jwtDecode";
-import userFromLocalStorage from "../utils/userFromLocalStorage";
 
 interface IUserState {
   user: UserViewModel | null;
@@ -21,7 +19,7 @@ interface IUserState {
 }
 
 const initialState: IUserState = {
-  user: userFromLocalStorage(),
+  user: null,
   userData: {} as UserDataViewModel,
   loading: "idle",
   error: {
@@ -38,8 +36,9 @@ export const registerUser = createAsyncThunk<
   { rejectValue: UserRegisterErrorsViewModel }
 >("user/register", async (userData, thunkAPI) => {
   try {
-    const res = await axios.post("/api/patient/register", userData);
-    localStorage.setItem("token", res.data);
+    const res = await axios.post("/api/patient/register", userData, {
+      withCredentials: true,
+    });
     return jwtDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data.errors);
@@ -54,29 +53,37 @@ export const loginUser = createAsyncThunk<
   { rejectValue: string }
 >("user/login", async (userData, thunkAPI) => {
   try {
-    const res = await axios.post("/api/patient/login", userData, {withCredentials: true});
-    localStorage.setItem("token", res.data);
+    const res = await axios.post("/api/patient/login", userData, {
+      withCredentials: true,
+    });
     return jwtDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
 
+// Logout User
+// POST /api/patient/logout
+export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
+  "user/logout",
+  async (_, thunkAPI) => {
+    try {
+      await axios.post("/api/patient/logout");
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 // Get user data
 // GET /api/patient
 export const getUser = createAsyncThunk<
   UserDataViewModel,
   void,
-  { state: RootState; rejectValue: string }
+  { rejectValue: string }
 >("user/get", async (_, thunkAPI) => {
   try {
-    const token = thunkAPI.getState().user.user?.token;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const res = await axios.get("/api/patient", config,);
+    const res = await axios.get("/api/patient");
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -88,17 +95,26 @@ export const getUser = createAsyncThunk<
 export const updateUser = createAsyncThunk<
   UserDataViewModel,
   UserUpdateDataViewModel,
-  { state: RootState; rejectValue: string }
+  { rejectValue: string }
 >("user/update", async (userData, thunkAPI) => {
   try {
-    const token = thunkAPI.getState().user.user?.token;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const res = await axios.put("/api/patient/update", userData, config);
+    const res = await axios.put("/api/patient/update", userData);
     return res.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
+// Authenticate user
+// GET /api/patient/auth
+export const authenticateUser = createAsyncThunk<
+  UserViewModel,
+  void,
+  { rejectValue: string }
+>("user/auth", async (_, thunkAPI) => {
+  try {
+    const res = await axios.get("/api/patient/auth");
+    return jwtDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
@@ -107,12 +123,7 @@ export const updateUser = createAsyncThunk<
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    logoutUser: (state) => {
-      localStorage.removeItem("token");
-      state.user = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -156,9 +167,23 @@ export const userSlice = createSlice({
       })
       .addCase(updateUser.rejected, (state) => {
         state.loading = "failed";
+      })
+      .addCase(authenticateUser.pending, (state) => {
+        state.loading = "pending";
+      })
+      .addCase(authenticateUser.fulfilled, (state, action) => {
+        state.loading = "fulfilled";
+        state.user = action.payload;
+      })
+      .addCase(authenticateUser.rejected, (state) => {
+        state.loading = "failed";
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.loading = initialState.loading;
+        state.user = initialState.user;
+        state.userData = initialState.userData;
       });
   },
 });
 
-export const { logoutUser } = userSlice.actions;
 export default userSlice.reducer;

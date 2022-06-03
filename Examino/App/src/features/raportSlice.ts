@@ -24,14 +24,7 @@ export const getRaports = createAsyncThunk<
   { state: RootState; rejectValue: string }
 >("raport/get", async (_, thunkAPI) => {
   try {
-    // TODO
-    const token = thunkAPI.getState().user.user?.token;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const res = await axios.get("/api/raport", config);
+    const res = await axios.get("/api/raport");
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -46,14 +39,7 @@ export const createRaport = createAsyncThunk<
   { state: RootState; rejectValue: string }
 >("raport/create", async (raportData, thunkAPI) => {
   try {
-    // TODO
-    const token = thunkAPI.getState().user.user?.token;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const res = await axios.post("/api/raport/create", raportData, config);
+    const res = await axios.post("/api/raport/create", raportData);
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -68,17 +54,9 @@ export const updateRaport = createAsyncThunk<
   { state: RootState; rejectValue: string }
 >("raport/update", async (raportData, thunkAPI) => {
   try {
-    // TODO
-    const token = thunkAPI.getState().user.user?.token;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
     const res = await axios.put(
       `/api/raport/${raportData.raport.id}/update`,
-      raportData,
-      config
+      raportData
     );
     return res.data;
   } catch (error: any) {
@@ -94,14 +72,7 @@ export const deleteRaport = createAsyncThunk<
   { state: RootState; rejectValue: string }
 >("raport/delete", async (raportId, thunkAPI) => {
   try {
-    // TODO
-    const token = thunkAPI.getState().user.user?.token;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const res = await axios.delete(`/api/raport/${raportId}/delete`, config);
+    const res = await axios.delete(`/api/raport/${raportId}/delete`);
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
