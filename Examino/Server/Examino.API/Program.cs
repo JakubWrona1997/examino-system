@@ -27,7 +27,6 @@ builder.Services.AddAuthentication(option =>
     option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-.AddCookie()
 .AddJwtBearer(cfg =>
 {
     cfg.RequireHttpsMetadata = false;
@@ -70,7 +69,6 @@ app.UseCors(builder =>
     .AllowAnyMethod()
     .AllowAnyHeader();
 });
-
 app.UseMiddleware<AuthorizationHeader>();
 
 app.UseAuthentication();

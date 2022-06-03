@@ -83,7 +83,7 @@ export const getUser = createAsyncThunk<
   { rejectValue: string }
 >("user/get", async (_, thunkAPI) => {
   try {
-    const res = await axios.get("/api/patient");
+    const res = await axios.get("/api/patient", {withCredentials: true});
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);

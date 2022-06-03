@@ -70,7 +70,7 @@ namespace Examino.Application.Controllers
         [HttpPost("logout")]
         public async Task<ActionResult> Logout()
         {
-
+            //Middleware performing delete cookie
             return Ok();
         }
 
