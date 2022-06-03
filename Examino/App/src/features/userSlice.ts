@@ -36,9 +36,7 @@ export const registerUser = createAsyncThunk<
   { rejectValue: UserRegisterErrorsViewModel }
 >("user/register", async (userData, thunkAPI) => {
   try {
-    const res = await axios.post("/api/patient/register", userData, {
-      withCredentials: true,
-    });
+    const res = await axios.post("/api/patient/register", userData);
     return jwtDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data.errors);
@@ -53,27 +51,12 @@ export const loginUser = createAsyncThunk<
   { rejectValue: string }
 >("user/login", async (userData, thunkAPI) => {
   try {
-    const res = await axios.post("/api/patient/login", userData, {
-      withCredentials: true,
-    });
+    const res = await axios.post("/api/patient/login", userData);
     return jwtDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
-
-// Logout User
-// POST /api/patient/logout
-export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
-  "user/logout",
-  async (_, thunkAPI) => {
-    try {
-      await axios.post("/api/patient/logout");
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
 
 // Get user data
 // GET /api/patient
@@ -83,7 +66,7 @@ export const getUser = createAsyncThunk<
   { rejectValue: string }
 >("user/get", async (_, thunkAPI) => {
   try {
-    const res = await axios.get("/api/patient", {withCredentials: true});
+    const res = await axios.get("/api/patient");
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -123,7 +106,12 @@ export const authenticateUser = createAsyncThunk<
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logoutUser: () => {
+      axios.post("/api/patient/logout");
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -168,22 +156,11 @@ export const userSlice = createSlice({
       .addCase(updateUser.rejected, (state) => {
         state.loading = "failed";
       })
-      .addCase(authenticateUser.pending, (state) => {
-        state.loading = "pending";
-      })
       .addCase(authenticateUser.fulfilled, (state, action) => {
-        state.loading = "fulfilled";
         state.user = action.payload;
-      })
-      .addCase(authenticateUser.rejected, (state) => {
-        state.loading = "failed";
-      })
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.loading = initialState.loading;
-        state.user = initialState.user;
-        state.userData = initialState.userData;
       });
   },
 });
 
+export const { logoutUser } = userSlice.actions;
 export default userSlice.reducer;
