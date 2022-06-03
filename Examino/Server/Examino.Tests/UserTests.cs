@@ -36,5 +36,17 @@ namespace Examino.Tests
             //Assert
             Assert.Equal(id, result.ToString());
         }
+        [Fact]
+        public async Task UserProvider_Should_Return_Users_Role()
+        {
+            //Arrange           
+            string role = "Doctor";
+
+            _httpContextAccessor.Setup(x => x.HttpContext.User.FindFirst(It.IsAny<string>())).Returns(new Claim(ClaimTypes.Role, role));
+            //Act
+            var result = _userProvider.GetUserRole();
+            //Assert
+            Assert.Equal(role, result);
+        }
     }
 }

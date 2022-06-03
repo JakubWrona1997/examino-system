@@ -104,7 +104,7 @@ namespace Examino.Application.Controllers
 
             await _mediator.Send(updateUserDetailsCommand);
 
-            return RedirectToAction("GetUserDetails");
+            return Ok();
         }
     }
 }

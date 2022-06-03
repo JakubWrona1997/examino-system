@@ -29,9 +29,10 @@ namespace Examino.API.Controllers
         [ProducesResponseType(typeof(List<RaportViewModel>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<List<RaportViewModel>>> GetPatientRaports()
         {
-            var userId = _userProvider.GetUserId(); 
+            var userRole = _userProvider.GetUserRole();
+            var userId = _userProvider.GetUserId();
 
-            var raports = await _mediator.Send(new GetPatientRaportQuery(userId));
+            var raports = await _mediator.Send(new GetUserRaportQuery(userId, userRole));            
 
             return Ok(raports);
         }

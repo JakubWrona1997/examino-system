@@ -8,7 +8,8 @@ namespace Examino.Domain.Contracts
 {
     public interface IUserProvider
     {
-        public Guid GetUserId();  
-        public string GetToken();
+        Guid GetUserId();  
+        string GetToken();
+        string GetUserRole();
     }
 }

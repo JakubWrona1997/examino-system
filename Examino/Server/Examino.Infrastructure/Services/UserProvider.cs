@@ -29,6 +29,12 @@ namespace Examino.Infrastructure.Services
 
             return result;
         }
+        public string GetUserRole()
+        {
+            var userRole = _httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.Role).Value;
+
+            return userRole;
+        }
         public string GetToken()
         {
             var token = _httpContextAccessor.HttpContext.Request.Cookies["tokenCookie"];

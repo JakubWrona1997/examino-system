@@ -11,17 +11,17 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Raports.Queries.GetPatientRaport
+namespace Examino.Application.Functions.Raports.Queries.GetUserRaports
 {
-    public class GetPatientRaportQueryHandler : IRequestHandler<GetPatientRaportQuery, List<RaportViewModel>>
+    public class GetUserRaportQueryHandler : IRequestHandler<GetUserRaportQuery, List<RaportViewModel>>
     {
         private readonly ISqlConnectionService _connectionService;
 
-        public GetPatientRaportQueryHandler(ISqlConnectionService connectionService)
+        public GetUserRaportQueryHandler(ISqlConnectionService connectionService)
         {
             _connectionService = connectionService;
         }
-        public async Task<List<RaportViewModel>> Handle(GetPatientRaportQuery request, CancellationToken cancellationToken)
+        public async Task<List<RaportViewModel>> Handle(GetUserRaportQuery request, CancellationToken cancellationToken)
         {
             var connection = await _connectionService.GetAsync();
 
@@ -35,9 +35,9 @@ namespace Examino.Application.Functions.Raports.Queries.GetPatientRaport
                                               {nameof(Raport.Recommendation)},
                                               {nameof(Raport.Comment)}
                                               FROM {(Dbo.Raports)}
-                                              WHERE {nameof(Raport.PatientId)} = @PatientId";
+                                              WHERE {nameof(Raport.PatientId)} = @PatientId OR {nameof(Raport.DoctorId)} = @DoctorId";
 
-            var foundRaports = await connection.QueryAsync<RaportDto>(sqlRaport, new { request.PatientId });
+            var foundRaports = await connection.QueryAsync<RaportDto>(sqlRaport, new { request.PatientId, request.DoctorId });
 
             string sqlPrescription = $@"SELECT {nameof(Prescription.Id)},
                                                {nameof(Prescription.RaportId)},

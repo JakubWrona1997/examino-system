@@ -69,8 +69,8 @@ namespace Examino.Infrastructure.Repositories
         public async Task UpdateDetails(UpdateUserDetailsDto patient)
         {
             var patientToEdit = await _db.Patients.FirstOrDefaultAsync(x => x.Id == patient.UserId);
-            
-            var dataToEdit = _mapper.Map<UpdateUserDetailsDto, Patient>(patient, patientToEdit);
+            if(patientToEdit!= null)
+                _mapper.Map<UpdateUserDetailsDto, Patient>(patient, patientToEdit);
             
             await _db.SaveChangesAsync();            
         }
