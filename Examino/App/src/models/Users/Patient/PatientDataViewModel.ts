@@ -1,4 +1,4 @@
-export interface UserDataViewModel {
+export interface PatientDataViewModel {
   gender: string;
   name: string;
   surname: string;

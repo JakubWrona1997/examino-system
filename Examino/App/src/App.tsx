@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AuthenticationRoute from "./components/AuthenticationRoute/AuthenticationRoute";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import AuthenticationRoute from "./components/Routes/AuthenticationRoute/AuthenticationRoute";
+import ProtectedRoute from "./components/Routes/ProtectedRoute/ProtectedRoute";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import PatientDashboardPage from "./pages/DashboardPages/PatientDashboardPage/PatientDashboardPage";

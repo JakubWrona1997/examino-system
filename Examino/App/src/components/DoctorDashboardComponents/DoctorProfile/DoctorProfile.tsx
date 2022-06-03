@@ -6,24 +6,23 @@ import { RootState, useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
 import {
   removeAlert,
-  getPatientData,
-  updatePatient,
+  getDoctorData,
+  updateDoctor,
 } from "../../../features/userSlice";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
-import "./PatientProfile.scss";
+import "./DoctorProfile.scss";
 import InputField from "../../common/Forms/InputField/InputField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
-import { PatientDataViewModel } from "../../../models/Users/Patient/PatientDataViewModel";
-import { PatientUpdateDataViewModel } from "../../../models/Users/Patient/PatientUpdateDataViewModel";
-import { BloodTypeOptions } from "../../../constants/BloodTypeOptions";
+import { DoctorDataViewModel } from "../../../models/Users/Doctor/DoctorDataViewModel";
+import { DoctorUpdateDataViewModel } from "../../../models/Users/Doctor/DoctorUpdateDataViewModel";
 import { GenderOptions } from "../../../constants/GenderOptions";
 
-const PatientProfile = () => {
+const DoctorProfile = () => {
   const { userData, alert } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
-  const patientProfileSchema = yup.object().shape({
+  const doctorProfileSchema = yup.object().shape({
     phoneNumber: yup
       .string()
       .matches(/^[0-9]+$/, "Numer telefonu może zawierać tylko cyfry")
@@ -35,22 +34,8 @@ const PatientProfile = () => {
       .string()
       .matches(/^[A-Z]/, "Nazwa miasta musi zaczynać się z dużej litery"),
     address: yup.string(),
-    height: yup
-      .string()
-      .matches(/^[0-9]+$/, "Wzrost może zawierać tylko cyfry"),
-    weight: yup.string().matches(/^[0-9]+$/, "Waga może zawierać tylko cyfry"),
-    bloodType: yup
-      .string()
-      .oneOf([
-        "0 Rh-",
-        "0 Rh+",
-        "A Rh-",
-        "A Rh+",
-        "B Rh-",
-        "B Rh+",
-        "AB Rh-",
-        "AB Rh+",
-      ]),
+    qualification: yup.string(),
+    specialization: yup.string(),
   });
 
   const {
@@ -59,8 +44,8 @@ const PatientProfile = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<PatientDataViewModel>({
-    resolver: yupResolver(patientProfileSchema),
+  } = useForm<DoctorDataViewModel>({
+    resolver: yupResolver(doctorProfileSchema),
   });
 
   useEffect(() => {
@@ -79,9 +64,9 @@ const PatientProfile = () => {
     };
   }, [alert]);
 
-  const onSubmit = async (data: PatientUpdateDataViewModel) => {
-    await dispatch(updatePatient(data));
-    dispatch(getPatientData());
+  const onSubmit = async (data: DoctorUpdateDataViewModel) => {
+    await dispatch(updateDoctor(data));
+    dispatch(getDoctorData());
   };
 
   return (
@@ -168,25 +153,17 @@ const PatientProfile = () => {
             <div className="card-content">
               <InputField
                 register={register}
-                name="height"
+                name="qualification"
                 errors={errors}
-                type="number"
-                label="Wzrost [cm]"
+                type="text"
+                label="Kwalifikacje"
               />
               <InputField
                 register={register}
-                name="weight"
+                name="specialization"
                 errors={errors}
-                type="number"
-                label="Waga [kg]"
-              />
-              <SelectField
-                control={control}
-                name="bloodType"
-                errors={errors}
-                label="Grupa krwi"
-                options={BloodTypeOptions}
-                placeholder="Wybierz grupę krwi"
+                type="text"
+                label="Specjalizacje"
               />
             </div>
           </div>
@@ -199,4 +176,4 @@ const PatientProfile = () => {
   );
 };
 
-export default PatientProfile;
+export default DoctorProfile;

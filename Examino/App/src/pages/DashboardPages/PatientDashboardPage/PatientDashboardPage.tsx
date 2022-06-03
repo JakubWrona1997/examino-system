@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../app/store";
-import { getUserData, logoutUser } from "../../../features/userSlice";
 import { getRaports } from "../../../features/raportSlice";
+import { getPatientData, logoutUser } from "../../../features/userSlice";
 import {
   FaHeartbeat,
   FaThLarge,
@@ -22,7 +22,7 @@ const PatientDashboardPage = () => {
   useEffect(() => {
     if (user) {
       dispatch(getRaports());
-      dispatch(getUserData());
+      dispatch(getPatientData());
     } else {
       navigate("/");
     }

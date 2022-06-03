@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../app/store";
-import { authenticateUser } from "../../features/userSlice";
+import { RootState, useAppDispatch } from "../../../app/store";
+import { authenticateUser } from "../../../features/userSlice";
 import axios from "axios";
 
 const AuthenticationRoute = ({

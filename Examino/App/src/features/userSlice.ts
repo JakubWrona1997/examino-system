@@ -1,16 +1,18 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserViewModel } from "../models/Users/UserViewModel";
-import { UserDataViewModel } from "../models/Users/UserDataViewModel";
-import { PatientUpdateDataViewModel } from "../models/Users/PatientUpdateDataViewModel";
 import { UserLoginDataViewModel } from "../models/Users/UserLoginDataViewModel";
 import { UserRegisterDataViewModel } from "../models/Users/UserRegisterDataViewModel";
 import { UserRegisterErrorsViewModel } from "../models/Users/UserRegisterErrorsViewModel";
+import { PatientDataViewModel } from "../models/Users/Patient/PatientDataViewModel";
+import { PatientUpdateDataViewModel } from "../models/Users/Patient/PatientUpdateDataViewModel";
+import { DoctorDataViewModel } from "../models/Users/Doctor/DoctorDataViewModel";
+import { DoctorUpdateDataViewModel } from "../models/Users/Doctor/DoctorUpdateDataViewModel";
 import jwtDecode from "../utils/jwtDecode";
 
 interface IUserState {
   user: UserViewModel | null;
-  userData: UserDataViewModel;
+  userData: PatientDataViewModel | DoctorDataViewModel | undefined;
   loading: "idle" | "pending" | "fulfilled" | "failed";
   error: {
     register: UserRegisterErrorsViewModel | undefined;
@@ -21,7 +23,7 @@ interface IUserState {
 
 const initialState: IUserState = {
   user: null,
-  userData: {} as UserDataViewModel,
+  userData: undefined,
   loading: "idle",
   error: {
     register: undefined,
@@ -60,13 +62,28 @@ export const loginUser = createAsyncThunk<
   }
 });
 
-// Get user data
-// GET /api/patient
-export const getUserData = createAsyncThunk<
-  UserDataViewModel,
+// Authenticate user
+// GET /api/patient/auth
+export const authenticateUser = createAsyncThunk<
+  UserViewModel,
   void,
   { rejectValue: string }
->("user/get", async (_, thunkAPI) => {
+>("user/auth", async (_, thunkAPI) => {
+  try {
+    const res = await axios.get("/api/patient/auth");
+    return jwtDecode(res.data);
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
+// Get Patient Data
+// GET /api/patient
+export const getPatientData = createAsyncThunk<
+  PatientDataViewModel,
+  void,
+  { rejectValue: string }
+>("patient/get", async (_, thunkAPI) => {
   try {
     const res = await axios.get("/api/patient");
     return res.data;
@@ -75,8 +92,23 @@ export const getUserData = createAsyncThunk<
   }
 });
 
+// Get Doctor Data
+// GET /api/doctor
+export const getDoctorData = createAsyncThunk<
+  DoctorDataViewModel,
+  void,
+  { rejectValue: string }
+>("doctor/get", async (_, thunkAPI) => {
+  try {
+    const res = await axios.get("/api/doctor");
+    return res.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 // Update Patient
-// PUT /api/patient/update
+// PUT /api/patient
 export const updatePatient = createAsyncThunk<
   void,
   PatientUpdateDataViewModel,
@@ -90,16 +122,16 @@ export const updatePatient = createAsyncThunk<
   }
 });
 
-// Authenticate user
-// GET /api/patient/auth
-export const authenticateUser = createAsyncThunk<
-  UserViewModel,
+// Update Doctor
+// PUT /api/doctor
+export const updateDoctor = createAsyncThunk<
   void,
+  DoctorUpdateDataViewModel,
   { rejectValue: string }
->("user/auth", async (_, thunkAPI) => {
+>("doctor/update", async (userData, thunkAPI) => {
   try {
-    const res = await axios.get("/api/patient/auth");
-    return jwtDecode(res.data);
+    const res = await axios.put("/api/doctor", userData);
+    return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
@@ -141,14 +173,20 @@ export const userSlice = createSlice({
         state.loading = "failed";
         state.error.login = action.payload;
       })
-      .addCase(getUserData.fulfilled, (state, action) => {
+      .addCase(authenticateUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(getPatientData.fulfilled, (state, action) => {
+        state.userData = action.payload;
+      })
+      .addCase(getDoctorData.fulfilled, (state, action) => {
         state.userData = action.payload;
       })
       .addCase(updatePatient.fulfilled, (state) => {
         state.alert = "Profil zaktualizowano pomyślnie";
       })
-      .addCase(authenticateUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+      .addCase(updateDoctor.fulfilled, (state) => {
+        state.alert = "Profil zaktualizowano pomyślnie";
       });
   },
 });
