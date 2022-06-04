@@ -5,7 +5,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RaportCreateViewModel } from "../../../models/Raports/RaportCreateViewModel";
-import { PrescriptionCreateViewModel } from "../../../models/Prescriptions/PrescriptionCreateViewModel";
 import "./DoctorForm.scss";
 import TextareaField from "../../common/Forms/TextareaField/TextareaField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
@@ -28,21 +27,12 @@ const DoctorForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RaportCreateViewModel & PrescriptionCreateViewModel>({
+  } = useForm<RaportCreateViewModel>({
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmit = (
-    data: RaportCreateViewModel & PrescriptionCreateViewModel
-  ) => {
-    const { prescription, ...raportData } = data;
-    dispatch(createRaport(raportData));
-
-    // const prescriptionData = {
-    //   patientId: data.patientId,
-    //   prescription: data.prescription,
-    // };
-    // dispatch(createPrescription(prescriptionData))
+  const onSubmit = (data: RaportCreateViewModel) => {
+    dispatch(createRaport(data));
   };
 
   return (
