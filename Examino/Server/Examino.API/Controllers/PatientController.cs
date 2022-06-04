@@ -1,7 +1,7 @@
-﻿using Examino.Application.Functions.Users.Login.Commands.UserLogin;
-using Examino.Application.Functions.Users.Login.Queries.GetPatientDetails;
-using Examino.Application.Functions.Users.Registration.Command.RegisterPatient;
-using Examino.Application.Functions.Users.UserDetails.UpdateUserDetails;
+﻿using Examino.Application.Functions.Users.Commands.Login.UserLogin;
+using Examino.Application.Functions.Users.Commands.Registration.RegisterPatient;
+using Examino.Application.Functions.Users.Queries.UserDetails.GetPatientDetails;
+using Examino.Application.Functions.Users.Commands.UpdatePatientDetails;
 using Examino.Domain.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -97,7 +97,7 @@ namespace Examino.Application.Controllers
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> UpdateUserDetails([FromBody] UpdateUserDetailsCommand updateUserDetailsCommand)
+        public async Task<ActionResult> UpdateUserDetails([FromBody] UpdatePatientDetailsCommand updateUserDetailsCommand)
         {
             var userId = _userProvider.GetUserId();
 

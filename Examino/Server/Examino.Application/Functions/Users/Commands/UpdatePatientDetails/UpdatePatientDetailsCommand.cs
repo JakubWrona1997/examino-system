@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.Commands.UpdateUserDetails
+namespace Examino.Application.Functions.Users.Commands.UpdatePatientDetails
 {
-    public record UpdateUserDetailsCommand : IRequest
+    public record UpdatePatientDetailsCommand : IRequest
     {
         public Guid UserId { get; set; }
         public string? Address { get; set; }
