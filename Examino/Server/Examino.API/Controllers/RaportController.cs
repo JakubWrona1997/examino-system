@@ -1,6 +1,7 @@
-﻿using Examino.Application.Functions.Raports.Commands.CreateRaport;
+﻿using AutoMapper;
+using Examino.Application.Functions.Prescriptions.Command.CreatePrescritpion;
+using Examino.Application.Functions.Raports.Commands.CreateRaport;
 using Examino.Application.Functions.Raports.Commands.DeleteRaport;
-using Examino.Application.Functions.Raports.Queries;
 using Examino.Application.Functions.Raports.Queries.GetUserRaports;
 using Examino.Domain.Contracts;
 using MediatR;
@@ -18,16 +19,18 @@ namespace Examino.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IUserProvider _userProvider;
+        private readonly IMapper _mapper;
 
-        public RaportController(IMediator mediator, IUserProvider userProvider)
+        public RaportController(IMediator mediator, IUserProvider userProvider, IMapper mapper)
         {
             _mediator = mediator;
             _userProvider = userProvider;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(List<RaportViewModel>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<List<RaportViewModel>>> GetPatientRaports()
+        public async Task<ActionResult<List<RaportViewModel>>> GetUserRaports()
         {
             var userRole = _userProvider.GetUserRole();
             var userId = _userProvider.GetUserId();
@@ -40,8 +43,19 @@ namespace Examino.API.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<Guid>> CreateRaport([FromBody] CreateRaportCommand createRaportCommand)
         {
-            var result = await _mediator.Send(createRaportCommand);
+            var userId = _userProvider.GetUserId();
+            if(userId != Guid.Empty)
+                createRaportCommand.DoctorId = userId;            
 
+            var result = await _mediator.Send(createRaportCommand);
+                      
+            if (createRaportCommand.Prescription != null)
+            {
+                createRaportCommand.Prescription.RaportId = createRaportCommand.Id;
+                var createPrescriptionCommand = _mapper.Map<CreatePrescritpionCommand>(createRaportCommand.Prescription);
+                await _mediator.Send(createPrescriptionCommand);
+            }
+               
             return Ok(result.Id);
         }
 
