@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.Login.Commands.UserLogin
+namespace Examino.Application.Functions.Users.Commands.Login.UserLogin
 {
     public class LoginCommandResponse : BaseResponse
     {

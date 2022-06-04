@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.Login.Queries.GetDoctorDetails
+namespace Examino.Application.Functions.Users.Queries.UserDetails.GetDoctorDetails
 {
     public class GetDoctorDetailsQueryHandler : IRequestHandler<GetDoctorDetailsQuery, DoctorViewModel>
     {
@@ -38,7 +38,7 @@ namespace Examino.Application.Functions.Users.Login.Queries.GetDoctorDetails
                                       {(Dbo.Users)}.{nameof(Doctor.Gender)},
                                       {(Dbo.Users)}.{nameof(Doctor.PhoneNumber)}
                                       FROM {(Dbo.Users)}
-                                      WHERE {(Dbo.Users)}.{nameof(Doctor.Id)} = @DoctorId";
+                                      WHERE {(Dbo.Users)}.{nameof(Doctor.Id)} = @UserId";
 
             var foundDoctor = await connection.QueryFirstAsync<DoctorViewModel>(getDoctorDetails, new { request.UserId });
 

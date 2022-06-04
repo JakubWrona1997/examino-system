@@ -1,5 +1,5 @@
 ﻿using Examino.Application.Functions.Raports.Commands.CreateRaport;
-using Examino.Application.Functions.Users.Registration.Command.RegisterPatient;
+using Examino.Application.Functions.Users.Commands.Registration.RegisterPatient;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;

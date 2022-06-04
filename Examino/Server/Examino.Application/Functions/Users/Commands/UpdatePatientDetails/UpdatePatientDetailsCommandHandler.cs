@@ -10,19 +10,19 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.UserDetails.UpdateUserDetails
+namespace Examino.Application.Functions.Users.Commands.UpdatePatientDetails
 {
-    public class UpdateUserDetailsCommandHandler : IRequestHandler<UpdateUserDetailsCommand>
+    public class UpdatePatientDetailsCommandHandler : IRequestHandler<UpdatePatientDetailsCommand>
     {
         private readonly IMapper _mapper;
         private readonly IPatientRepository _patientRepository;
 
-        public UpdateUserDetailsCommandHandler(IMapper mapper, IPatientRepository patientRepository)
+        public UpdatePatientDetailsCommandHandler(IMapper mapper, IPatientRepository patientRepository)
         {
             _mapper = mapper;
             _patientRepository = patientRepository;
         }
-        public async Task<Unit> Handle(UpdateUserDetailsCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdatePatientDetailsCommand request, CancellationToken cancellationToken)
         {
             var userDetails = _mapper.Map<UpdateUserDetailsDto>(request);
 

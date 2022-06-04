@@ -47,21 +47,21 @@ namespace Examino.Application.Functions.Raports.Queries.GetUserRaports
             var foundPrescription = await connection.QueryAsync<PrescriptionDto>(sqlPrescription);
 
 
-            const string sqlPatient = "SELECT " +
-                                      "[Users].[Id], " +
-                                      "[Users].[Name], " +
-                                      "[Users].[Surname] " +
-                                      "FROM [Users] " +
-                                      "WHERE [Users].[UserType] = @patient";           
+            string sqlPatient = $@"SELECT
+                                   {(Dbo.Users)}.{nameof(Patient.Id)} ,
+                                   {(Dbo.Users)}.{nameof(Patient.Name)}, 
+                                   {(Dbo.Users)}.{nameof(Patient.Surname)} 
+                                   FROM {(Dbo.Users)} 
+                                   WHERE {(Dbo.Users)}.[UserType] = @patient";           
 
             var foundPatient = await connection.QueryAsync<PatientDto>(sqlPatient, new { patient = "Patient" });
 
-            const string sqlDoctor = "SELECT " +
-                                     "[Users].[Id], " +
-                                     "[Users].[Name], " +
-                                     "[Users].[Surname] " +
-                                     "FROM [Users] " +
-                                     "WHERE [USERS].[UserType] = @doctor";
+            string sqlDoctor =  $@"SELECT
+                                   {(Dbo.Users)}.{nameof(Patient.Id)} ,
+                                   {(Dbo.Users)}.{nameof(Patient.Name)}, 
+                                   {(Dbo.Users)}.{nameof(Patient.Surname)} 
+                                   FROM {(Dbo.Users)} 
+                                   WHERE {(Dbo.Users)}.[UserType] = @doctor";
 
             var foundDoctor = await connection.QueryAsync<DoctorDto>(sqlDoctor, new { doctor = "Doctor" });
 

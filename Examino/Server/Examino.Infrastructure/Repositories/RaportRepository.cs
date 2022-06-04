@@ -17,6 +17,13 @@ namespace Examino.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public async Task CreatePrescription(Prescription prescription)
+        {
+            _dbContext.Prescriptions.Add(prescription);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<Guid> CreateRaport(Raport raport)
         {
             _dbContext.Raports.Add(raport);
