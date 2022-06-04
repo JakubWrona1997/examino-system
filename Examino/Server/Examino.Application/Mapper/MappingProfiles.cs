@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using Examino.Application.Functions.Prescriptions.Command.CreatePrescritpion;
 using Examino.Application.Functions.Raports.Commands.CreateRaport;
-using Examino.Application.Functions.Users.Registration.Command.RegisterPatient;
-using Examino.Application.Functions.Users.UserDetails.UpdateUserDetails;
+using Examino.Application.Functions.Users.Commands.Registration.RegisterPatient;
+using Examino.Application.Functions.Users.Commands.UpdatePatientDetails;
 using Examino.Domain.DTOs;
 using Examino.Domain.Entities;
 using System;
@@ -21,12 +22,16 @@ namespace Examino.Application.Mapper
 
             CreateMap<CreateRaportCommand, Raport>().IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
 
-            CreateMap<UpdateUserDetailsCommand, UpdateUserDetailsDto>();
+            CreateMap<UpdatePatientDetailsCommand, UpdateUserDetailsDto>();
 
             CreateMap<UpdateUserDetailsDto, Patient>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(p => p.UserId))
                 .ForMember(x => x.Id, opt => opt.Ignore())
                 .ForAllMembers(x => x.Condition((src, dest, sourceValue) => sourceValue != null));
+
+            CreateMap<PrescriptionRaportDto, CreatePrescritpionCommand>();
+
+            CreateMap<CreatePrescritpionCommand, Prescription>();
         }
     }
 }
