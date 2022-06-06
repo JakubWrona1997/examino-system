@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Raports.Commands.DeleteRaport
 {
-    public record DeleteRaportCommand : IRequest
+    public record DeleteRaportCommand : IRequest<Guid>
     {
         public Guid RaportId { get; set; }
     }

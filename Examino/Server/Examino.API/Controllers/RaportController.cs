@@ -65,8 +65,8 @@ namespace Examino.API.Controllers
         public async Task<ActionResult> DeleteRaport([FromRoute]Guid id)
         {
             var deleteRaportCommand = new DeleteRaportCommand() { RaportId = id };
-            await _mediator.Send(deleteRaportCommand);
-            return NoContent();
+            var result = await _mediator.Send(deleteRaportCommand);
+            return Ok(result);
         }
     }
 }
