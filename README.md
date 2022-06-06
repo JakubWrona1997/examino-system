@@ -1,2 +1,2 @@
 # examino-system
-medical system for viewing medical records
+Update the documentation for the readme
