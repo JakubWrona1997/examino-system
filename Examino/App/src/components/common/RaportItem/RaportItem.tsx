@@ -1,8 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "../../../app/store";
+import { RootState, useAppDispatch } from "../../../app/store";
+import { deleteRaport } from "../../../features/raportSlice";
 import { RaportViewModel } from "../../../models/Raports/RaportViewModel";
+import { FaTrash } from "react-icons/fa";
 import "./RaportItem.scss";
 
 interface Props {
@@ -12,6 +14,7 @@ interface Props {
 
 const RaportItem = ({ raport, index }: Props) => {
   const { user } = useSelector((state: RootState) => state.user);
+  const dispatch = useAppDispatch();
 
   return (
     <React.Fragment>
@@ -56,6 +59,14 @@ const RaportItem = ({ raport, index }: Props) => {
             </tbody>
           </table>
         </div>
+        {user?.role === "doctor" && (
+          <div
+            className="raport-history-content"
+            onClick={() => dispatch(deleteRaport(raport.raport.id))}
+          >
+            <FaTrash />
+          </div>
+        )}
       </div>
     </React.Fragment>
   );
