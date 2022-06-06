@@ -68,11 +68,15 @@ const RaportDetails = () => {
                 <tr>
                   <th>Recepta</th>
                   <td>
-                    <Link
-                      to={`/${user?.role}/history/prescription/${raport?.prescription.id}`}
-                    >
-                      Pokaż receptę
-                    </Link>
+                    {raport?.prescription ? (
+                      <Link
+                        to={`/${user?.role}/history/prescription/${raport.prescription.id}`}
+                      >
+                        Pokaż receptę
+                      </Link>
+                    ) : (
+                      "-"
+                    )}
                   </td>
                 </tr>
               </tbody>

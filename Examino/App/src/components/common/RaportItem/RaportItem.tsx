@@ -35,11 +35,15 @@ const RaportItem = ({ raport, index }: Props) => {
                   {new Date(raport.raport.raportTime).toLocaleString("pl-PL")}
                 </td>
                 <td>
-                  <Link
-                    to={`/${user?.role}/history/prescription/${raport.prescription.id}`}
-                  >
-                    Pokaż receptę
-                  </Link>
+                  {raport?.prescription ? (
+                    <Link
+                      to={`/${user?.role}/history/prescription/${raport.prescription.id}`}
+                    >
+                      Pokaż receptę
+                    </Link>
+                  ) : (
+                    "-"
+                  )}
                 </td>
                 <td>
                   <Link
