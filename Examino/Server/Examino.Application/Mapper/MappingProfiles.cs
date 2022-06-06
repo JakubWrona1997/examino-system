@@ -22,7 +22,8 @@ namespace Examino.Application.Mapper
             CreateMap<RegisterPatientCommand, Patient>()
                 .ForMember(x => x.UserName, opt => opt.MapFrom(x => x.Email));
 
-            CreateMap<CreateRaportCommand, Raport>().IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
+            CreateMap<CreateRaportCommand, Raport>().IgnoreAllSourcePropertiesWithAnInaccessibleSetter()
+                .ForMember(r => r.Prescription, opt => opt.Ignore());
 
             CreateMap<UpdatePatientDetailsCommand, UpdatePatientDetailsDto>();
 
