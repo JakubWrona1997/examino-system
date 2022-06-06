@@ -2,10 +2,11 @@ import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { PatientDataViewModel } from "../models/Users/Patient/PatientDataViewModel";
 import { PatientUpdateDataViewModel } from "../models/Users/Patient/PatientUpdateDataViewModel";
+import { AlertViewModel } from "../models/Alert/AlertViewModel";
 
 interface IPatientState {
   patient: PatientDataViewModel | undefined;
-  alert: string | undefined;
+  alert: AlertViewModel | undefined;
 }
 
 const initialState: IPatientState = {
@@ -58,10 +59,13 @@ export const patientSlice = createSlice({
         state.patient = action.payload;
       })
       .addCase(updatePatient.fulfilled, (state) => {
-        state.alert = "Profil zaktualizowano pomyślnie";
+        state.alert = {
+          type: "info",
+          message: "Profil zaktualizowano pomyślnie",
+        };
       })
       .addCase(updatePatient.rejected, (state) => {
-        state.alert = "Oops! Coś poszło nie tak";
+        state.alert = { type: "error", message: "Oops! Coś poszło nie tak" };
       });
   },
 });

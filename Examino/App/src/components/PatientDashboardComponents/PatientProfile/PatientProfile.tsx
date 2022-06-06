@@ -10,7 +10,6 @@ import {
   updatePatient,
 } from "../../../features/patientSlice";
 import { format } from "date-fns";
-import { toast } from "react-toastify";
 import "./PatientProfile.scss";
 import InputField from "../../common/Forms/InputField/InputField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
@@ -18,6 +17,7 @@ import { PatientDataViewModel } from "../../../models/Users/Patient/PatientDataV
 import { PatientUpdateDataViewModel } from "../../../models/Users/Patient/PatientUpdateDataViewModel";
 import { BloodTypeOptions } from "../../../constants/BloodTypeOptions";
 import { GenderOptions } from "../../../constants/GenderOptions";
+import displayAlert from "../../../utils/displayAlert";
 
 const PatientProfile = () => {
   const { patient, alert } = useSelector((state: RootState) => state.patient);
@@ -73,7 +73,9 @@ const PatientProfile = () => {
   }, [patient, reset]);
 
   useEffect(() => {
-    if (alert) toast.info(alert);
+    if (alert) {
+      displayAlert(alert);
+    }
     return () => {
       if (alert) dispatch(removeAlert());
     };

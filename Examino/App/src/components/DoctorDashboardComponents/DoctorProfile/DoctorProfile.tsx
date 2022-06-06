@@ -10,13 +10,13 @@ import {
   updateDoctor,
 } from "../../../features/doctorSlice";
 import { format } from "date-fns";
-import { toast } from "react-toastify";
 import "./DoctorProfile.scss";
 import InputField from "../../common/Forms/InputField/InputField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
 import { DoctorDataViewModel } from "../../../models/Users/Doctor/DoctorDataViewModel";
 import { DoctorUpdateDataViewModel } from "../../../models/Users/Doctor/DoctorUpdateDataViewModel";
 import { GenderOptions } from "../../../constants/GenderOptions";
+import displayAlert from "../../../utils/displayAlert";
 
 const DoctorProfile = () => {
   const { doctor, alert } = useSelector((state: RootState) => state.doctor);
@@ -58,7 +58,9 @@ const DoctorProfile = () => {
   }, [doctor, reset]);
 
   useEffect(() => {
-    if (alert) toast.info(alert);
+    if (alert) {
+      displayAlert(alert);
+    }
     return () => {
       if (alert) dispatch(removeAlert());
     };

@@ -1,25 +1,65 @@
-import React from "react";
-import { useAppDispatch } from "../../../app/store";
-import { createRaport } from "../../../features/raportSlice";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { RootState, useAppDispatch } from "../../../app/store";
+import { useSelector } from "react-redux";
+import {
+  createRaport,
+  getRaports,
+  removeAlert,
+} from "../../../features/raportSlice";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RaportCreateViewModel } from "../../../models/Raports/RaportCreateViewModel";
+import { PatientShortDetailsViewModel } from "../../../models/Users/Patient/PatientShortDetailsViewModel";
+import { SelectFieldOptionViewModel } from "../../../models/Forms/SelectFieldOptionViewModel";
 import "./DoctorForm.scss";
 import TextareaField from "../../common/Forms/TextareaField/TextareaField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
+import displayAlert from "../../../utils/displayAlert";
 
 const DoctorForm = () => {
+  const [patientOptions, setPatientOptions] = useState<
+    SelectFieldOptionViewModel[]
+  >([]);
+  const { alert } = useSelector((state: RootState) => state.raports);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getPatientsAsync = async () => {
+      const { data } = await axios.get("/api/doctor/users-list");
+      const list = data.map((patient: PatientShortDetailsViewModel) => {
+        return {
+          value: patient.id,
+          label: `${patient.name} ${patient.surname}, PESEL: ${patient.pesel}`,
+        };
+      });
+      setPatientOptions(list);
+    };
+    getPatientsAsync();
+  }, []);
+
+  useEffect(() => {
+    if (alert) {
+      displayAlert(alert);
+    }
+    return () => {
+      if (alert) dispatch(removeAlert());
+    };
+  }, [alert]);
 
   const formSchema = yup.object().shape({
     patientId: yup.string().required("To pole jest wymagane"),
-    sympthoms: yup.string().required("To pole jest wymagane"),
+    symptoms: yup.string().required("To pole jest wymagane"),
     examination: yup.string().required("To pole jest wymagane"),
     diagnosis: yup.string().required("To pole jest wymagane"),
     recommendation: yup.string().required("To pole jest wymagane"),
     comment: yup.string(),
-    prescription: yup.string(),
+    prescriptions: yup.object({
+      medicines: yup.string(),
+    }),
   });
 
   const {
@@ -31,8 +71,10 @@ const DoctorForm = () => {
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmit = (data: RaportCreateViewModel) => {
-    dispatch(createRaport(data));
+  const onSubmit = async (data: RaportCreateViewModel) => {
+    const { payload } = await dispatch(createRaport(data));
+    await dispatch(getRaports());
+    navigate(`/doctor/history/raport/${payload}`);
   };
 
   return (
@@ -47,11 +89,11 @@ const DoctorForm = () => {
                 name="patientId"
                 errors={errors}
                 label="Pacjent"
-                options={[]} // TODO - patient options
+                options={patientOptions}
               />
               <TextareaField
                 register={register}
-                name="sympthoms"
+                name="symptoms"
                 errors={errors}
                 label="Symptomy"
               />
@@ -81,7 +123,7 @@ const DoctorForm = () => {
               />
               <TextareaField
                 register={register}
-                name="prescription"
+                name="prescriptions.medicines"
                 errors={errors}
                 label="Recepta"
               />

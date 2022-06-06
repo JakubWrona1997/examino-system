@@ -1,9 +1,11 @@
 export interface RaportCreateViewModel {
   patientId: string;
-  sympthoms: string;
+  symptoms: string;
   examination: string;
   diagnosis: string;
   recommendation: string;
   comment: string;
-  prescription: string;
+  prescription: {
+    medicines: string;
+  };
 }

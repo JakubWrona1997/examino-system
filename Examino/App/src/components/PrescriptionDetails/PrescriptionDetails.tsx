@@ -12,7 +12,9 @@ const PrescriptionDetails = () => {
   const { raports } = useSelector((state: RootState) => state.raports);
 
   useEffect(() => {
-    setRaport(raports.find((raport) => raport.prescription.id === params.id));
+    if (raports) {
+      setRaport(raports.find((raport) => raport.prescription.id === params.id));
+    }
   }, [raports]);
 
   return (
@@ -34,7 +36,7 @@ const PrescriptionDetails = () => {
                 </tr>
                 <tr>
                   <th>Numer recepty</th>
-                  <td>{raport?.prescription?.id}</td>
+                  <td>{raport?.prescription.id}</td>
                 </tr>
                 <tr>
                   <th>Wystawca</th>

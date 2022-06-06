@@ -3,17 +3,18 @@ import { RootState } from "../app/store";
 import axios from "axios";
 import { RaportViewModel } from "../models/Raports/RaportViewModel";
 import { RaportCreateViewModel } from "../models/Raports/RaportCreateViewModel";
+import { AlertViewModel } from "../models/Alert/AlertViewModel";
 
 interface IRaportState {
   raports: RaportViewModel[];
-  loading: "idle" | "pending" | "fulfilled" | "failed";
   error: string | undefined;
+  alert: AlertViewModel | undefined;
 }
 
 const initialState: IRaportState = {
   raports: [],
-  loading: "idle",
   error: undefined,
+  alert: undefined,
 };
 
 // Get raports
@@ -34,7 +35,7 @@ export const getRaports = createAsyncThunk<
 // Create raport
 // POST /api/raport/create
 export const createRaport = createAsyncThunk<
-  RaportViewModel,
+  string,
   RaportCreateViewModel,
   { state: RootState; rejectValue: string }
 >("raport/create", async (raportData, thunkAPI) => {
@@ -67,12 +68,12 @@ export const updateRaport = createAsyncThunk<
 // Delete raport
 // DELETE /api/raport/:id/delete
 export const deleteRaport = createAsyncThunk<
-  RaportViewModel,
+  string,
   string,
   { state: RootState; rejectValue: string }
 >("raport/delete", async (raportId, thunkAPI) => {
   try {
-    const res = await axios.delete(`/api/raport/${raportId}/delete`);
+    const res = await axios.delete(`/api/raport/${raportId}`);
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -82,60 +83,42 @@ export const deleteRaport = createAsyncThunk<
 export const raportSlice = createSlice({
   name: "raport",
   initialState,
-  reducers: {},
+  reducers: {
+    removeAlert: (state) => {
+      state.alert = initialState.alert;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(getRaports.pending, (state) => {
-        state.loading = "pending";
-      })
       .addCase(getRaports.fulfilled, (state, action) => {
-        state.loading = "fulfilled";
         state.raports = action.payload;
       })
-      .addCase(getRaports.rejected, (state, action) => {
-        state.loading = "failed";
-        state.error = action.payload;
+      .addCase(createRaport.fulfilled, (state) => {
+        state.alert = {
+          type: "info",
+          message: "Raport dodany pomyślnie",
+        };
       })
-      .addCase(createRaport.pending, (state) => {
-        state.loading = "pending";
-      })
-      .addCase(createRaport.fulfilled, (state, action) => {
-        state.loading = "fulfilled";
-        state.raports.push(action.payload);
-      })
-      .addCase(createRaport.rejected, (state, action) => {
-        state.loading = "failed";
-        state.error = action.payload;
-      })
-      .addCase(updateRaport.pending, (state) => {
-        state.loading = "pending";
+      .addCase(createRaport.rejected, (state) => {
+        state.alert = {
+          type: "error",
+          message: "Oops! Coś poszło nie tak",
+        };
       })
       .addCase(updateRaport.fulfilled, (state, action) => {
-        state.loading = "fulfilled";
         state.raports = state.raports.filter((raport) =>
           raport.raport.id === action.payload.raport.id
             ? action.payload
             : raport
         );
       })
-      .addCase(updateRaport.rejected, (state, action) => {
-        state.loading = "failed";
-        state.error = action.payload;
-      })
-      .addCase(deleteRaport.pending, (state) => {
-        state.loading = "pending";
-      })
       .addCase(deleteRaport.fulfilled, (state, action) => {
-        state.loading = "fulfilled";
         state.raports = state.raports.filter(
-          (raport) => raport.raport.id !== action.payload.raport.id
+          (raport) => raport.raport.id !== action.payload
         );
-      })
-      .addCase(deleteRaport.rejected, (state, action) => {
-        state.loading = "failed";
-        state.error = action.payload;
       });
   },
 });
 
+export const { removeAlert } = raportSlice.actions;
 export default raportSlice.reducer;

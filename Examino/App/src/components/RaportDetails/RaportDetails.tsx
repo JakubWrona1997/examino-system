@@ -13,7 +13,9 @@ const RaportDetails = () => {
   const { raports } = useSelector((state: RootState) => state.raports);
 
   useEffect(() => {
-    setRaport(raports.find((raport) => raport.raport.id === params.id));
+    if (raports) {
+      setRaport(raports.find((raport) => raport.raport.id === params.id));
+    }
   }, [raports]);
 
   return (
