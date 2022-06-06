@@ -18,7 +18,7 @@ namespace Examino.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("createDoctor")]
+        [HttpPost("register-doctor")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateDoctor(CreateDoctorCommand createDoctor)
