@@ -34,7 +34,7 @@ namespace Examino.Infrastructure.DummyData
                 LockoutEnabled = false,
                 PostalCode="30-004",
                 PasswordHash= hasher.HashPassword(null, "Admin123!"),
-                Gender = "Man"
+                Gender = "Mężczyzna"
 
             };
             return admin;

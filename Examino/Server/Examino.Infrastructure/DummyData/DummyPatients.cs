@@ -37,7 +37,7 @@ namespace Examino.Infrastructure.DummyData
                 LockoutEnabled = false,
                 PostalCode= "34-331",
                 PasswordHash = hasher.HashPassword(null, "Patient123!"),
-                Gender = "Man"
+                Gender = "Mężczyzna"
             };
             Patient patient2 = new Patient()
             {
@@ -62,7 +62,7 @@ namespace Examino.Infrastructure.DummyData
                 LockoutEnabled = false,
                 PostalCode ="80-001",
                 PasswordHash = hasher.HashPassword(null, "Patient123!"),
-                Gender="Man"
+                Gender= "Mężczyzna"
 
             };
             Patient patient3 = new Patient()
@@ -88,7 +88,7 @@ namespace Examino.Infrastructure.DummyData
                 LockoutEnabled = false,
                 PostalCode = "34-500",
                 PasswordHash = hasher.HashPassword(null, "Patient123!"),
-                Gender="Man"
+                Gender= "Mężczyzna"
 
             };
 
