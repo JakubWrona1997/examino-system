@@ -25,7 +25,7 @@ namespace Examino.Infrastructure.Middleware
             var token = context.Request.Cookies[authenticationCookieName];
             if (token != null)
             {
-                if (!context.Request.Path.ToString().ToLower().Contains("/api/patient/logout"))
+                if (!context.Request.Path.ToString().ToLower().Contains("/api/user/logout"))
                 {
                     if (!string.IsNullOrEmpty(token))
                     {                       
