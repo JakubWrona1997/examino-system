@@ -1,6 +1,7 @@
 ﻿using Examino.Application.Functions.Users.Commands.Login.UserLogin;
 using Examino.Application.Functions.Users.Commands.UpdateDoctorDetails;
 using Examino.Application.Functions.Users.Queries.UserDetails.GetDoctorDetails;
+using Examino.Application.Functions.Users.Queries.UserDetails.GetPatientsBasicInfo;
 using Examino.Domain.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -48,6 +49,15 @@ namespace Examino.API.Controllers
             await _mediator.Send(updateDoctorDetailsCommand);
 
             return Ok();
+        }
+        [Authorize(Roles = "Doctor")]
+        [HttpGet("users-list")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> GetUsersDetailsList()
+        {
+            var usersListInViewModel = await _mediator.Send(new GetPatientsBasicInfoQuery());
+
+            return Ok(usersListInViewModel);
         }
     }
 }
