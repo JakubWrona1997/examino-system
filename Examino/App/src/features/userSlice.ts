@@ -4,32 +4,24 @@ import { UserViewModel } from "../models/Users/UserViewModel";
 import { UserLoginDataViewModel } from "../models/Users/UserLoginDataViewModel";
 import { UserRegisterDataViewModel } from "../models/Users/UserRegisterDataViewModel";
 import { UserRegisterErrorsViewModel } from "../models/Users/UserRegisterErrorsViewModel";
-import { PatientDataViewModel } from "../models/Users/Patient/PatientDataViewModel";
-import { PatientUpdateDataViewModel } from "../models/Users/Patient/PatientUpdateDataViewModel";
-import { DoctorDataViewModel } from "../models/Users/Doctor/DoctorDataViewModel";
-import { DoctorUpdateDataViewModel } from "../models/Users/Doctor/DoctorUpdateDataViewModel";
 import jwtDecode from "../utils/jwtDecode";
 
 interface IUserState {
   user: UserViewModel | null;
-  userData: PatientDataViewModel | DoctorDataViewModel | undefined;
   loading: "idle" | "pending" | "fulfilled" | "failed";
   error: {
     register: UserRegisterErrorsViewModel | undefined;
     login: string | undefined;
   };
-  alert: string | undefined;
 }
 
 const initialState: IUserState = {
   user: null,
-  userData: undefined,
   loading: "idle",
   error: {
     register: undefined,
     login: undefined,
   },
-  alert: undefined,
 };
 
 // Register user
@@ -40,7 +32,7 @@ export const registerUser = createAsyncThunk<
   { rejectValue: UserRegisterErrorsViewModel }
 >("user/register", async (userData, thunkAPI) => {
   try {
-    const res = await axios.post("/api/patient/register", userData);
+    const res = await axios.post("/api/user/register", userData);
     return jwtDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data.errors);
@@ -55,7 +47,7 @@ export const loginUser = createAsyncThunk<
   { rejectValue: string }
 >("user/login", async (userData, thunkAPI) => {
   try {
-    const res = await axios.post("/api/patient/login", userData);
+    const res = await axios.post("/api/user/login", userData);
     return jwtDecode(res.data);
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -70,68 +62,8 @@ export const authenticateUser = createAsyncThunk<
   { rejectValue: string }
 >("user/auth", async (_, thunkAPI) => {
   try {
-    const res = await axios.get("/api/patient/auth");
+    const res = await axios.get("/api/user/auth");
     return jwtDecode(res.data);
-  } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
-});
-
-// Get Patient Data
-// GET /api/patient
-export const getPatientData = createAsyncThunk<
-  PatientDataViewModel,
-  void,
-  { rejectValue: string }
->("patient/get", async (_, thunkAPI) => {
-  try {
-    const res = await axios.get("/api/patient");
-    return res.data;
-  } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
-});
-
-// Get Doctor Data
-// GET /api/doctor
-export const getDoctorData = createAsyncThunk<
-  DoctorDataViewModel,
-  void,
-  { rejectValue: string }
->("doctor/get", async (_, thunkAPI) => {
-  try {
-    const res = await axios.get("/api/doctor");
-    return res.data;
-  } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
-});
-
-// Update Patient
-// PUT /api/patient
-export const updatePatient = createAsyncThunk<
-  void,
-  PatientUpdateDataViewModel,
-  { rejectValue: string }
->("patient/update", async (userData, thunkAPI) => {
-  try {
-    const res = await axios.put("/api/patient", userData);
-    return res.data;
-  } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
-});
-
-// Update Doctor
-// PUT /api/doctor
-export const updateDoctor = createAsyncThunk<
-  void,
-  DoctorUpdateDataViewModel,
-  { rejectValue: string }
->("doctor/update", async (userData, thunkAPI) => {
-  try {
-    const res = await axios.put("/api/doctor", userData);
-    return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
@@ -142,11 +74,8 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     logoutUser: () => {
-      axios.post("/api/patient/logout");
+      axios.post("/api/user/logout");
       return initialState;
-    },
-    removeAlert: (state) => {
-      state.alert = initialState.alert;
     },
   },
   extraReducers: (builder) => {
@@ -175,21 +104,9 @@ export const userSlice = createSlice({
       })
       .addCase(authenticateUser.fulfilled, (state, action) => {
         state.user = action.payload;
-      })
-      .addCase(getPatientData.fulfilled, (state, action) => {
-        state.userData = action.payload;
-      })
-      .addCase(getDoctorData.fulfilled, (state, action) => {
-        state.userData = action.payload;
-      })
-      .addCase(updatePatient.fulfilled, (state) => {
-        state.alert = "Profil zaktualizowano pomyślnie";
-      })
-      .addCase(updateDoctor.fulfilled, (state) => {
-        state.alert = "Profil zaktualizowano pomyślnie";
       });
   },
 });
 
-export const { logoutUser, removeAlert } = userSlice.actions;
+export const { logoutUser } = userSlice.actions;
 export default userSlice.reducer;
