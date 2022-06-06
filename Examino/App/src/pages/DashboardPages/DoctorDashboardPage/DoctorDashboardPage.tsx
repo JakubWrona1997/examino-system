@@ -3,7 +3,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../app/store";
 import { getRaports } from "../../../features/raportSlice";
-import { getDoctorData, logoutUser } from "../../../features/userSlice";
+import { logoutUser } from "../../../features/userSlice";
+import { getDoctorData, doctorReset } from "../../../features/doctorSlice";
 import {
   FaHeartbeat,
   FaThLarge,
@@ -28,6 +29,9 @@ const DoctorDashboardPage = () => {
     } else {
       navigate("/");
     }
+    return () => {
+      dispatch(doctorReset());
+    };
   }, []);
 
   const handleLogout = () => {

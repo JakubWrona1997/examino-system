@@ -8,7 +8,7 @@ import {
   removeAlert,
   getPatientData,
   updatePatient,
-} from "../../../features/userSlice";
+} from "../../../features/patientSlice";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 import "./PatientProfile.scss";
@@ -20,7 +20,7 @@ import { BloodTypeOptions } from "../../../constants/BloodTypeOptions";
 import { GenderOptions } from "../../../constants/GenderOptions";
 
 const PatientProfile = () => {
-  const { userData, alert } = useSelector((state: RootState) => state.user);
+  const { patient, alert } = useSelector((state: RootState) => state.patient);
   const dispatch = useAppDispatch();
 
   const patientProfileSchema = yup.object().shape({
@@ -64,13 +64,13 @@ const PatientProfile = () => {
   });
 
   useEffect(() => {
-    if (userData && userData.dateOfBirth) {
+    if (patient && patient.dateOfBirth) {
       reset({
-        ...userData,
-        dateOfBirth: format(new Date(userData.dateOfBirth), "yyyy-MM-dd"),
+        ...patient,
+        dateOfBirth: format(new Date(patient.dateOfBirth), "yyyy-MM-dd"),
       });
     }
-  }, [userData, reset]);
+  }, [patient, reset]);
 
   useEffect(() => {
     if (alert) toast.info(alert);

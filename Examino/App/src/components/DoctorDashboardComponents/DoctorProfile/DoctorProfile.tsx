@@ -8,7 +8,7 @@ import {
   removeAlert,
   getDoctorData,
   updateDoctor,
-} from "../../../features/userSlice";
+} from "../../../features/doctorSlice";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 import "./DoctorProfile.scss";
@@ -19,7 +19,7 @@ import { DoctorUpdateDataViewModel } from "../../../models/Users/Doctor/DoctorUp
 import { GenderOptions } from "../../../constants/GenderOptions";
 
 const DoctorProfile = () => {
-  const { userData, alert } = useSelector((state: RootState) => state.user);
+  const { doctor, alert } = useSelector((state: RootState) => state.doctor);
   const dispatch = useAppDispatch();
 
   const doctorProfileSchema = yup.object().shape({
@@ -49,13 +49,13 @@ const DoctorProfile = () => {
   });
 
   useEffect(() => {
-    if (userData && userData.dateOfBirth) {
+    if (doctor && doctor.dateOfBirth) {
       reset({
-        ...userData,
-        dateOfBirth: format(new Date(userData.dateOfBirth), "yyyy-MM-dd"),
+        ...doctor,
+        dateOfBirth: format(new Date(doctor.dateOfBirth), "yyyy-MM-dd"),
       });
     }
-  }, [userData, reset]);
+  }, [doctor, reset]);
 
   useEffect(() => {
     if (alert) toast.info(alert);
