@@ -22,51 +22,12 @@ namespace Examino.API.Controllers
             _mediator = mediator;
             _userProvider = userProvider;
         }
-        [HttpPost("login")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> Login([FromBody] LoginCommand loginCommand)
-        {
-            var result = await _mediator.Send(loginCommand);
-            if (result.Success == false)
-            {
-                return StatusCode(result.StatusCode, result.Message);
-            }
-            CookieOptions cookieOptions = new CookieOptions()
-            {
-                Path = "/",
-                HttpOnly = true,
-                Domain = "localhost",
-                Secure = true,
-                SameSite = SameSiteMode.None,
-                Expires = DateTime.Now.AddDays(15)
-            };
-
-            HttpContext.Response.Cookies.Append("tokenCookie", result.Token.ToString(), cookieOptions);
-
-            return Ok(result.Token.ToString());
-        }
-
-        [HttpPost("logout")]
-        public ActionResult Logout()
-        {
-            //Middleware performing delete cookie
-            return Ok();
-        }
-
-        [Authorize(Roles = "Doctor")]
-        [HttpGet("auth")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public ActionResult Get()
-        {
-            var token = _userProvider.GetToken();
-            return Ok(token);
-        }
 
         [Authorize(Roles = "Doctor")]
         [HttpGet]
         [ProducesResponseType(typeof(DoctorViewModel), (int)HttpStatusCode.OK)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<DoctorViewModel>> GetPatientDetails()
+        public async Task<ActionResult<DoctorViewModel>> GetDoctorDetails()
         {
             var userId = _userProvider.GetUserId();
 

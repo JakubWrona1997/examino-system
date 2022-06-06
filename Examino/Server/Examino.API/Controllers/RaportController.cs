@@ -27,7 +27,7 @@ namespace Examino.API.Controllers
             _userProvider = userProvider;
             _mapper = mapper;
         }
-
+        [Authorize(Roles = "Doctor, Patient")]
         [HttpGet]
         [ProducesResponseType(typeof(List<RaportViewModel>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<List<RaportViewModel>>> GetUserRaports()
