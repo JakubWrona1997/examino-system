@@ -5,4 +5,5 @@ export interface RaportCreateViewModel {
   diagnosis: string;
   recommendation: string;
   comment: string;
+  prescription: string;
 }
