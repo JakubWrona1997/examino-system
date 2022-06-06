@@ -32,6 +32,7 @@ namespace Examino.Infrastructure
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IUserProvider, UserProvider>();
+            services.AddScoped<IValidationService, ValidationService>();
 
             return services;
         }

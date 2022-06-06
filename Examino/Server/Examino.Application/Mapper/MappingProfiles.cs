@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Examino.Application.Functions.Prescriptions.Command.CreatePrescritpion;
 using Examino.Application.Functions.Raports.Commands.CreateRaport;
+using Examino.Application.Functions.Users.Commands.CreateDoctor;
 using Examino.Application.Functions.Users.Commands.Registration.RegisterPatient;
 using Examino.Application.Functions.Users.Commands.UpdateDoctorDetails;
 using Examino.Application.Functions.Users.Commands.UpdatePatientDetails;
@@ -42,6 +43,8 @@ namespace Examino.Application.Mapper
             CreateMap<PrescriptionRaportDto, CreatePrescritpionCommand>();
 
             CreateMap<CreatePrescritpionCommand, Prescription>();
+            CreateMap<CreateDoctorCommand, Doctor>()
+                .ForMember(x=>x.UserName,opt=>opt.MapFrom(x=>x.Email));
         }
     }
 }

@@ -4,42 +4,39 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.Commands.Registration.RegisterPatient
+namespace Examino.Application.Functions.Users.Commands.CreateDoctor
 {
-   public  class RegisterPatientCommandValidator : AbstractValidator<RegisterPatientCommand>
+    public class CreateDoctorCommandValidator : AbstractValidator<CreateDoctorCommand>
     {
         private readonly IValidationService _validationService;
 
-        public RegisterPatientCommandValidator(IValidationService validationService)
+        public CreateDoctorCommandValidator(IValidationService validationService)
         {
             _validationService = validationService;
-
             RuleFor(x => x.Email)
-                .NotEmpty()
-                .EmailAddress()
-                .Must(IsEmailUnique).WithMessage("Patient with that email exist");
-                
+               .NotEmpty()
+               .EmailAddress()
+               .Must(IsEmailUnique).WithMessage("Doctor with that email exist");
+
 
             RuleFor(x => x.Name)
                 .NotEmpty()
-                .Length(3,50)
+                .Length(3, 50)
                 .Matches("^[A-Z]").WithMessage("Name needs to start with uppercase letter");
 
             RuleFor(x => x.Surname)
               .NotEmpty()
               .Length(3, 50)
-              .Matches("^[A-Z]").WithMessage("Surname needs to start with uppercase letter"); 
+              .Matches("^[A-Z]").WithMessage("Surname needs to start with uppercase letter");
 
             RuleFor(x => x.PESEL)
                 .NotEmpty()
                 .Length(11)
                 .Matches("\\d{11}").WithMessage("Pesel need to have 11 digits")
-                .Must(IsPeselUnique).WithMessage("Patient with that PESEL exist");
-                
+                .Must(IsPeselUnique).WithMessage("Doctor with that PESEL exist");
+
 
             RuleFor(x => x.Password)
                 .NotEmpty()
@@ -47,8 +44,9 @@ namespace Examino.Application.Functions.Users.Commands.Registration.RegisterPati
                 .Matches("[a-z]").WithMessage("Password need one lowercase letter")
                 .Matches("[0-9]").WithMessage("Password need one number")
                 .Matches("(?=.*?[#?!@$%^&*-])").WithMessage("Password need at least one special character");
-        }
 
+
+        }
         private bool IsEmailUnique(string email)
         {
             var check = _validationService.

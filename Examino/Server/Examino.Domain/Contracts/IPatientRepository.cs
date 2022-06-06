@@ -12,7 +12,6 @@ namespace Examino.Domain.Contracts
     {
        Task<Patient> Register(Patient patient, string password);
        Task UpdateDetails(UpdatePatientDetailsDto patient);
-       Task<bool> IsEmailAlreadyExist(string email);
-       Task<bool> IsPeselAlreadyExist( string pesel);
+  
     }
 }
