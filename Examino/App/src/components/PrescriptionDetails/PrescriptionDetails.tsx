@@ -13,7 +13,9 @@ const PrescriptionDetails = () => {
 
   useEffect(() => {
     if (raports) {
-      setRaport(raports.find((raport) => raport.prescription.id === params.id));
+      setRaport(
+        raports.find((raport) => raport.prescription?.id === params.id)
+      );
     }
   }, [raports]);
 

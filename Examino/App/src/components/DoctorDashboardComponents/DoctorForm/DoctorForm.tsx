@@ -57,7 +57,7 @@ const DoctorForm = () => {
     diagnosis: yup.string().required("To pole jest wymagane"),
     recommendation: yup.string().required("To pole jest wymagane"),
     comment: yup.string(),
-    prescriptions: yup.object({
+    prescription: yup.object({
       medicines: yup.string(),
     }),
   });
@@ -123,7 +123,7 @@ const DoctorForm = () => {
               />
               <TextareaField
                 register={register}
-                name="prescriptions.medicines"
+                name="prescription.medicines"
                 errors={errors}
                 label="Recepta"
               />
