@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Domain.DTOs
+namespace Examino.Domain.DTOs.UserDTOs
 {
-    public record UpdateUserDetailsDto
+    public record UpdatePatientDetailsDto
     {
         public Guid UserId { get; set; }
         public string? Address { get; set; }

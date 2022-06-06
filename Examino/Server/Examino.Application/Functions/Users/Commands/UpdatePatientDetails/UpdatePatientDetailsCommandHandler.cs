@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Examino.Domain.Contracts;
-using Examino.Domain.DTOs;
+using Examino.Domain.DTOs.UserDTOs;
 using Examino.Domain.Entities;
 using MediatR;
 using System;
@@ -24,7 +24,7 @@ namespace Examino.Application.Functions.Users.Commands.UpdatePatientDetails
         }
         public async Task<Unit> Handle(UpdatePatientDetailsCommand request, CancellationToken cancellationToken)
         {
-            var userDetails = _mapper.Map<UpdateUserDetailsDto>(request);
+            var userDetails = _mapper.Map<UpdatePatientDetailsDto>(request);
 
             await _patientRepository.UpdateDetails(userDetails);
 

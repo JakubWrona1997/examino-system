@@ -39,7 +39,7 @@ namespace Examino.API.Controllers
 
             return Ok(raports);
         }
-
+        [Authorize(Roles = "Doctor")]
         [HttpPost("create")]
         public async Task<ActionResult<Guid>> CreateRaport([FromBody] CreateRaportCommand createRaportCommand)
         {
@@ -58,7 +58,7 @@ namespace Examino.API.Controllers
                
             return Ok(result.Id);
         }
-
+        [Authorize(Roles = "Doctor")]
         [HttpDelete("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]

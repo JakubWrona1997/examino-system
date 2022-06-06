@@ -15,7 +15,7 @@ using System.Net;
 using System.Threading.Tasks;
 
 namespace Examino.Application.Controllers
-{
+{    
     [Route("api/patient")]
     [ApiController]
     public class PatientController : ControllerBase
@@ -74,7 +74,7 @@ namespace Examino.Application.Controllers
             //Middleware performing delete cookie
             return Ok();
         }
-
+        [Authorize(Roles = "Patient")]
         [HttpGet("auth")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult Get()
@@ -82,7 +82,7 @@ namespace Examino.Application.Controllers
             var token = _userProvider.GetToken();
             return Ok(token);
         }
-
+        [Authorize(Roles = "Patient")]
         [HttpGet]
         [ProducesResponseType(typeof(PatientViewModel), (int)HttpStatusCode.OK)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -94,16 +94,16 @@ namespace Examino.Application.Controllers
 
             return Ok(user);
         }
-
+        [Authorize(Roles = "Patient")]
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> UpdateUserDetails([FromBody] UpdatePatientDetailsCommand updateUserDetailsCommand)
+        public async Task<ActionResult> UpdatePatientDetails([FromBody] UpdatePatientDetailsCommand updatePatientDetailsCommand)
         {
             var userId = _userProvider.GetUserId();
 
-            updateUserDetailsCommand.UserId = userId;
+            updatePatientDetailsCommand.UserId = userId;
 
-            await _mediator.Send(updateUserDetailsCommand);
+            await _mediator.Send(updatePatientDetailsCommand);
 
             return Ok();
         }
