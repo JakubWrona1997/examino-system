@@ -13,7 +13,7 @@ const PrescriptionDetails = () => {
 
   useEffect(() => {
     setRaport(raports.find((raport) => raport.prescription.id === params.id));
-  }, []);
+  }, [raports]);
 
   return (
     <React.Fragment>
@@ -34,7 +34,7 @@ const PrescriptionDetails = () => {
                 </tr>
                 <tr>
                   <th>Numer recepty</th>
-                  <td>{raport?.prescription.id}</td>
+                  <td>{raport?.prescription?.id}</td>
                 </tr>
                 <tr>
                   <th>Wystawca</th>

@@ -14,7 +14,7 @@ const RaportDetails = () => {
 
   useEffect(() => {
     setRaport(raports.find((raport) => raport.raport.id === params.id));
-  }, []);
+  }, [raports]);
 
   return (
     <React.Fragment>
