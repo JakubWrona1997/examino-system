@@ -41,7 +41,9 @@ namespace Examino.Application.Responses
             //don t add 400 bad request(validation give that ),401 unathorized
             { 204,"No Content Response , operation succeed"},
             { 403,"Forbidden"},
-            { 404,"Not found"}         
+            { 404,"Not found"},
+            { 201,"Created"},
+            { 500 ,"Something went wrong"}
         };
        
     }
