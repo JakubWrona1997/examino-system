@@ -35,7 +35,8 @@ namespace Examino.Application.Functions.Raports.Queries.GetUserRaports
                                               {nameof(Raport.Recommendation)},
                                               {nameof(Raport.Comment)}
                                               FROM {(Dbo.Raports)}
-                                              WHERE {nameof(Raport.PatientId)} = @PatientId OR {nameof(Raport.DoctorId)} = @DoctorId";
+                                              WHERE {nameof(Raport.PatientId)} = @PatientId OR {nameof(Raport.DoctorId)} = @DoctorId
+                                              ORDER BY {nameof(Raport.RaportTime)} DESC";
 
             var foundRaports = await connection.QueryAsync<RaportDto>(sqlRaport, new { request.PatientId, request.DoctorId });
 
