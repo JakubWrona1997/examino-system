@@ -2,7 +2,7 @@ using AutoMapper;
 using Dapper;
 using Examino.Domain;
 using Examino.Domain.Contracts;
-using Examino.Domain.DTOs;
+using Examino.Domain.DTOs.UserDTOs;
 using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -63,11 +63,11 @@ namespace Examino.Infrastructure.Repositories
             return (Patient)newMadeUser;
         }
 
-        public async Task UpdateDetails(UpdateUserDetailsDto patient)
+        public async Task UpdateDetails(UpdatePatientDetailsDto patient)
         {
             var patientToEdit = await _db.Patients.FirstOrDefaultAsync(x => x.Id == patient.UserId);
             if(patientToEdit!= null)
-                _mapper.Map<UpdateUserDetailsDto, Patient>(patient, patientToEdit);
+                _mapper.Map<UpdatePatientDetailsDto, Patient>(patient, patientToEdit);
             
             await _db.SaveChangesAsync();            
         }
