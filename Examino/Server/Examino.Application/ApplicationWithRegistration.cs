@@ -1,4 +1,5 @@
 ﻿using Examino.Application.Functions.Raports.Commands.CreateRaport;
+using Examino.Application.Functions.Users.Commands.CreateDoctor;
 using Examino.Application.Functions.Users.Commands.Registration.RegisterPatient;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Examino.Application
 {
-   public static class ApplicationWithRegistration
+    public static class ApplicationWithRegistration
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
@@ -25,6 +26,7 @@ namespace Examino.Application
 
             services.AddScoped<IValidator<RegisterPatientCommand>, RegisterPatientCommandValidator>();
             services.AddScoped<IValidator<CreateRaportCommand>, CreateRaportCommandValidator>();
+            services.AddScoped<IValidator<CreateDoctorCommand>, CreateDoctorCommandValidator>();
 
             return services;
         }
