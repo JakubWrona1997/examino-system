@@ -12,11 +12,11 @@ namespace Examino.Application.Functions.Users.Commands.Registration.RegisterPati
 {
    public  class RegisterPatientCommandValidator : AbstractValidator<RegisterPatientCommand>
     {
-        private readonly IPatientRepository _patientRepository;
+        private readonly IValidationService _validationService;
 
-        public RegisterPatientCommandValidator(IPatientRepository patientRepository)
+        public RegisterPatientCommandValidator(IValidationService validationService)
         {
-            _patientRepository = patientRepository;
+            _validationService = validationService;
 
             RuleFor(x => x.Email)
                 .NotEmpty()
@@ -27,12 +27,12 @@ namespace Examino.Application.Functions.Users.Commands.Registration.RegisterPati
             RuleFor(x => x.Name)
                 .NotEmpty()
                 .Length(3,50)
-                .Matches("^[A-Z]").WithMessage("Name needs to start with uppercase letter");//add remnant rules from frontend
+                .Matches("^[A-Z]").WithMessage("Name needs to start with uppercase letter");
 
             RuleFor(x => x.Surname)
               .NotEmpty()
               .Length(3, 50)
-              .Matches("^[A-Z]").WithMessage("Surname needs to start with uppercase letter"); //add remnant rules from frontend
+              .Matches("^[A-Z]").WithMessage("Surname needs to start with uppercase letter"); 
 
             RuleFor(x => x.PESEL)
                 .NotEmpty()
@@ -51,13 +51,13 @@ namespace Examino.Application.Functions.Users.Commands.Registration.RegisterPati
 
         private bool IsEmailUnique(string email)
         {
-            var check =  _patientRepository.
+            var check = _validationService.
                 IsEmailAlreadyExist(email).Result;
             return !check;
         }
         private bool IsPeselUnique(string pesel)
         {
-            var check = _patientRepository.
+            var check = _validationService.
                 IsPeselAlreadyExist(pesel).Result;
             return !check;
         }
