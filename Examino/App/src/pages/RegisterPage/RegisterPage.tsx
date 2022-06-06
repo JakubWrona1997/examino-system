@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../app/store";
-import { registerUser } from "../../features/userSlice";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "../../app/store";
+import { registerPatient } from "../../features/userSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,18 +11,16 @@ import InputField from "../../components/common/Forms/InputField/InputField";
 import { UserRegisterDataViewModel } from "../../models/Users/UserRegisterDataViewModel";
 
 const RegisterPage = () => {
-  const { user, loading, error } = useSelector(
-    (state: RootState) => state.user
-  );
+  const { user, error } = useSelector((state: RootState) => state.user);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading === "fulfilled" || user) {
+    if (user) {
       navigate(`/${user?.role}`);
     }
-  }, [loading, user]);
+  }, [user]);
 
   const registerSchema = yup.object().shape({
     name: yup
@@ -77,14 +75,14 @@ const RegisterPage = () => {
   });
 
   const onSubmit = (data: UserRegisterDataViewModel) => {
-    dispatch(registerUser(data));
+    dispatch(registerPatient(data));
   };
 
   return (
     <div className="register">
       <div className="register-header">
-        <p>Examino</p>
-        <p>Twoje zdrowie na wyciągnięcie ręki</p>
+        <div>Examino</div>
+        <div>Twoje zdrowie na wyciągnięcie ręki</div>
       </div>
       <div className="register-form">
         <div className="register-form-header">Zarejestruj się</div>

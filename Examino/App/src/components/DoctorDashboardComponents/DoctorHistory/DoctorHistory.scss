@@ -1,4 +1,4 @@
-.dashboard-history {
+.dashboard-doctor-history {
   &-wrapper {
     margin-top: 3rem;
     display: flex;
@@ -6,13 +6,16 @@
   }
   &-labels {
     table {
-      width: 100%;
+      width: calc(100% - 4rem);
       tr {
         display: flex;
         padding: 0 1rem;
+        th:first-child {
+          flex-basis: 4rem;
+        }
         th {
           display: flex;
-          flex-basis: 20%;
+          flex-basis: 25%;
           padding: 0;
         }
       }

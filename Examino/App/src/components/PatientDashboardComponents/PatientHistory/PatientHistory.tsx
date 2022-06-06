@@ -10,10 +10,10 @@ const PatientHistory = () => {
   return (
     <React.Fragment>
       <header className="dashboard-content-header">Historia</header>
-      <div className="dashboard-history-wrapper">
+      <div className="dashboard-patient-history-wrapper">
         {raports.length > 0 ? (
           <React.Fragment>
-            <div className="dashboard-history-labels">
+            <div className="dashboard-patient-history-labels">
               <table>
                 <tbody>
                   <tr>

@@ -29,15 +29,19 @@
       tr {
         display: flex;
         padding: 1rem;
+        td:first-child {
+          flex-basis: 4rem;
+        }
         td {
           display: flex;
           align-items: center;
-          flex-basis: 20%;
+          flex-basis: 25%;
           padding: 0;
         }
         td:last-child {
           display: flex;
           justify-content: flex-end;
+          flex: 1;
           a {
             color: inherit;
           }

@@ -21,7 +21,7 @@ const PatientDashboardPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (user) {
+    if (user && user.role === "patient") {
       dispatch(getRaports());
       dispatch(getPatientData());
     } else {
@@ -30,7 +30,7 @@ const PatientDashboardPage = () => {
     return () => {
       dispatch(patientReset());
     };
-  }, []);
+  }, [user]);
 
   const handleLogout = () => {
     dispatch(logoutUser());

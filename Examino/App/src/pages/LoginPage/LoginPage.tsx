@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../app/store";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "../../app/store";
 import { loginUser } from "../../features/userSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,18 +11,16 @@ import InputField from "../../components/common/Forms/InputField/InputField";
 import { UserLoginDataViewModel } from "../../models/Users/UserLoginDataViewModel";
 
 const LoginPage = () => {
-  const { user, loading, error } = useSelector(
-    (state: RootState) => state.user
-  );
+  const { user, error } = useSelector((state: RootState) => state.user);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading === "fulfilled" || user) {
+    if (user) {
       navigate(`/${user?.role}`);
     }
-  }, [loading, user]);
+  }, [user]);
 
   const loginSchema = yup.object().shape({
     email: yup
@@ -47,8 +45,8 @@ const LoginPage = () => {
   return (
     <div className="login">
       <div className="login-header">
-        <p>Examino</p>
-        <p>Twoje zdrowie na wyciągnięcie ręki</p>
+        <div>Examino</div>
+        <div>Twoje zdrowie na wyciągnięcie ręki</div>
       </div>
       <div className="login-form">
         <div className="login-form-header">Zaloguj się</div>

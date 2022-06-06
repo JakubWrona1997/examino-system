@@ -4,29 +4,30 @@ import { UserViewModel } from "../models/Users/UserViewModel";
 import { UserLoginDataViewModel } from "../models/Users/UserLoginDataViewModel";
 import { UserRegisterDataViewModel } from "../models/Users/UserRegisterDataViewModel";
 import { UserRegisterErrorsViewModel } from "../models/Users/UserRegisterErrorsViewModel";
+import { AlertViewModel } from "../models/Alert/AlertViewModel";
 import jwtDecode from "../utils/jwtDecode";
 
 interface IUserState {
   user: UserViewModel | null;
-  loading: "idle" | "pending" | "fulfilled" | "failed";
   error: {
     register: UserRegisterErrorsViewModel | undefined;
     login: string | undefined;
   };
+  alert: AlertViewModel | undefined;
 }
 
 const initialState: IUserState = {
   user: null,
-  loading: "idle",
   error: {
     register: undefined,
     login: undefined,
   },
+  alert: undefined,
 };
 
-// Register user
-// POST /api/patient/register
-export const registerUser = createAsyncThunk<
+// Register patient
+// POST /api/user/register
+export const registerPatient = createAsyncThunk<
   UserViewModel,
   UserRegisterDataViewModel,
   { rejectValue: UserRegisterErrorsViewModel }
@@ -39,8 +40,22 @@ export const registerUser = createAsyncThunk<
   }
 });
 
+// Register doctor
+// POST /api/admin/register-doctor
+export const registerDoctor = createAsyncThunk<
+  void,
+  UserRegisterDataViewModel,
+  { rejectValue: UserRegisterErrorsViewModel }
+>("admin/register-doctor", async (userData, thunkAPI) => {
+  try {
+    await axios.post("/api/admin/register-doctor", userData);
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data.errors);
+  }
+});
+
 // Login user
-// POST /api/patient/login
+// POST /api/user/login
 export const loginUser = createAsyncThunk<
   UserViewModel,
   UserLoginDataViewModel,
@@ -55,7 +70,7 @@ export const loginUser = createAsyncThunk<
 });
 
 // Authenticate user
-// GET /api/patient/auth
+// GET /api/user/auth
 export const authenticateUser = createAsyncThunk<
   UserViewModel,
   void,
@@ -77,29 +92,31 @@ export const userSlice = createSlice({
       axios.post("/api/user/logout");
       return initialState;
     },
+    removeAlert: (state) => {
+      state.alert = initialState.alert;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(registerUser.pending, (state) => {
-        state.loading = "pending";
-      })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.loading = "fulfilled";
+      .addCase(registerPatient.fulfilled, (state, action) => {
         state.user = action.payload;
       })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.loading = "failed";
+      .addCase(registerPatient.rejected, (state, action) => {
         state.error.register = action.payload;
       })
-      .addCase(loginUser.pending, (state) => {
-        state.loading = "pending";
+      .addCase(registerDoctor.fulfilled, (state) => {
+        state.alert = {
+          type: "info",
+          message: "Rejestracja przebiegła pomyślnie",
+        };
+      })
+      .addCase(registerDoctor.rejected, (state, action) => {
+        state.error.register = action.payload;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.loading = "fulfilled";
         state.user = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.loading = "failed";
         state.error.login = action.payload;
       })
       .addCase(authenticateUser.fulfilled, (state, action) => {
@@ -108,5 +125,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { logoutUser } = userSlice.actions;
+export const { logoutUser, removeAlert } = userSlice.actions;
 export default userSlice.reducer;
