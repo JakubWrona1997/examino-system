@@ -23,7 +23,7 @@ namespace Examino.API.Controllers
         [HttpPost("register-doctor")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateDoctor(CreateDoctorCommand createDoctor)
+        public async Task<IActionResult> CreateDoctor([FromBody]CreateDoctorCommand createDoctor)
         {
             var result = await _mediator.Send(createDoctor);
             if (result.Success == true)
@@ -46,7 +46,7 @@ namespace Examino.API.Controllers
         [HttpDelete("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> DeleteDoctor(Guid Id)
+        public async Task<ActionResult<Guid>> DeleteDoctor([FromRoute]Guid Id)
         {
             var doctorIdToDelete = new DeleteDoctorCommand() { DoctorId = Id };
 
