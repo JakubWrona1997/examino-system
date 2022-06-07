@@ -1,0 +1,44 @@
+.doctor-item {
+  &-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  &-content {
+    margin-top: 1rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 20px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    flex: 100%;
+    &:nth-child(2) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: fit-content;
+      margin-left: 1rem;
+      padding: 1rem;
+      &:hover {
+        cursor: pointer;
+        background-color: #000;
+        svg {
+          color: #fff;
+        }
+      }
+    }
+    table {
+      width: 100%;
+      tr {
+        display: flex;
+        padding: 1rem;
+        td:first-child {
+          flex-basis: 4rem;
+        }
+        td {
+          display: flex;
+          align-items: center;
+          flex-basis: calc(100% / 3);
+          padding: 0;
+        }
+      }
+    }
+  }
+}

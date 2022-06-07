@@ -4,12 +4,14 @@ import userReducer from "../features/userSlice";
 import raportReducer from "../features/raportSlice";
 import patientReducer from "../features/patientSlice";
 import doctorReducer from "../features/doctorSlice";
+import adminReducer from "../features/adminSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     patient: patientReducer,
     doctor: doctorReducer,
+    admin: adminReducer,
     raports: raportReducer,
   },
 });

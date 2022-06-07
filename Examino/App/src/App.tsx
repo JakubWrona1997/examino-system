@@ -13,6 +13,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import PatientDashboardPage from "./pages/DashboardPages/PatientDashboardPage/PatientDashboardPage";
 import DoctorDashboardPage from "./pages/DashboardPages/DoctorDashboardPage/DoctorDashboardPage";
+import AdminDashboardPage from "./pages/DashboardPages/AdminDashboardPage/AdminDashboardPage";
 import RaportDetails from "./components/RaportDetails/RaportDetails";
 import PrescriptionDetails from "./components/PrescriptionDetails/PrescriptionDetails";
 import PatientPanel from "./components/PatientDashboardComponents/PatientPanel/PatientPanel";
@@ -23,6 +24,8 @@ import DoctorHistory from "./components/DoctorDashboardComponents/DoctorHistory/
 import DoctorForm from "./components/DoctorDashboardComponents/DoctorForm/DoctorForm";
 import DoctorSchedule from "./components/DoctorDashboardComponents/DoctorSchedule/DoctorSchedule";
 import DoctorProfile from "./components/DoctorDashboardComponents/DoctorProfile/DoctorProfile";
+import DoctorsRecord from "./components/AdminDashboardComponents/DoctorsRecord/DoctorsRecord";
+import RegisterDoctorForm from "./components/AdminDashboardComponents/RegisterDoctorForm/RegisterDoctorForm";
 
 function App() {
   return (
@@ -59,6 +62,13 @@ function App() {
               <Route path="form" element={<DoctorForm />} />
               <Route path="schedule" element={<DoctorSchedule />} />
               <Route path="profile" element={<DoctorProfile />} />
+            </Route>
+          </Route>
+          <Route element={<ProtectedRoute allowedRole="admin" />}>
+            <Route path="admin" element={<AdminDashboardPage />}>
+              <Route index element={<Navigate to="doctors" />} />
+              <Route path="doctors" element={<DoctorsRecord />} />
+              <Route path="form" element={<RegisterDoctorForm />} />
             </Route>
           </Route>
           <Route path="register" element={<RegisterPage />} />

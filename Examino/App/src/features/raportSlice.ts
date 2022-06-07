@@ -48,7 +48,7 @@ export const createRaport = createAsyncThunk<
 });
 
 // Update raport
-// PUT /api/raport/:id/update
+// PUT /api/raport/:id
 export const updateRaport = createAsyncThunk<
   RaportViewModel,
   RaportViewModel,
@@ -56,7 +56,7 @@ export const updateRaport = createAsyncThunk<
 >("raport/update", async (raportData, thunkAPI) => {
   try {
     const res = await axios.put(
-      `/api/raport/${raportData.raport.id}/update`,
+      `/api/raport/${raportData.raport.id}`,
       raportData
     );
     return res.data;
@@ -66,7 +66,7 @@ export const updateRaport = createAsyncThunk<
 });
 
 // Delete raport
-// DELETE /api/raport/:id/delete
+// DELETE /api/raport/:id
 export const deleteRaport = createAsyncThunk<
   string,
   string,
