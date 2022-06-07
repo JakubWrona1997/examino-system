@@ -6,12 +6,12 @@
   }
   &-labels {
     table {
-      width: calc(100% - 4rem);
+      width: 100%;
       tr {
         display: flex;
         padding: 0 1rem;
         th:first-child {
-          flex-basis: 4rem;
+          flex-basis: 3rem;
         }
         th {
           display: flex;
