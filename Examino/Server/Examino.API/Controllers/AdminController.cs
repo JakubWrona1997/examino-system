@@ -1,4 +1,6 @@
 ﻿using Examino.Application.Functions.Users.Commands.CreateDoctor;
+using Examino.Application.Functions.Users.Commands.DeleteDoctor;
+using Examino.Application.Functions.Users.Queries.UserDetails.GetListOfDoctors;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +32,27 @@ namespace Examino.API.Controllers
             }
             else return StatusCode(500);
 
+        }
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<List<ListOfDoctorsViewModel>>> GetListOfDoctors()
+        {
+            var result = await _mediator.Send(new GetListOfDoctorsQuery());
+
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> DeleteDoctor(Guid Id)
+        {
+            var doctorIdToDelete = new DeleteDoctorCommand() { DoctorId = Id };
+
+            var result = await _mediator.Send(doctorIdToDelete);
+
+            return Ok(result);
         }
     }
 }

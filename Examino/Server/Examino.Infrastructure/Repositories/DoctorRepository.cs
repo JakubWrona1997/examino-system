@@ -33,6 +33,24 @@ namespace Examino.Infrastructure.Repositories
             return newDoctor;
 
         }
+        public async Task<Doctor> GetDoctorById(Guid id)
+        {
+            var doctorToDelete = await _dbContext.Doctors.FirstOrDefaultAsync(x => x.Id == id);
+
+            if(doctorToDelete == null)
+                return null;
+
+            return doctorToDelete;
+        }
+
+        public async Task DeleteDoctor(Doctor doctor)
+        {
+            if (doctor == null)
+                await Task.FromResult<object>(null);
+
+            _dbContext.Doctors.Remove(doctor);
+            await _dbContext.SaveChangesAsync();
+        }
         public async Task UpdateDetails(UpdateDoctorDetailsDto doctor)
         {
             var doctorToEdit = await _dbContext.Doctors.FirstOrDefaultAsync(x => x.Id == doctor.UserId);
