@@ -28,11 +28,13 @@ namespace Examino.Application.Functions.Users.Queries.UserDetails.GetListOfDocto
                                       {(Dbo.Users)}.{nameof(Doctor.Id)},
                                       {(Dbo.Users)}.{nameof(Doctor.Name)},
                                       {(Dbo.Users)}.{nameof(Doctor.Surname)},
+                                      {(Dbo.Users)}.{nameof(Doctor.PESEL)},
                                       {(Dbo.Users)}.{nameof(Doctor.Qualification)}
                                       FROM {(Dbo.Users)}
+                                      WHERE {(Dbo.Users)}.[UserType] = @doctor
                                       ORDER BY {(Dbo.Users)}.{nameof(Doctor.Name)} DESC";
 
-            var foundDoctors = await connection.QueryAsync<ListOfDoctorsViewModel>(getDoctors);
+            var foundDoctors = await connection.QueryAsync<ListOfDoctorsViewModel>(getDoctors, new {doctor = "Doctor"});
 
             return foundDoctors.ToList();
         }
