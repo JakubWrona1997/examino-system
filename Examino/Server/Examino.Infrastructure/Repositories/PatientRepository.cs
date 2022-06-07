@@ -1,5 +1,6 @@
 using AutoMapper;
 using Dapper;
+using Examino.Application.Functions.PeselChecker;
 using Examino.Domain;
 using Examino.Domain.Contracts;
 using Examino.Domain.DTOs.UserDTOs;
@@ -30,6 +31,10 @@ namespace Examino.Infrastructure.Repositories
         public async Task<Patient> Register(Patient patient, string password)
         {
             //haslo musi byc dobre inacze null w bazie
+            PeselChecker pesel = new PeselChecker(patient.PESEL);
+            patient.BirthDay = pesel.CreateDateOfBirth();
+            patient.Gender = pesel.getSex();
+
             await _userManager.CreateAsync(patient, password);
             var newMadeUser = _userManager.FindByEmailAsync(patient.Email).Result;
             await _userManager.AddToRoleAsync(newMadeUser, "Patient");
