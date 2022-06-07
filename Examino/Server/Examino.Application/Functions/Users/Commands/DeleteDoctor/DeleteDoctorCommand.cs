@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Users.Commands.DeleteDoctor
 {
-    public class DeleteDoctorCommand : IRequest<Guid>
+    public class DeleteDoctorCommand : IRequest<DeleteDoctorCommandResponse>
     {
+        public DeleteDoctorCommand(Guid Id)
+        {
+            DoctorId = Id;
+        }
         public Guid DoctorId { get; set; }
     }
 }

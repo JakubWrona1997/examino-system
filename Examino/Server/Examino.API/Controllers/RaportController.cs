@@ -59,12 +59,12 @@ namespace Examino.API.Controllers
             return Ok(result.Id);
         }
         [Authorize(Roles = "Doctor")]
-        [HttpDelete("{id}")]
+        [HttpDelete("{RaportId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        public async Task<ActionResult> DeleteRaport([FromRoute]Guid id)
+        public async Task<ActionResult<DeleteRaportCommandResponse>> DeleteRaport([FromRoute]Guid RaportId)
         {
-            var deleteRaportCommand = new DeleteRaportCommand() { RaportId = id };
+            var deleteRaportCommand = new DeleteRaportCommand(RaportId);
             var result = await _mediator.Send(deleteRaportCommand);
             return Ok(result);
         }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Users.Commands.DeleteDoctor
 {
-    public class DeleteDoctorCommandHandler : IRequestHandler<DeleteDoctorCommand, Guid>
+    public class DeleteDoctorCommandHandler : IRequestHandler<DeleteDoctorCommand, DeleteDoctorCommandResponse>
     {
         private readonly IDoctorRepository _doctorRepository;
 
@@ -17,13 +17,15 @@ namespace Examino.Application.Functions.Users.Commands.DeleteDoctor
         {
             _doctorRepository = doctorRepository;
         }
-        public async Task<Guid> Handle(DeleteDoctorCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteDoctorCommandResponse> Handle(DeleteDoctorCommand request, CancellationToken cancellationToken)
         {
             var doctorToDelete =  await _doctorRepository.GetDoctorById(request.DoctorId);
+            if(doctorToDelete == null)
+                return new DeleteDoctorCommandResponse(404, false);
 
             await _doctorRepository.DeleteDoctor(doctorToDelete);
 
-            return doctorToDelete.Id;
+            return new DeleteDoctorCommandResponse(doctorToDelete.Id);
         }
     }
 }

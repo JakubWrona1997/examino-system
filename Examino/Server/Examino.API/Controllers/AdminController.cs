@@ -30,7 +30,7 @@ namespace Examino.API.Controllers
             {
                 return StatusCode(201, "Doctor created!");
             }
-            else return StatusCode(500);
+            return StatusCode(500);
 
         }
         [HttpGet]
@@ -43,12 +43,12 @@ namespace Examino.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{DoctorId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Guid>> DeleteDoctor([FromRoute]Guid Id)
+        public async Task<ActionResult<DeleteDoctorCommandResponse>> DeleteDoctor([FromRoute]Guid DoctorId)
         {
-            var doctorIdToDelete = new DeleteDoctorCommand() { DoctorId = Id };
+            var doctorIdToDelete = new DeleteDoctorCommand(DoctorId);
 
             var result = await _mediator.Send(doctorIdToDelete);
 

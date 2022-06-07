@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Raports.Commands.DeleteRaport
 {
-    public class DeleteRaportCommandHandler : IRequestHandler<DeleteRaportCommand, Guid>
+    public class DeleteRaportCommandHandler : IRequestHandler<DeleteRaportCommand, DeleteRaportCommandResponse>
     {
         private readonly IRaportRepository _raportRepository;
 
@@ -19,13 +19,15 @@ namespace Examino.Application.Functions.Raports.Commands.DeleteRaport
             _raportRepository = raportRepository;
         }
 
-        public async Task<Guid> Handle(DeleteRaportCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteRaportCommandResponse> Handle(DeleteRaportCommand request, CancellationToken cancellationToken)
         {
             var raportToDelete = await _raportRepository.GetById(request.RaportId);
+            if(raportToDelete == null)
+                return new DeleteRaportCommandResponse(404, false);
 
             await _raportRepository.DeleteRaport(raportToDelete);
 
-            return raportToDelete.Id;
+            return new DeleteRaportCommandResponse(raportToDelete.Id);
         }
     }
 }

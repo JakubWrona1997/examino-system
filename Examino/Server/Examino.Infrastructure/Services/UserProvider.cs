@@ -26,20 +26,26 @@ namespace Examino.Infrastructure.Services
                 throw new BadHttpRequestException("Something went wrong", StatusCodes.Status404NotFound);
                 
             Guid.TryParse(_httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier).Value, out result);
-
+            
             return result;
         }
         public string GetUserRole()
         {
             var userRole = _httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.Role).Value;
 
-            return userRole;
+            if(userRole != null)
+                return userRole;
+
+            return string.Empty;
         }
         public string GetToken()
         {
             var token = _httpContextAccessor.HttpContext.Request.Cookies["tokenCookie"];
 
-            return token;
+            if(token != null)
+                return token;
+
+            return string.Empty;
         }
     }
 }

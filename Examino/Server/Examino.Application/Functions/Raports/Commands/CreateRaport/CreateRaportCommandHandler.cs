@@ -2,6 +2,7 @@
 using Examino.Domain.Contracts;
 using Examino.Domain.Entities;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,6 +24,8 @@ namespace Examino.Application.Functions.Raports.Commands.CreateRaport
             var raport = _mapper.Map<Raport>(request);
 
             var raportId = await _raportRepository.CreateRaport(raport);
+            if(raportId == Guid.Empty)
+                return new CreateRaportCommandResponse(404, false);
 
             return new CreateRaportCommandResponse(raportId);
         }

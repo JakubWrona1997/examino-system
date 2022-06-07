@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Raports.Commands.DeleteRaport
 {
-    public record DeleteRaportCommand : IRequest<Guid>
+    public record DeleteRaportCommand : IRequest<CreateRaportCommandResponse>
     {
+        public DeleteRaportCommand(Guid Id)
+        {
+            RaportId = Id;
+        }
         public Guid RaportId { get; set; }
     }
 }
