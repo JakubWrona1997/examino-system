@@ -43,7 +43,7 @@ namespace Examino.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteDoctor(Guid Id)
