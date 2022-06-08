@@ -68,7 +68,7 @@ export const updateRaport = createAsyncThunk<
 // Delete raport
 // DELETE /api/raport/:id
 export const deleteRaport = createAsyncThunk<
-  string,
+  { id: string },
   string,
   { state: RootState; rejectValue: string }
 >("raport/delete", async (raportId, thunkAPI) => {
@@ -114,7 +114,7 @@ export const raportSlice = createSlice({
       })
       .addCase(deleteRaport.fulfilled, (state, action) => {
         state.raports = state.raports.filter(
-          (raport) => raport.raport.id !== action.payload
+          (raport) => raport.raport.id !== action.payload.id
         );
       });
   },

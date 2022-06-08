@@ -25,18 +25,21 @@ const RegisterPage = () => {
   const registerSchema = yup.object().shape({
     name: yup
       .string()
-      .matches(/^[A-Z]/, "Imię musi zaczynać się z dużej litery")
+      .matches(/^[A-ZĄĆĘŁŃÓŚŹŻ]/, "Imię musi zaczynać się z dużej litery")
       .matches(/^\S+$/, "Imię nie może zawierać przerw")
-      .matches(/^.[a-z\s]*$/, "Imię nie może zawierać dużych liter w środku")
+      .matches(
+        /^.[a-ząćęłńóśźż\s]*$/,
+        "Imię nie może zawierać dużych liter w środku"
+      )
       .min(3, "Imię musi mieć minimum 3 znaki")
       .max(50, "Imię może mieć maksimum 50 znaków")
       .required("To pole jest wymagane"),
     surname: yup
       .string()
-      .matches(/^[A-Z]/, "Nazwisko musi zaczynać się z dużej litery")
+      .matches(/^[A-ZĄĆĘŁŃÓŚŹŻ]/, "Nazwisko musi zaczynać się z dużej litery")
       .matches(/^\S+$/, "Nazwisko nie może zawierać przerw")
       .matches(
-        /^.[a-z\s]*$/,
+        /^.[a-ząćęłńóśźż\s]*$/,
         "Nazwisko nie może zawierać dużych liter w środku"
       )
       .min(3, "Nazwisko musi mieć minimum 3 znaki")
