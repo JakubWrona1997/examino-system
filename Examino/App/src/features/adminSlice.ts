@@ -31,7 +31,7 @@ export const getDoctors = createAsyncThunk<
 // Delete doctor
 // DELETE /api/admin/:id
 export const deleteDoctor = createAsyncThunk<
-  string,
+  { id: string },
   string,
   { rejectValue: string }
 >("admin/delete", async (doctorId, thunkAPI) => {
@@ -58,7 +58,7 @@ export const adminSlice = createSlice({
       })
       .addCase(deleteDoctor.fulfilled, (state, action) => {
         state.doctors = state.doctors.filter(
-          (doctor) => doctor.id !== action.payload
+          (doctor) => doctor.id !== action.payload.id
         );
       })
       .addCase(deleteDoctor.rejected, (state) => {
