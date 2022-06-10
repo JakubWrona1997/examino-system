@@ -32,13 +32,17 @@ namespace Examino.Infrastructure.Repositories
         {
             //haslo musi byc dobre inacze null w bazie
             PeselChecker pesel = new PeselChecker(patient.PESEL);
-            patient.BirthDay = pesel.CreateDateOfBirth();
-            patient.Gender = pesel.getSex();
+            if(pesel.isValid() != false)
+            {
+                patient.BirthDay = pesel.CreateDateOfBirth();
+                patient.Gender = pesel.getSex();
+                await _userManager.CreateAsync(patient, password);
+                var newMadeUser = _userManager.FindByEmailAsync(patient.Email).Result;
+                await _userManager.AddToRoleAsync(newMadeUser, "Patient");
+                return (Patient)newMadeUser;
+            }
+            return null;
 
-            await _userManager.CreateAsync(patient, password);
-            var newMadeUser = _userManager.FindByEmailAsync(patient.Email).Result;
-            await _userManager.AddToRoleAsync(newMadeUser, "Patient");
-            return (Patient)newMadeUser;
         }
 
         public async Task UpdateDetails(UpdatePatientDetailsDto patient)

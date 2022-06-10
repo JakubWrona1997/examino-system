@@ -26,6 +26,8 @@ namespace Examino.Infrastructure.Repositories
 
         public async Task<Guid> CreateRaport(Raport raport)
         {
+            raport.RaportTime = DateTimeOffset.Now;
+
             _dbContext.Raports.Add(raport);
             await _dbContext.SaveChangesAsync();
             return raport.Id;
