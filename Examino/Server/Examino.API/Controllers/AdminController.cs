@@ -1,6 +1,6 @@
 ﻿using Examino.Application.Functions.Users.Commands.CreateDoctor;
 using Examino.Application.Functions.Users.Commands.DeleteDoctor;
-using Examino.Application.Functions.Users.Queries.UserDetails.GetListOfDoctors;
+using Examino.Application.Functions.Users.Queries.GetListOfDoctors;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Examino.API.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(Roles = "Admin")]
     [Route("api/admin")]
     [ApiController]
     public class AdminController : ControllerBase
@@ -20,9 +22,7 @@ namespace Examino.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("register-doctor")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "Admin")]
+        [HttpPost("register/doctor")]    
         public async Task<IActionResult> CreateDoctor([FromBody]CreateDoctorCommand createDoctor)
         {
             var result = await _mediator.Send(createDoctor);
@@ -33,9 +33,8 @@ namespace Examino.API.Controllers
             return StatusCode(500);
 
         }
+
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<ListOfDoctorsViewModel>>> GetListOfDoctors()
         {
             var result = await _mediator.Send(new GetListOfDoctorsQuery());
@@ -43,9 +42,7 @@ namespace Examino.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{DoctorId}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "Admin")]
+        [HttpDelete("{DoctorId}")]      
         public async Task<ActionResult<DeleteDoctorCommandResponse>> DeleteDoctor([FromRoute]Guid DoctorId)
         {
             var doctorIdToDelete = new DeleteDoctorCommand(DoctorId);

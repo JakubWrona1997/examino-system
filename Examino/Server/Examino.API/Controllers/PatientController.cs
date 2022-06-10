@@ -1,6 +1,5 @@
 ﻿using Examino.Application.Functions.Users.Commands.Login.UserLogin;
 using Examino.Application.Functions.Users.Commands.Registration.RegisterPatient;
-using Examino.Application.Functions.Users.Queries.UserDetails.GetPatientDetails;
 using Examino.Application.Functions.Users.Commands.UpdatePatientDetails;
 using Examino.Domain.Contracts;
 using MediatR;
@@ -13,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Examino.Application.Functions.Users.Queries.GetPatientDetails;
 
 namespace Examino.Application.Controllers
 {    

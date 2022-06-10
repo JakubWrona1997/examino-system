@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Examino.Application.Functions.Prescriptions.Command.CreatePrescritpion;
 using Examino.Application.Functions.Raports.Commands.CreateRaport;
 using Examino.Application.Functions.Raports.Commands.DeleteRaport;
 using Examino.Application.Functions.Raports.Queries.GetUserRaports;
 using Examino.Domain.Contracts;
+using Examino.Domain.Requests.Raports;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -27,6 +27,7 @@ namespace Examino.API.Controllers
             _userProvider = userProvider;
             _mapper = mapper;
         }
+
         [Authorize(Roles = "Doctor, Patient")]
         [HttpGet]
         [ProducesResponseType(typeof(List<RaportViewModel>), (int)HttpStatusCode.OK)]
@@ -39,25 +40,18 @@ namespace Examino.API.Controllers
 
             return Ok(raports);
         }
+
         [Authorize(Roles = "Doctor")]
         [HttpPost("create")]
-        public async Task<ActionResult<Guid>> CreateRaport([FromBody] CreateRaportCommand createRaportCommand)
+        public async Task<ActionResult<Guid>> CreateRaport([FromBody] CreateRaportRequest request)
         {
             var userId = _userProvider.GetUserId();
-            if(userId != Guid.Empty)
-                createRaportCommand.DoctorId = userId;            
 
-            var result = await _mediator.Send(createRaportCommand);
-                      
-            if (createRaportCommand.Prescription != null)
-            {
-                createRaportCommand.Prescription.RaportId = createRaportCommand.Id;
-                var createPrescriptionCommand = _mapper.Map<CreatePrescritpionCommand>(createRaportCommand.Prescription);
-                await _mediator.Send(createPrescriptionCommand);
-            }
-               
+            var result = await _mediator.Send(new CreateRaportCommand(request, userId));
+
             return Ok(result.Id);
         }
+
         [Authorize(Roles = "Doctor")]
         [HttpDelete("{RaportId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]

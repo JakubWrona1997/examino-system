@@ -1,7 +1,7 @@
 ﻿using Examino.Application.Functions.Users.Commands.Login.UserLogin;
 using Examino.Application.Functions.Users.Commands.UpdateDoctorDetails;
-using Examino.Application.Functions.Users.Queries.UserDetails.GetDoctorDetails;
-using Examino.Application.Functions.Users.Queries.UserDetails.GetPatientsBasicInfo;
+using Examino.Application.Functions.Users.Queries.GetDoctorDetails;
+using Examino.Application.Functions.Users.Queries.GetPatientsBasicInfo;
 using Examino.Domain.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
