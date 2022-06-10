@@ -27,18 +27,28 @@ const PatientProfile = () => {
     phoneNumber: yup
       .string()
       .matches(/^[0-9]+$/, "Numer telefonu może zawierać tylko cyfry")
-      .length(9, "Numer telefonu musi zawierać 9 cyfr"),
+      .length(9, "Numer telefonu musi zawierać 9 cyfr")
+      .nullable(),
     postalCode: yup
       .string()
-      .matches(/^[0-9]{2}-[0-9]{3}$/, "Kod pocztowy musi mieć format [XX-XXX]"),
+      .matches(/^[0-9]{2}-[0-9]{3}$/, "Kod pocztowy musi mieć format [XX-XXX]")
+      .nullable(),
     city: yup
       .string()
-      .matches(/^[A-Z]/, "Nazwa miasta musi zaczynać się z dużej litery"),
-    address: yup.string(),
+      .matches(
+        /^[A-ZĄĆĘŁŃÓŚŹŻ]/,
+        "Nazwa miasta musi zaczynać się z dużej litery"
+      )
+      .nullable(),
+    address: yup.string().nullable(),
     height: yup
       .string()
-      .matches(/^[0-9]+$/, "Wzrost może zawierać tylko cyfry"),
-    weight: yup.string().matches(/^[0-9]+$/, "Waga może zawierać tylko cyfry"),
+      .matches(/^[0-9]+$/, "Wzrost może zawierać tylko cyfry")
+      .nullable(),
+    weight: yup
+      .string()
+      .matches(/^[0-9]+$/, "Waga może zawierać tylko cyfry")
+      .nullable(),
     bloodType: yup
       .string()
       .oneOf([
@@ -50,7 +60,9 @@ const PatientProfile = () => {
         "B Rh+",
         "AB Rh-",
         "AB Rh+",
-      ]),
+        null,
+      ])
+      .nullable(),
   });
 
   const {

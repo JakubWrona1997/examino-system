@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Users.Commands.Registration.RegisterPatient
 {
-   public  class RegisterPatientCommandValidator : AbstractValidator<RegisterPatientCommand>
+    public class RegisterPatientCommandValidator : AbstractValidator<RegisterPatientCommand>
     {
         private readonly IValidationService _validationService;
 
@@ -19,34 +19,40 @@ namespace Examino.Application.Functions.Users.Commands.Registration.RegisterPati
             _validationService = validationService;
 
             RuleFor(x => x.Email)
-                .NotEmpty()
-                .EmailAddress()
-                .Must(IsEmailUnique).WithMessage("Patient with that email exist");
-                
+                .NotEmpty().WithMessage("Email jest wymagany")
+                .EmailAddress().WithMessage("Email musi mieć poprawny email")
+                .Must(IsEmailUnique).WithMessage("Pacjent z tym emailem istnieje");
+
 
             RuleFor(x => x.Name)
-                .NotEmpty()
-                .Length(3,50)
-                .Matches("^[A-Z]").WithMessage("Name needs to start with uppercase letter");
+                .NotEmpty().WithMessage("Imie jest wymagane")
+                .Length(3, 50).WithMessage("Imie musi posiadać od 3 do 50 znaków")
+                .Matches("^[A-ZĄĆĘŁŃÓŚŹŻ]").WithMessage("Imię musi zaczynać się z dużej litery")
+                .Matches(@"^\S+$").WithMessage("Imię nie może zawierać przerw")
+                .Matches(@"^.[a-ząćęłńóśźż\s]*$").WithMessage("Imię nie może zawierać dużych liter w środku");
 
             RuleFor(x => x.Surname)
-              .NotEmpty()
-              .Length(3, 50)
-              .Matches("^[A-Z]").WithMessage("Surname needs to start with uppercase letter"); 
-
+              .NotEmpty().WithMessage("Nazwisko jest wymagane")
+              .Length(3, 50).WithMessage("Nazwisko musi posiadać od 3 do 50 znaków")
+              .Matches("^[A-ZĄĆĘŁŃÓŚŹŻ]").WithMessage("Nazwisko musi zaczynać się z dużej litery")
+              .Matches(@"^\S+$").WithMessage("Nazwisko nie może zawierać przerw")
+              .Matches(@"^.[a-ząćęłńóśźż\s]*$").WithMessage("Nazwisko nie może zawierać dużych liter w środku");
+   
             RuleFor(x => x.PESEL)
-                .NotEmpty()
-                .Length(11)
-                .Matches("\\d{11}").WithMessage("Pesel need to have 11 digits")
-                .Must(IsPeselUnique).WithMessage("Patient with that PESEL exist");
-                
+                .NotEmpty().WithMessage("Pesel jest wymagany")
+                .Length(11).WithMessage("Pesel mu sie mieć długość 11 znaków")
+                .Matches("\\d{11}").WithMessage("Pesel musi mieć 11 liczb")
+                .Must(IsPeselUnique).WithMessage("Juz taki pesel istnieje");
+
 
             RuleFor(x => x.Password)
-                .NotEmpty()
-                .Matches("[A-Z]").WithMessage("Password need one Uppercase letter")
-                .Matches("[a-z]").WithMessage("Password need one lowercase letter")
-                .Matches("[0-9]").WithMessage("Password need one number")
-                .Matches("(?=.*?[#?!@$%^&*-])").WithMessage("Password need at least one special character");
+                .NotEmpty().WithMessage("Hasło jest wymagane")
+                .Length(6, 50).WithMessage("Hasło musi mieć od 6 do 50 znaków")
+                .Matches("[A-ZĄĆĘŁŃÓŚŹŻ]").WithMessage("Hasło musi posiadać jedną dużą litere")
+                .Matches("[a-ząćęłńóśźż]").WithMessage("Hasło musi posiadać jedną małą litere")
+                .Matches("[0-9]").WithMessage("Hasło musi posiadać jedną liczbe")
+                .Matches("(?=.*?[#?!@$%^&*-])").WithMessage("Hasło musi mieć jeden znak specjalny");
+             
         }
 
         private bool IsEmailUnique(string email)
