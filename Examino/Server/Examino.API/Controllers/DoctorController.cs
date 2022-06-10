@@ -1,8 +1,8 @@
-﻿using Examino.Application.Functions.Users.Commands.Login.UserLogin;
-using Examino.Application.Functions.Users.Commands.UpdateDoctorDetails;
+﻿using Examino.Application.Functions.Users.Commands.UpdateDoctorDetails;
 using Examino.Application.Functions.Users.Queries.GetDoctorDetails;
 using Examino.Application.Functions.Users.Queries.GetPatientsBasicInfo;
 using Examino.Domain.Contracts;
+using Examino.Domain.Requests.Doctors.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -40,13 +40,11 @@ namespace Examino.API.Controllers
         [Authorize(Roles = "Doctor")]
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> UpdateDoctorDetails([FromBody] UpdateDoctorDetailsCommand updateDoctorDetailsCommand)
+        public async Task<ActionResult> UpdateDoctorDetails([FromBody] UpdateDoctorDetailsRequest request)
         {
             var userId = _userProvider.GetUserId();
 
-            updateDoctorDetailsCommand.UserId = userId;
-
-            await _mediator.Send(updateDoctorDetailsCommand);
+            await _mediator.Send(new UpdateDoctorDetailsCommand(request, userId));
 
             return Ok();
         }

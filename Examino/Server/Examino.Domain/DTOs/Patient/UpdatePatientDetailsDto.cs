@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Domain.DTOs.UserDTOs
+namespace Examino.Domain.DTOs.Patient
 {
-    public record UpdateDoctorDetailsDto
+    public record UpdatePatientDetailsDto
     {
         public Guid UserId { get; set; }
         public string? Address { get; set; }
         public string? City { get; set; }
         public string? PostalCode { get; set; }
+        public int? Height { get; set; }
+        public int? Weight { get; set; }
+        public string? BloodType { get; set; }
         public string? PhoneNumber { get; set; }
-        public string? Qualification { get; set; }
-        public string? Specialization { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace Examino.Application.Functions.Raports.Commands.CreateRaport
                 return new CreateRaportCommandResponse(404, false);
 
             if (command.Request.Prescription != null)
-                await _mediator.Publish(new CreatePrescritpionEvent(raportId, command.Request.Prescription.Medicines));                
+                await _mediator.Publish(new CreatePrescritpionEvent(raportId, command.Request.Prescription.Medicines), cancellationToken);                
            
 
             return new CreateRaportCommandResponse(raportId);
