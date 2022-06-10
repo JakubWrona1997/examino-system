@@ -3,7 +3,7 @@ using Dapper;
 using Examino.Application.Functions.PeselChecker;
 using Examino.Domain;
 using Examino.Domain.Contracts;
-using Examino.Domain.DTOs.UserDTOs;
+using Examino.Domain.DTOs.Patient;
 using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
