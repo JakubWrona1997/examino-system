@@ -1,4 +1,4 @@
-﻿using Examino.Domain.DTOs.UserDTOs;
+﻿using Examino.Domain.DTOs.Doctor;
 using Examino.Domain.Entities;
 using System;
 using System.Collections.Generic;
