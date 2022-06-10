@@ -21,7 +21,7 @@ namespace Examino.Application.Functions.Prescriptions.Events.CreatePrescritpion
 
         public async Task Handle(CreatePrescritpionEvent notification, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<CreatePrescritpionEvent,Prescription>(notification);
+            var result = _mapper.Map<Prescription>(notification);
 
             await _raportRepository.CreatePrescription(result);
         }
