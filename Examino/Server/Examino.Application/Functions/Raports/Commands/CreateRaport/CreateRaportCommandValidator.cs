@@ -12,23 +12,23 @@ namespace Examino.Application.Functions.Raports.Commands.CreateRaport
     {
         public CreateRaportCommandValidator()
         {
-            RuleFor(r => r.Symptoms)
+            RuleFor(r => r.Request.Symptoms)
                 .MaximumLength(255)
                 .WithMessage("{PropertName} must not exceed 255 characters!");
 
-            RuleFor(r => r.Examination)
+            RuleFor(r => r.Request.Examination)
                 .MaximumLength(500)
                 .WithMessage("{PropertName} must not exceed 500 characters!");
 
-            RuleFor(r => r.Diagnosis)
+            RuleFor(r => r.Request.Diagnosis)
                 .MaximumLength(125)
                 .WithMessage("{PropertName} must not exceed 125 characters!");
 
-            RuleFor(r => r.Recommendation)
+            RuleFor(r => r.Request.Recommendation)
                 .MaximumLength(125)
                 .WithMessage("{PropertName} must not exceed 125 characters!");
 
-            RuleFor(r => r.Comment)
+            RuleFor(r => r.Request.Comment)
                 .MaximumLength(255)
                 .WithMessage("{PropertName} must not exceed 255 characters!");
         }

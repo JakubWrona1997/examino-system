@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Raports.Commands.CreateRaport
+namespace Examino.Domain.Requests.Prescriptions
 {
-    public record PrescriptionRaportDto
+    public record PrescriptionRequest
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         public Guid RaportId { get; set; }
         public string Medicines { get; set; }
     }

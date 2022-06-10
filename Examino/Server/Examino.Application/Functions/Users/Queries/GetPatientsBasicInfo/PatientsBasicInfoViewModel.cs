@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.Queries.UserDetails.GetPatientsBasicInfo
+namespace Examino.Application.Functions.Users.Queries.GetPatientsBasicInfo
 {
     public record PatientsBasicInfoViewModel
     {

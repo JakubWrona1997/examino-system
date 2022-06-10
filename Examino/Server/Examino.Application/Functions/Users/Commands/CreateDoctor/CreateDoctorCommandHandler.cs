@@ -25,10 +25,10 @@ namespace Examino.Application.Functions.Users.Commands.CreateDoctor
         {
             var doctor = _mapper.Map<Doctor>(request);
             var createdDoctor = await _doctorRepository.Add(doctor, request.Password);
-            if (createdDoctor is not null) return new CreateDoctorCommandResponse(201, true);
-            else return new CreateDoctorCommandResponse(500, false);
+            if (createdDoctor is not null) 
+                return new CreateDoctorCommandResponse(201, true);
 
-
+            return new CreateDoctorCommandResponse(500, false);
         }
     }
 }

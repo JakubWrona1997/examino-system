@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examino.Application.Functions.Users.Queries.UserDetails.GetDoctorDetails
+namespace Examino.Application.Functions.Users.Queries.GetDoctorDetails
 {
     public class GetDoctorDetailsQuery : IRequest<DoctorViewModel>
     {

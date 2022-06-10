@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Raports.Queries.GetUserRaports
 {
-    public class GetUserRaportQuery : IRequest<List<RaportViewModel>>
+    public record GetUserRaportQuery : IRequest<List<RaportViewModel>>
     {
         public Guid PatientId { get; set; } = Guid.Empty;
         public Guid DoctorId { get; set; } = Guid.Empty;

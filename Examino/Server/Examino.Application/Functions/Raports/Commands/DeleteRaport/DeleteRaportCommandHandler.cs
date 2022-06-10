@@ -22,6 +22,7 @@ namespace Examino.Application.Functions.Raports.Commands.DeleteRaport
         public async Task<DeleteRaportCommandResponse> Handle(DeleteRaportCommand request, CancellationToken cancellationToken)
         {
             var raportToDelete = await _raportRepository.GetById(request.RaportId);
+            
             if(raportToDelete == null)
                 return new DeleteRaportCommandResponse(404, false);
 

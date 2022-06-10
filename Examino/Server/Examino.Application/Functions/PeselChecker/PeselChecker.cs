@@ -26,9 +26,8 @@ namespace Examino.Application.Functions.PeselChecker
                 if (checkSum() && checkMonth() && checkDay())
                     valid = true;
                 else
-                {
                     valid = false;
-                }            
+                
             }
         }
         public bool isValid() => valid;
