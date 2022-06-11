@@ -5,6 +5,7 @@ import { RootState, useAppDispatch } from "../../app/store";
 import { getRaports } from "../../features/raportSlice";
 import * as signalR from "@microsoft/signalr";
 import displayAlert from "../../utils/displayAlert";
+import styles from "./Notify.module.scss";
 
 interface SignalRDataViewModel {
   textMessage: string;
@@ -38,18 +39,21 @@ const Notify = () => {
           if (user?._id === data.toUserId) {
             await dispatch(getRaports());
             const Message = (
-              <>
+              <span className={styles.notify}>
                 {data.textMessage}
                 <br />
                 <Link to={`/patient/history/raport/${data.raportId}`}>
                   Pokaż szczegóły
                 </Link>
-              </>
+              </span>
             );
-            displayAlert({
-              type: "info",
-              message: Message,
-            });
+            displayAlert(
+              {
+                type: "info",
+                message: Message,
+              },
+              10000
+            );
           }
         })
       );
