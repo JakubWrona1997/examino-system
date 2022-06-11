@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./NavItem.scss";
+import styles from "./NavItem.module.scss";
 
 interface Props {
   to: string;
@@ -13,10 +13,12 @@ const NavItem = ({ to, label, icon, onClick }: Props) => {
   return (
     <NavLink
       to={to}
-      className={(navData) => (navData.isActive ? "link active" : "link")}
+      className={(navData) =>
+        navData.isActive ? `${styles.navlink} ${styles.active}` : styles.navlink
+      }
       onClick={onClick}
     >
-      <span className="link-icon">{icon}</span>
+      <span className={styles.icon}>{icon}</span>
       {label}
     </NavLink>
   );

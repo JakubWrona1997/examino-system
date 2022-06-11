@@ -4,7 +4,7 @@ import { RootState, useAppDispatch } from "../../../app/store";
 import { removeAlert } from "../../../features/adminSlice";
 import displayAlert from "../../../utils/displayAlert";
 import DoctorItem from "../../common/DoctorItem/DoctorItem";
-import "./DoctorsRecord.scss";
+import styles from "./DoctorsRecord.module.scss";
 
 const DoctorsRecord = () => {
   const { doctors, alert } = useSelector((state: RootState) => state.admin);
@@ -21,11 +21,11 @@ const DoctorsRecord = () => {
 
   return (
     <React.Fragment>
-      <header className="dashboard-content-header">Doktorzy</header>
-      <div className="dashboard-doctors-record-wrapper">
+      <header className={styles.header}>Doktorzy</header>
+      <div className={styles.wrapper}>
         {doctors.length > 0 ? (
           <React.Fragment>
-            <div className="dashboard-doctors-record-labels">
+            <div className={styles.labels}>
               <table>
                 <tbody>
                   <tr>

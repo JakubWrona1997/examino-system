@@ -1,12 +1,12 @@
-.login {
-  background-image: url('../../assets/doctors2.svg');
+.wrapper {
+  background-image: url('../../assets/doctors1.svg');
   background-size: contain;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   height: 100vh;
-  &-header {
+  .header {
     padding-top: 5rem;
     display: flex;
     flex-direction: column;
@@ -20,23 +20,29 @@
       margin: 0 0 0 5px;
     }
   }
-  &-form {
+  .formWrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 350px;
-    margin: 0;
-    &-header {
+    margin: auto 0;
+    overflow: auto;
+    .formHeader {
       font-size: 3rem;
       font-weight: 700;
       margin-bottom: 1rem;
       text-align: center;
     }
-    .form {
+    .formDescription {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    form {
       display: flex;
       flex-direction: column;
       align-items: center;
-      &-button {
+      .formButton {
         cursor: pointer;
         height: 50px;
         background-color: #a6cbf8;
@@ -51,12 +57,7 @@
       }
     }
   }
-  &-error {
-    align-self: flex-start;
-    margin: 1rem 0 0 0;
-    color: #dc3545;
-  }
-  &-register-link {
+  .link {
     text-align: center;
     margin-top: 0.5rem;
     a {

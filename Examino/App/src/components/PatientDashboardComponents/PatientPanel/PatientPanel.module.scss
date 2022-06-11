@@ -1,0 +1,54 @@
+.header {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+.wrapper {
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  .cardWrapper {
+    flex: 1 0 41%;
+  }
+  .cardHeader {
+    font-size: 1.4rem;
+  }
+  .cardContent {
+    display: flex;
+    margin-top: 1rem;
+    padding: 1rem;
+    height: fit-content;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 20px 20px 40px 0px rgba(0, 0, 0, 0.1);
+    table {
+      width: 100%;
+      tr {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding-bottom: 1rem;
+        gap: 1rem;
+      }
+      tr.showDetails {
+        justify-content: flex-end;
+        padding: 0;
+      }
+      tr:last-child {
+        padding: 0;
+      }
+      button {
+        cursor: pointer;
+        background-color: #a6cbf8;
+        border: none;
+        border-radius: 2rem;
+        padding: 0.675rem 1.5rem;
+        font-size: 1rem;
+        box-shadow: 20px 20px 40px 0px rgba(0, 0, 0, 0.1);
+        &:hover{
+          background-color: #d3e5fc;
+        }
+      }
+    }
+  }
+}

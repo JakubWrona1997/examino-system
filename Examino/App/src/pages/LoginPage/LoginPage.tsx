@@ -6,7 +6,7 @@ import { loginUser } from "../../features/userSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import "./LoginPage.scss";
+import styles from "./LoginPage.module.scss";
 import InputField from "../../components/common/Forms/InputField/InputField";
 import { UserLoginDataViewModel } from "../../models/Users/UserLoginDataViewModel";
 
@@ -43,14 +43,14 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login">
-      <div className="login-header">
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
         <div>Examino</div>
         <div>Twoje zdrowie na wyciągnięcie ręki</div>
       </div>
-      <div className="login-form">
-        <div className="login-form-header">Zaloguj się</div>
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.formWrapper}>
+        <div className={styles.formHeader}>Zaloguj się</div>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <InputField
             register={register}
             name="email"
@@ -65,12 +65,14 @@ const LoginPage = () => {
             type="password"
             label="Hasło"
           />
-          {error.login && <p className="login-error">{error.login}</p>}
-          <button type="submit" className="form-button">
+          {error.login && (
+            <span className={styles.formError}>{error.login}</span>
+          )}
+          <button type="submit" className={styles.formButton}>
             Zaloguj
           </button>
         </form>
-        <div className="login-register-link">
+        <div className={styles.link}>
           Nie masz konta? <Link to="/register">Zarejestruj się</Link>
         </div>
       </div>

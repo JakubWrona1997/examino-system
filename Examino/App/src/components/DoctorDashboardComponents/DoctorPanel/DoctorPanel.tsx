@@ -3,20 +3,20 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../app/store";
 import NoticeCard from "../../common/NoticeCard/NoticeCard";
-import "./DoctorPanel.scss";
+import styles from "./DoctorPanel.module.scss";
 
 const DoctorPanel = () => {
   const { user } = useSelector((state: RootState) => state.user);
 
   return (
     <React.Fragment>
-      <header className="dashboard-content-header">
+      <header className={styles.header}>
         Witaj {user?.name.split(" ", 1)}!
       </header>
-      <div className="dashboard-doctor-panel-wrapper">
-        <div className="card-wrapper">
-          <header className="card-header">Najbliższa wizyta</header>
-          <div className="card-content">
+      <div className={styles.wrapper}>
+        <div className={styles.cardWrapper}>
+          <header className={styles.cardHeader}>Najbliższa wizyta</header>
+          <div className={styles.cardContent}>
             <table>
               <tbody>
                 <tr>
@@ -27,7 +27,7 @@ const DoctorPanel = () => {
                   <th>Data wizyty</th>
                   <td>30.05.2022 11:54:00</td>
                 </tr>
-                <tr className="show-details">
+                <tr className={styles.showDetails}>
                   <td>
                     <Link to="">Pokaż szczegóły</Link>
                   </td>
@@ -36,9 +36,9 @@ const DoctorPanel = () => {
             </table>
           </div>
         </div>
-        <div className="card-wrapper">
-          <header className="card-header">Komunikaty przychodni</header>
-          <div className="card-content">
+        <div className={styles.cardWrapper}>
+          <header className={styles.cardHeader}>Komunikaty przychodni</header>
+          <div className={styles.cardContent}>
             <NoticeCard
               title="Sekretariat"
               message="Prosimy o składanie wniosków o dofinansowanie do 20 maja."

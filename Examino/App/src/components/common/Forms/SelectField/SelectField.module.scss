@@ -1,9 +1,9 @@
-.form-field {
+.wrapper {
   display: flex;
   flex-direction: column;
   margin-top: 0.5rem;
   width: 100%;
-  &-error {
+  .error {
     color: #dc3545;
     margin: 0;
   }

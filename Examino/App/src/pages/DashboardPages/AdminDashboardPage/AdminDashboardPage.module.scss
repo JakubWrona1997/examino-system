@@ -1,28 +1,24 @@
-.dashboard {
+.wrapper {
   display: flex;
-  &-navigation {
+  .sidebar {
     position: fixed;
     margin-top: 2rem;
     width: 300px;
-    &-logo {
+    .logo {
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 2.4rem;
       font-weight: 700;
     }
-    &-links {
+    .navigation {
       margin-top: 3rem;
     }
   }
-  &-content {
+  .content {
     position: relative;
     left: 300px;
     width: calc(100% - 300px - 2rem);
     margin: 2rem 2rem 2rem 0;
-    &-header {
-      font-size: 2.4rem;
-      font-weight: 700;
-    }
   }
 }

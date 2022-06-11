@@ -1,7 +1,7 @@
 import { Controller, Control } from "react-hook-form";
 import Select, { StylesConfig } from "react-select";
 import { SelectFieldOptionViewModel } from "../../../../models/Forms/SelectFieldOptionViewModel";
-import "./SelectField.scss";
+import styles from "./SelectField.module.scss";
 
 interface Props {
   control: Control<any>;
@@ -54,7 +54,7 @@ const SelectField = ({
   disabled,
 }: Props) => {
   return (
-    <div className="form-field">
+    <div className={styles.wrapper}>
       <label htmlFor={name}>{label}</label>
       <Controller
         name={name}
@@ -73,7 +73,7 @@ const SelectField = ({
         }}
       />
       {errors[name] && (
-        <div className="form-field-error">{errors[name].message}</div>
+        <div className={styles.error}>{errors[name].message}</div>
       )}
     </div>
   );

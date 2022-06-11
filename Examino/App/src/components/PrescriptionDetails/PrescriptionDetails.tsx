@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { RaportViewModel } from "../../models/Raports/RaportViewModel";
-import "./PrescriptionDetails.scss";
+import styles from "./PrescriptionDetails.module.scss";
 
 const PrescriptionDetails = () => {
   const [raport, setRaport] = useState<RaportViewModel>();
@@ -21,10 +21,10 @@ const PrescriptionDetails = () => {
 
   return (
     <React.Fragment>
-      <header className="dashboard-content-header">Szczegóły recepty</header>
-      <div className="dashboard-history-prescription-details-wrapper">
-        <div className="card-wrapper">
-          <div className="card-content">
+      <header className={styles.header}>Szczegóły recepty</header>
+      <div className={styles.wrapper}>
+        <div className={styles.cardWrapper}>
+          <div className={styles.cardContent}>
             <table>
               <tbody>
                 <tr>

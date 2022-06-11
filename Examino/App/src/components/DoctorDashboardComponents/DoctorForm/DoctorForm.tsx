@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { RaportCreateViewModel } from "../../../models/Raports/RaportCreateViewModel";
 import { PatientShortDetailsViewModel } from "../../../models/Users/Patient/PatientShortDetailsViewModel";
 import { SelectFieldOptionViewModel } from "../../../models/Forms/SelectFieldOptionViewModel";
-import "./DoctorForm.scss";
+import styles from "./DoctorForm.module.scss";
 import TextareaField from "../../common/Forms/TextareaField/TextareaField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
 import displayAlert from "../../../utils/displayAlert";
@@ -79,11 +79,11 @@ const DoctorForm = () => {
 
   return (
     <React.Fragment>
-      <header className="dashboard-content-header">Formularz wizyty</header>
-      <div className="dashboard-doctor-form-wrapper">
+      <header className={styles.header}>Formularz wizyty</header>
+      <div className={styles.wrapper}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="card-wrapper">
-            <div className="card-content">
+          <div className={styles.cardWrapper}>
+            <div className={styles.cardContent}>
               <SelectField
                 control={control}
                 name="patientId"
@@ -129,7 +129,7 @@ const DoctorForm = () => {
               />
             </div>
           </div>
-          <div className="form-button">
+          <div className={styles.formButton}>
             <button type="submit">Zapisz</button>
           </div>
         </form>

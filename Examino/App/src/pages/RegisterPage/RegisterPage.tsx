@@ -6,7 +6,7 @@ import { registerPatient } from "../../features/userSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import "./RegisterPage.scss";
+import styles from "./RegisterPage.module.scss";
 import InputField from "../../components/common/Forms/InputField/InputField";
 import { UserRegisterDataViewModel } from "../../models/Users/UserRegisterDataViewModel";
 
@@ -82,18 +82,18 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register">
-      <div className="register-header">
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
         <div>Examino</div>
         <div>Twoje zdrowie na wyciągnięcie ręki</div>
       </div>
-      <div className="register-form">
-        <div className="register-form-header">Zarejestruj się</div>
-        <div className="register-form-description">
+      <div className={styles.formWrapper}>
+        <div className={styles.formHeader}>Zarejestruj się</div>
+        <div className={styles.formDescription}>
           Rejestrując się uzyskujesz dostęp do całej dokumentacji wystawionej
           przez twojego lekarza
         </div>
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <InputField
             register={register}
             name="name"
@@ -141,11 +141,11 @@ const RegisterPage = () => {
             type="password"
             label="Potwierdź hasło"
           />
-          <button type="submit" className="form-button">
+          <button type="submit" className={styles.formButton}>
             Zarejestruj
           </button>
         </form>
-        <div className="register-login-link">
+        <div className={styles.link}>
           Posiadasz już konto? <Link to="/">Zaloguj się</Link>
         </div>
       </div>

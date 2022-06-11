@@ -3,7 +3,7 @@ import { useAppDispatch } from "../../../app/store";
 import { deleteDoctor } from "../../../features/adminSlice";
 import { DoctorShortDetailsViewModel } from "../../../models/Users/Doctor/DoctorShortDetailsViewModel";
 import { FaTrash } from "react-icons/fa";
-import "./DoctorItem.scss";
+import styles from "./DoctorItem.module.scss";
 
 interface Props {
   doctor: DoctorShortDetailsViewModel;
@@ -15,8 +15,8 @@ const DoctorItem = ({ doctor, index }: Props) => {
 
   return (
     <React.Fragment>
-      <div className="doctor-item-wrapper">
-        <div className="doctor-item-content">
+      <div className={styles.wrapper}>
+        <div className={styles.content}>
           <table>
             <tbody>
               <tr>
@@ -31,7 +31,7 @@ const DoctorItem = ({ doctor, index }: Props) => {
           </table>
         </div>
         <div
-          className="doctor-item-content"
+          className={styles.content}
           onClick={() => dispatch(deleteDoctor(doctor.id))}
         >
           <FaTrash />
