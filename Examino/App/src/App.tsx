@@ -26,6 +26,15 @@ import DoctorSchedule from "./components/DoctorDashboardComponents/DoctorSchedul
 import DoctorProfile from "./components/DoctorDashboardComponents/DoctorProfile/DoctorProfile";
 import DoctorsRecord from "./components/AdminDashboardComponents/DoctorsRecord/DoctorsRecord";
 import RegisterDoctorForm from "./components/AdminDashboardComponents/RegisterDoctorForm/RegisterDoctorForm";
+import * as signalR from "@microsoft/signalr";
+
+const connection = new signalR.HubConnectionBuilder().withUrl("/hub").build();
+
+connection.on("Added", (data) => {
+  console.log(data);
+});
+
+connection.start();
 
 function App() {
   return (

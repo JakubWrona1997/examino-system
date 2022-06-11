@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
+    "@microsoft/signalr": "^6.0.5",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
