@@ -28,7 +28,8 @@ namespace Examino.Application.Functions.Users.Commands.CreateDoctor
             if (createdDoctor is not null) 
                 return new CreateDoctorCommandResponse(201, true);
 
-            return new CreateDoctorCommandResponse(500, false);
+            else 
+                return new CreateDoctorCommandResponse(500, false);
         }
     }
 }

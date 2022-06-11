@@ -26,7 +26,8 @@ namespace Examino.Application.Functions.Users.Commands.Registration.RegisterPati
             if (patientResult == null)
                 return new RegisterPatientCommandResponse(401, "Wrong Pesel!", false);
 
-            return new RegisterPatientCommandResponse(patientResult.Email,request.Password);
+            else
+                return new RegisterPatientCommandResponse(patientResult.Email,request.Password);
 
         }
     }

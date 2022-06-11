@@ -1,5 +1,7 @@
 global using Examino.Infrastructure;
 global using Examino.Domain.Entities;
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Identity;
 using Examino.Infrastructure.Middleware;
 using Examino.Application;
@@ -7,6 +9,7 @@ using Examino.Domain.TokenClasses;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Examino.Application.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager Configuration = builder.Configuration;
@@ -20,6 +23,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
 // Jwt token 
 var authenticationSettings = new AuthenticationSettings();
 Configuration.GetSection("Authentication").Bind(authenticationSettings);
+builder.Services.AddHangfire(configuration =>
+    configuration.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddHangfireServer();
+builder.Services.AddSignalR();
+
 builder.Services.AddSingleton(authenticationSettings);
 builder.Services.AddAuthentication(option =>
 {
@@ -71,6 +79,8 @@ app.UseCors(builder =>
 });
 app.UseMiddleware<AuthorizationHeader>();
 
+app.MapHub<EventHub>("/hub");
+
 app.UseAuthentication();
 
 app.UseHttpsRedirection();
@@ -80,6 +90,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHangfireDashboard();
 
 app.UseAuthorization();
 

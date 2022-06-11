@@ -2,6 +2,7 @@
 using Examino.Application.Functions.Prescriptions.Events.CreatePrescritpion;
 using Examino.Domain.Contracts;
 using Examino.Domain.Entities;
+using Hangfire;
 using MediatR;
 using System;
 using System.Threading;
@@ -14,12 +15,14 @@ namespace Examino.Application.Functions.Raports.Commands.CreateRaport
         private readonly IRaportRepository _raportRepository;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
+        private readonly IHangFireService _hangFireService;
 
-        public CreateRaportCommandHandler(IRaportRepository raportRepository, IMapper mapper, IMediator mediator)
+        public CreateRaportCommandHandler(IRaportRepository raportRepository, IMapper mapper, IMediator mediator, IHangFireService hangFireService)
         {
             _raportRepository = raportRepository;
             _mapper = mapper;
             _mediator = mediator;
+            _hangFireService = hangFireService;
         }
 
         public async Task<CreateRaportCommandResponse> Handle(CreateRaportCommand command, CancellationToken cancellationToken)
@@ -34,6 +37,10 @@ namespace Examino.Application.Functions.Raports.Commands.CreateRaport
             if (command.Request.Prescription != null)
                 await _mediator.Publish(new CreatePrescritpionEvent(raportId, command.Request.Prescription.Medicines), cancellationToken);                
            
+            if(_raportRepository.IsCreateCompleted() == true)
+            {
+                var jobId = BackgroundJob.Enqueue(() => _hangFireService.RunMessageTask());
+            }
 
             return new CreateRaportCommandResponse(raportId);
         }

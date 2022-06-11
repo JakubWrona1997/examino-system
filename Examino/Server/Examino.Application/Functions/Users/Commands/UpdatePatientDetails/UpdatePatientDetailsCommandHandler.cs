@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Examino.Domain.Contracts;
-using Examino.Domain.DTOs.UserDTOs;
+using Examino.Domain.DTOs.Patient;
 using Examino.Domain.Entities;
 using MediatR;
 using System;

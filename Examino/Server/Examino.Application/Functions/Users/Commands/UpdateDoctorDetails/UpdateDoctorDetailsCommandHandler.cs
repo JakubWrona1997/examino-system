@@ -24,6 +24,7 @@ namespace Examino.Application.Functions.Users.Commands.UpdateDoctorDetails
         public async Task<Unit> Handle(UpdateDoctorDetailsCommand command, CancellationToken cancellationToken)
         {
             var doctorDetails = _mapper.Map<UpdateDoctorDetailsDto>(command.Request);
+
             await _doctorRepository.UpdateDetails(doctorDetails);
 
             return Unit.Value;
