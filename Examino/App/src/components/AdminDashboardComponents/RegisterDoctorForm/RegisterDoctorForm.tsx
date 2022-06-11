@@ -6,7 +6,7 @@ import { getDoctors } from "../../../features/adminSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import "./RegisterDoctorForm.scss";
+import styles from "./RegisterDoctorForm.module.scss";
 import { UserRegisterDataViewModel } from "../../../models/Users/UserRegisterDataViewModel";
 import InputField from "../../common/Forms/InputField/InputField";
 import displayAlert from "../../../utils/displayAlert";
@@ -84,13 +84,11 @@ const RegisterDoctorForm = () => {
 
   return (
     <React.Fragment>
-      <header className="dashboard-content-header">
-        Formularz rejestracji doktora
-      </header>
-      <div className="dashboard-admin-form-wrapper">
+      <header className={styles.header}>Formularz rejestracji doktora</header>
+      <div className={styles.wrapper}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="card-wrapper">
-            <div className="card-content">
+          <div className={styles.cardWrapper}>
+            <div className={styles.cardContent}>
               <InputField
                 register={register}
                 name="name"
@@ -140,7 +138,7 @@ const RegisterDoctorForm = () => {
               />
             </div>
           </div>
-          <div className="form-button">
+          <div className={styles.formButton}>
             <button type="submit">Zarejestruj</button>
           </div>
         </form>

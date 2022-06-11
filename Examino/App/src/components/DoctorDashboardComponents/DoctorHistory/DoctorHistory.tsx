@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
-import "./DoctorHistory.scss";
+import styles from "./DoctorHistory.module.scss";
 import RaportItem from "../../common/RaportItem/RaportItem";
 
 const DoctorHistory = () => {
@@ -9,11 +9,11 @@ const DoctorHistory = () => {
 
   return (
     <React.Fragment>
-      <header className="dashboard-content-header">Historia</header>
-      <div className="dashboard-doctor-history-wrapper">
+      <header className={styles.header}>Historia</header>
+      <div className={styles.wrapper}>
         {raports.length > 0 ? (
           <React.Fragment>
-            <div className="dashboard-doctor-history-labels">
+            <div className={styles.labels}>
               <table>
                 <tbody>
                   <tr>

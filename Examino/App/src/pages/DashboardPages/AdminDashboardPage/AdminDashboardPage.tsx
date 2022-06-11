@@ -5,7 +5,7 @@ import { RootState, useAppDispatch } from "../../../app/store";
 import { logoutUser } from "../../../features/userSlice";
 import { getDoctors } from "../../../features/adminSlice";
 import { FaHeartbeat, FaUsers, FaFileAlt, FaSignOutAlt } from "react-icons/fa";
-import "./AdminDashboardPage.scss";
+import styles from "./AdminDashboardPage.module.scss";
 import NavItem from "../../../components/layout/NavItem/NavItem";
 
 const AdminDashboardPage = () => {
@@ -27,13 +27,13 @@ const AdminDashboardPage = () => {
   };
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-navigation">
-        <div className="dashboard-navigation-logo">
+    <div className={styles.wrapper}>
+      <div className={styles.sidebar}>
+        <div className={styles.logo}>
           <FaHeartbeat />
           &nbsp;Examino
         </div>
-        <div className="dashboard-navigation-links">
+        <div className={styles.navigation}>
           <NavItem to="doctors" label="Doktorzy" icon={<FaUsers />} />
           <NavItem to="form" label="Formularz" icon={<FaFileAlt />} />
           <NavItem
@@ -44,7 +44,7 @@ const AdminDashboardPage = () => {
           />
         </div>
       </div>
-      <div className="dashboard-content">
+      <div className={styles.content}>
         <Outlet />
       </div>
     </div>

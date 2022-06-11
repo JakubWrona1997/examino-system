@@ -1,10 +1,10 @@
-.link {
+.navlink {
   display: flex;
   align-items: center;
   font-size: 1.4rem;
   margin: 0.5rem 2rem;
   padding: 0.875rem 5rem;
-  &-icon {
+  .icon {
     display: flex;
     position: absolute;
     left: 50px;
@@ -21,7 +21,7 @@
     background-color: #fff;
     border-radius: 0.5rem;
     box-shadow: 20px 20px 40px 0px rgba(0, 0, 0, 0.1);
-    .link-icon {
+    .icon {
       background-color: #000;
       svg {
         color: #fff;

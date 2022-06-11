@@ -10,7 +10,7 @@ import {
   updatePatient,
 } from "../../../features/patientSlice";
 import { format } from "date-fns";
-import "./PatientProfile.scss";
+import styles from "./PatientProfile.module.scss";
 import InputField from "../../common/Forms/InputField/InputField";
 import SelectField from "../../common/Forms/SelectField/SelectField";
 import { PatientDataViewModel } from "../../../models/Users/Patient/PatientDataViewModel";
@@ -100,12 +100,12 @@ const PatientProfile = () => {
 
   return (
     <React.Fragment>
-      <header className="dashboard-content-header">Edycja profilu</header>
-      <div className="dashboard-profile-wrapper">
+      <header className={styles.header}>Edycja profilu</header>
+      <div className={styles.wrapper}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="card-wrapper">
-            <header className="card-header">Dane osobowe</header>
-            <div className="card-content">
+          <div className={styles.cardWrapper}>
+            <header className={styles.cardHeader}>Dane osobowe</header>
+            <div className={styles.cardContent}>
               <SelectField
                 control={control}
                 name="gender"
@@ -177,9 +177,9 @@ const PatientProfile = () => {
               />
             </div>
           </div>
-          <div className="card-wrapper">
-            <header className="card-header">Dane szczegółowe</header>
-            <div className="card-content">
+          <div className={styles.cardWrapper}>
+            <header className={styles.cardHeader}>Dane szczegółowe</header>
+            <div className={styles.cardContent}>
               <InputField
                 register={register}
                 name="height"
@@ -204,7 +204,7 @@ const PatientProfile = () => {
               />
             </div>
           </div>
-          <div className="form-button">
+          <div className={styles.formButton}>
             <button type="submit">Zaktualizuj</button>
           </div>
         </form>

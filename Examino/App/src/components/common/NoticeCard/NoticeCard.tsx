@@ -1,5 +1,5 @@
 import { FaEnvelope } from "react-icons/fa";
-import "./NoticeCard.scss";
+import styles from "./NoticeCard.module.scss";
 
 interface Props {
   title: string;
@@ -8,8 +8,8 @@ interface Props {
 
 const NoticeCard = ({ title, message }: Props) => {
   return (
-    <div className="notice-card-wrapper">
-      <div className="notice-card-content">
+    <div className={styles.wrapper}>
+      <div className={styles.content}>
         <table>
           <tbody>
             <tr>

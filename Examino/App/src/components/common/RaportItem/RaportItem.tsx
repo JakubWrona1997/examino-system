@@ -5,7 +5,7 @@ import { RootState, useAppDispatch } from "../../../app/store";
 import { deleteRaport } from "../../../features/raportSlice";
 import { RaportViewModel } from "../../../models/Raports/RaportViewModel";
 import { FaTrash } from "react-icons/fa";
-import "./RaportItem.scss";
+import styles from "./RaportItem.module.scss";
 
 interface Props {
   raport: RaportViewModel;
@@ -18,8 +18,8 @@ const RaportItem = ({ raport, index }: Props) => {
 
   return (
     <React.Fragment>
-      <div className="raport-history-wrapper">
-        <div className="raport-history-content">
+      <div className={styles.wrapper}>
+        <div className={styles.content}>
           <table>
             <tbody>
               <tr>
@@ -61,7 +61,7 @@ const RaportItem = ({ raport, index }: Props) => {
         </div>
         {user?.role === "doctor" && (
           <div
-            className="raport-history-content"
+            className={styles.content}
             onClick={() => dispatch(deleteRaport(raport.raport.id))}
           >
             <FaTrash />

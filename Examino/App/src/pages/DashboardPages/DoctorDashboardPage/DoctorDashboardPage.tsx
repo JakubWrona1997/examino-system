@@ -14,7 +14,7 @@ import {
   FaUserAlt,
   FaSignOutAlt,
 } from "react-icons/fa";
-import "./DoctorDashboardPage.scss";
+import styles from "./DoctorDashboardPage.module.scss";
 import NavItem from "../../../components/layout/NavItem/NavItem";
 
 const DoctorDashboardPage = () => {
@@ -40,13 +40,13 @@ const DoctorDashboardPage = () => {
   };
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-navigation">
-        <div className="dashboard-navigation-logo">
+    <div className={styles.wrapper}>
+      <div className={styles.sidebar}>
+        <div className={styles.logo}>
           <FaHeartbeat />
           &nbsp;Examino
         </div>
-        <div className="dashboard-navigation-links">
+        <div className={styles.navigation}>
           <NavItem to="panel" label="Panel" icon={<FaThLarge />} />
           <NavItem to="history" label="Historia" icon={<FaCalendarAlt />} />
           <NavItem to="form" label="Formularz" icon={<FaFileAlt />} />
@@ -60,7 +60,7 @@ const DoctorDashboardPage = () => {
           />
         </div>
       </div>
-      <div className="dashboard-content">
+      <div className={styles.content}>
         <Outlet />
       </div>
     </div>

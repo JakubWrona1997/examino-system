@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
-import "./PatientPanel.scss";
+import styles from "./PatientPanel.module.scss";
 import patient from "../../../assets/patient.svg";
 
 const PatientPanel = () => {
@@ -11,14 +11,14 @@ const PatientPanel = () => {
 
   return (
     <React.Fragment>
-      <header className="dashboard-content-header">
+      <header className={styles.header}>
         Witaj {user?.name.split(" ", 1)}!
       </header>
-      <div className="dashboard-panel-wrapper">
+      <div className={styles.wrapper}>
         {raports.length > 0 && (
-          <div className="card-wrapper">
-            <header className="card-header">Twoja ostatnia wizyta</header>
-            <div className="card-content">
+          <div className={styles.cardWrapper}>
+            <header className={styles.cardHeader}>Twoja ostatnia wizyta</header>
+            <div className={styles.cardContent}>
               <table>
                 <tbody>
                   <tr>
@@ -35,7 +35,7 @@ const PatientPanel = () => {
                       )}
                     </td>
                   </tr>
-                  <tr className="show-details">
+                  <tr className={styles.showDetails}>
                     <td>
                       <Link
                         to={`/patient/history/raport/${raports[0]?.raport.id}`}
@@ -49,9 +49,11 @@ const PatientPanel = () => {
             </div>
           </div>
         )}
-        <div className="card-wrapper">
-          <header className="card-header">Umów się na następną wizytę</header>
-          <div className="card-content">
+        <div className={styles.cardWrapper}>
+          <header className={styles.cardHeader}>
+            Umów się na następną wizytę
+          </header>
+          <div className={styles.cardContent}>
             <table>
               <tbody>
                 <tr>
@@ -69,16 +71,16 @@ const PatientPanel = () => {
           </div>
         </div>
         {raports.length > 0 && raports[0].prescription && (
-          <div className="card-wrapper">
-            <header className="card-header">Recepta</header>
-            <div className="card-content">
+          <div className={styles.cardWrapper}>
+            <header className={styles.cardHeader}>Recepta</header>
+            <div className={styles.cardContent}>
               <table>
                 <tbody>
                   <tr>
                     <th>Numer recepty</th>
                     <td>{raports[0]?.prescription.id}</td>
                   </tr>
-                  <tr className="show-details">
+                  <tr className={styles.showDetails}>
                     <td>
                       <Link
                         to={`/patient/history/prescription/${raports[0]?.prescription.id}`}
@@ -92,16 +94,16 @@ const PatientPanel = () => {
             </div>
           </div>
         )}
-        <div className="card-wrapper">
-          <header className="card-header">Skierowanie</header>
-          <div className="card-content">
+        <div className={styles.cardWrapper}>
+          <header className={styles.cardHeader}>Skierowanie</header>
+          <div className={styles.cardContent}>
             <table>
               <tbody>
                 <tr>
                   <th>Numer skierowania</th>
                   <td>23494601124063422697</td>
                 </tr>
-                <tr className="show-details">
+                <tr className={styles.showDetails}>
                   <td>Pokaż szczegóły</td>
                 </tr>
               </tbody>

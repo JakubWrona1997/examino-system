@@ -1,5 +1,5 @@
 import { UseFormRegister } from "react-hook-form";
-import "./TextareaField.scss";
+import styles from "./TextareaField.module.scss";
 
 interface Props {
   register: UseFormRegister<any>;
@@ -21,20 +21,20 @@ const TextareaField = ({
   disabled,
 }: Props) => {
   return (
-    <div className="form-field">
+    <div className={styles.wrapper}>
       <label htmlFor={name}>{label}</label>
       <textarea
         {...register(name)}
-        className={errors[name] ? "is-invalid" : ""}
+        className={errors[name] ? styles.invalid : ""}
         placeholder={placeholder}
         disabled={disabled}
       />
       {errors[name] && (
-        <div className="form-field-error">{errors[name].message}</div>
+        <div className={styles.error}>{errors[name].message}</div>
       )}
       {serverErrors &&
         serverErrors.map((err, index) => (
-          <div key={index} className="form-field-error">
+          <div key={index} className={styles.error}>
             {err}
           </div>
         ))}
