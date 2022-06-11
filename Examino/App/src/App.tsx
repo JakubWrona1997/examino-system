@@ -26,7 +26,6 @@ import DoctorSchedule from "./components/DoctorDashboardComponents/DoctorSchedul
 import DoctorProfile from "./components/DoctorDashboardComponents/DoctorProfile/DoctorProfile";
 import DoctorsRecord from "./components/AdminDashboardComponents/DoctorsRecord/DoctorsRecord";
 import RegisterDoctorForm from "./components/AdminDashboardComponents/RegisterDoctorForm/RegisterDoctorForm";
-import Notify from "./Notify";
 
 function App() {
   return (
@@ -75,7 +74,6 @@ function App() {
           <Route path="register" element={<RegisterPage />} />
           <Route path="/" element={<LoginPage />} />
         </Routes>
-        <Notify />
         <ToastContainer />
       </Router>
     </AuthenticationRoute>

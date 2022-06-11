@@ -10,6 +10,9 @@ const jwtDecode = (token: string): UserViewModel => {
     role: decoded[
       "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
     ].toLowerCase(),
+    _id: decoded[
+      "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+    ],
   };
 };
 
