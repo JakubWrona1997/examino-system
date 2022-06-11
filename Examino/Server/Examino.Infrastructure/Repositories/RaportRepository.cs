@@ -12,7 +12,7 @@ namespace Examino.Infrastructure.Repositories
     public class RaportRepository : IRaportRepository
     {
         private readonly ApplicationDbContext _dbContext;
-
+        private bool isCompleted = false;
         public RaportRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -29,8 +29,14 @@ namespace Examino.Infrastructure.Repositories
             raport.RaportTime = DateTimeOffset.Now;
 
             _dbContext.Raports.Add(raport);
-            await _dbContext.SaveChangesAsync();
-            return raport.Id;
+            var records = await _dbContext.SaveChangesAsync();
+
+            if (records > 0)
+            {
+                isCompleted = true;
+            }
+
+            return raport.Id;         
         }
 
         public async Task DeleteRaport(Raport raport)
@@ -61,5 +67,6 @@ namespace Examino.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+        public bool IsCreateCompleted() => isCompleted;
     }
 }

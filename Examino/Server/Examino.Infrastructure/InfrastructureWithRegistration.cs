@@ -33,6 +33,7 @@ namespace Examino.Infrastructure
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IUserProvider, UserProvider>();
             services.AddScoped<IValidationService, ValidationService>();
+            services.AddScoped<IHangFireService, HangFireService>();
 
             return services;
         }

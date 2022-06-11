@@ -14,5 +14,6 @@ namespace Examino.Domain.Contracts
         Task CreatePrescription(Prescription prescription);
         Task<bool> UpdateRaport(Raport raport, int id);
         Task DeleteRaport(Raport raport);
+        bool IsCreateCompleted();
     }
 }
