@@ -1,5 +1,6 @@
 ﻿using Examino.Application.Hubs;
 using Examino.Domain.Contracts;
+using Examino.Domain.DTOs;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,25 @@ namespace Examino.Infrastructure.Services
 
         public HangFireService(IHubContext<EventHub> eventHub)
         {
-            _eventHub = eventHub;
+            _eventHub = eventHub;           
         }
-        public void RunMessageTask()
+        public async Task RunMessageTask(string receiver, string sender, string raportId)
         {
-            _eventHub.Clients.All.SendAsync("Added", "Added raport!");
+            string[] users = new string[]
+            {
+                receiver,
+                sender,             
+            };
+
+            var message = new Message()
+            {
+                TextMessage = "Nowy raport został dodany!",
+                FromUserId = sender,
+                ToUserId = receiver,
+                RaportId = raportId
+            };
+           await _eventHub.Clients.Users(users).SendAsync("RaportAdded", message);
         }
     }
+
 }

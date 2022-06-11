@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Examino.Domain.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Examino.Domain.Contracts
 {
     public interface IHangFireService
     {
-        void RunMessageTask();
+        Task RunMessageTask(string receiver, string sender, string raportId);
     }
 }

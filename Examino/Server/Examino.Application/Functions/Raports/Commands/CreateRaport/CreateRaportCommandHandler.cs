@@ -39,7 +39,11 @@ namespace Examino.Application.Functions.Raports.Commands.CreateRaport
            
             if(_raportRepository.IsCreateCompleted() == true)
             {
-                var jobId = BackgroundJob.Enqueue(() => _hangFireService.RunMessageTask());
+                string receiver = raport.PatientId.ToString();
+                string sender = raport.DoctorId.ToString();
+                string raportIdentifier = raportId.ToString();
+
+                BackgroundJob.Enqueue(() => _hangFireService.RunMessageTask(receiver, sender, raportIdentifier));
             }
 
             return new CreateRaportCommandResponse(raportId);

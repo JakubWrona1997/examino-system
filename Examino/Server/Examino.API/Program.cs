@@ -18,13 +18,15 @@ builder.Host.AddExaminoInfrastructureHostConfiguration();
 //Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
-   .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders();
 
 // Jwt token 
 var authenticationSettings = new AuthenticationSettings();
 Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
 builder.Services.AddHangfire(configuration =>
     configuration.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddHangfireServer();
 builder.Services.AddSignalR();
 
