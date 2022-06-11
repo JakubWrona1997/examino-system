@@ -1,19 +1,19 @@
 import { toast } from "react-toastify";
 import { AlertViewModel } from "../models/Alert/AlertViewModel";
 
-const displayAlert = (alert: AlertViewModel) => {
+const displayAlert = (alert: AlertViewModel, autoClose?: number | false) => {
   switch (alert.type) {
     case "info":
-      toast.info(alert.message);
+      toast.info(alert.message, { autoClose });
       break;
     case "success":
-      toast.success(alert.message);
+      toast.success(alert.message, { autoClose });
       break;
     case "warning":
-      toast.warning(alert.message);
+      toast.warning(alert.message, { autoClose });
       break;
     case "error":
-      toast.error(alert.message);
+      toast.error(alert.message, { autoClose });
       break;
     default:
       break;
