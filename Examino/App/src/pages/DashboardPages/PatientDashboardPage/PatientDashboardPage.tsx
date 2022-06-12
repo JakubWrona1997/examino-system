@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 import styles from "./PatientDashboardPage.module.scss";
 import NavItem from "../../../components/layout/NavItem/NavItem";
-import Notify from "../../../components/Notify/Notify";
+import RaportAddedNotify from "../../../components/RaportAddedNotify/RaportAddedNotify";
 
 const PatientDashboardPage = () => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -62,7 +62,7 @@ const PatientDashboardPage = () => {
           <Outlet />
         </div>
       </div>
-      <Notify />
+      <RaportAddedNotify />
     </React.Fragment>
   );
 };
