@@ -17,7 +17,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0 1rem;
-    .form-field:first-child {
+    >div:first-child {
       margin: 0;
     }
   }
