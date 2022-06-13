@@ -13,6 +13,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Examino.Application.Functions.Users.Queries.GetPatientDetails;
+using Examino.Domain.Requests.Patients.Update;
 
 namespace Examino.Application.Controllers
 {    
@@ -44,13 +45,11 @@ namespace Examino.Application.Controllers
         [Authorize(Roles = "Patient")]
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> UpdatePatientDetails([FromBody] UpdatePatientDetailsCommand updatePatientDetailsCommand)
+        public async Task<ActionResult> UpdatePatientDetails([FromBody] UpdatePatientDetailsRequest request)
         {
             var userId = _userProvider.GetUserId();
 
-            updatePatientDetailsCommand.UserId = userId;
-
-            await _mediator.Send(updatePatientDetailsCommand);
+            await _mediator.Send(new UpdatePatientDetailsCommand(request, userId));
 
             return Ok();
         }

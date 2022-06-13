@@ -22,9 +22,9 @@ namespace Examino.Application.Functions.Users.Commands.UpdatePatientDetails
             _mapper = mapper;
             _patientRepository = patientRepository;
         }
-        public async Task<Unit> Handle(UpdatePatientDetailsCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdatePatientDetailsCommand command, CancellationToken cancellationToken)
         {
-            var userDetails = _mapper.Map<UpdatePatientDetailsDto>(request);
+            var userDetails = _mapper.Map<UpdatePatientDetailsDto>(command.Request);
 
             await _patientRepository.UpdateDetails(userDetails);
 

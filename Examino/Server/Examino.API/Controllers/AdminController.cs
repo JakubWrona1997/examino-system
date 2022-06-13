@@ -45,9 +45,7 @@ namespace Examino.API.Controllers
         [HttpDelete("{DoctorId}")]      
         public async Task<ActionResult<DeleteDoctorCommandResponse>> DeleteDoctor([FromRoute]Guid DoctorId)
         {
-            var doctorIdToDelete = new DeleteDoctorCommand(DoctorId);
-
-            var result = await _mediator.Send(doctorIdToDelete);
+            var result = await _mediator.Send(new DeleteDoctorCommand(DoctorId));
 
             return Ok(result);
         }

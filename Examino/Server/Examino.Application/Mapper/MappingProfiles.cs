@@ -3,11 +3,11 @@ using Examino.Application.Functions.Prescriptions.Events.CreatePrescritpion;
 using Examino.Application.Functions.Raports.Commands.CreateRaport;
 using Examino.Application.Functions.Users.Commands.CreateDoctor;
 using Examino.Application.Functions.Users.Commands.Registration.RegisterPatient;
-using Examino.Application.Functions.Users.Commands.UpdatePatientDetails;
 using Examino.Domain.DTOs.Doctor;
 using Examino.Domain.DTOs.Patient;
 using Examino.Domain.Entities;
 using Examino.Domain.Requests.Doctors.Update;
+using Examino.Domain.Requests.Patients.Update;
 using Examino.Domain.Requests.Raports;
 using System;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace Examino.Application.Mapper
             CreateMap<CreateRaportCommand, Raport>().IgnoreAllSourcePropertiesWithAnInaccessibleSetter()
                 .ForMember(r => r.Prescription, opt => opt.Ignore());
 
-            CreateMap<UpdatePatientDetailsCommand, UpdatePatientDetailsDto>();
+            CreateMap<UpdatePatientDetailsRequest, UpdatePatientDetailsDto>();
 
             CreateMap<UpdatePatientDetailsDto, Patient>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(p => p.UserId))

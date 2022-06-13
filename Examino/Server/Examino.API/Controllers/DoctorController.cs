@@ -1,4 +1,4 @@
-﻿using Examino.Application.Functions.Users.Commands.UpdateDoctorDetails;
+﻿ using Examino.Application.Functions.Users.Commands.UpdateDoctorDetails;
 using Examino.Application.Functions.Users.Queries.GetDoctorDetails;
 using Examino.Application.Functions.Users.Queries.GetPatientsBasicInfo;
 using Examino.Domain.Contracts;

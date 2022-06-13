@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Examino.Domain.Requests.Patients.Update;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,12 @@ namespace Examino.Application.Functions.Users.Commands.UpdatePatientDetails
 {
     public record UpdatePatientDetailsCommand : IRequest
     {
+        public UpdatePatientDetailsCommand(UpdatePatientDetailsRequest body, Guid Id)
+        {
+            Request = body;
+            UserId = Id;
+        }
+        public UpdatePatientDetailsRequest Request { get; set; }
         public Guid UserId { get; set; }
-        public string? Address { get; set; }
-        public string? City { get; set; }
-        public string? PostalCode { get; set; }
-        public int? Height { get; set; }
-        public int? Weight { get; set; }
-        public string? BloodType { get; set; }
-        public string? PhoneNumber { get; set; }
     }
 }
