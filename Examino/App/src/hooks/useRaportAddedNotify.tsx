@@ -1,43 +1,31 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../app/store";
-import { getRaports } from "../../features/raportSlice";
+import { RootState, useAppDispatch } from "../app/store";
+import { getRaports } from "../features/raportSlice";
 import * as signalR from "@microsoft/signalr";
-import displayAlert from "../../utils/displayAlert";
-import styles from "./RaportAddedNotify.module.scss";
+import displayAlert from "../utils/displayAlert";
 
-interface SignalRDataViewModel {
+interface IRaportAddedNotify {
   textMessage: string;
   fromUserId: string;
   toUserId: string;
   raportId: string;
 }
 
-const RaportAddedNotify = () => {
+const useRaportAddedNotify = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [connection, setConnection] = useState<signalR.HubConnection | null>(
     null
   );
+
   const { user } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (user?.role === "patient" && isConnected === false) {
-      const newConnection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:7258/hub")
-        .withAutomaticReconnect()
-        .build();
-
-      setConnection(newConnection);
-      setIsConnected(true);
-    }
-  }, [user, isConnected]);
-
-  useEffect(() => {
     if (connection) {
       connection.start().then(() =>
-        connection.on("RaportAdded", async (data: SignalRDataViewModel) => {
+        connection.on("RaportAdded", async (data: IRaportAddedNotify) => {
           if (user?._id === data.toUserId) {
             await dispatch(getRaports());
             displayAlertWithLink(data);
@@ -54,12 +42,27 @@ const RaportAddedNotify = () => {
     };
   }, [connection]);
 
-  const displayAlertWithLink = (data: SignalRDataViewModel) => {
+  const connectToRaportAddedHub = () => {
+    if (!isConnected) {
+      const newConnection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:7258/hub")
+        .withAutomaticReconnect()
+        .build();
+
+      setConnection(newConnection);
+      setIsConnected(true);
+    }
+  };
+
+  const displayAlertWithLink = (data: IRaportAddedNotify) => {
     const alertMessage = (
-      <span className={styles.alertMessage}>
+      <span>
         {data.textMessage}
         <br />
-        <Link to={`/patient/history/raport/${data.raportId}`}>
+        <Link
+          to={`/${user?.role}/history/raport/${data.raportId}`}
+          style={{ color: "#0000ff", textDecoration: "underline" }}
+        >
           Pokaż szczegóły
         </Link>
       </span>
@@ -67,7 +70,7 @@ const RaportAddedNotify = () => {
     displayAlert({ type: "info", message: alertMessage }, 10000);
   };
 
-  return null;
+  return { connectToRaportAddedHub };
 };
 
-export default RaportAddedNotify;
+export default useRaportAddedNotify;
