@@ -1,15 +1,9 @@
-using Microsoft.AspNetCore.Http;
-using Examino.Infrastructure;
-using Moq;
 using System;
 using System.Security.Claims;
-using System.Security.Principal;
-using System.Threading.Tasks;
-using Xunit;
 using Examino.Infrastructure.Services;
-using Examino.Application.Controllers;
-using MediatR;
-using Examino.Domain.Contracts;
+using Microsoft.AspNetCore.Http;
+using Moq;
+using Xunit;
 
 namespace Examino.Tests
 {
@@ -25,7 +19,7 @@ namespace Examino.Tests
         }
 
         [Fact]
-        public async Task UserProvider_Should_Return_Logged_UserId()
+        public void UserProvider_Should_Return_Logged_UserId()
         {
             //Arrange           
             string id = Guid.NewGuid().ToString();
@@ -37,7 +31,7 @@ namespace Examino.Tests
             Assert.Equal(id, result.ToString());
         }
         [Fact]
-        public async Task UserProvider_Should_Return_Users_Role()
+        public void UserProvider_Should_Return_Users_Role()
         {
             //Arrange           
             string role = "Doctor";
