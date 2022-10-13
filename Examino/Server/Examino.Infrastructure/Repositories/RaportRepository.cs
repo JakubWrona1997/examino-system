@@ -31,10 +31,7 @@ namespace Examino.Infrastructure.Repositories
             _dbContext.Raports.Add(raport);
             var records = await _dbContext.SaveChangesAsync();
 
-            if (records > 0)
-            {
-                isCompleted = true;
-            }
+            isCompleted = records > 0;
 
             return raport.Id;         
         }
@@ -57,7 +54,7 @@ namespace Examino.Infrastructure.Repositories
                 .Include(i => i.Doctor)
                 .FirstOrDefaultAsync(x=>x.Id == id);
 
-            if(result == null)
+            if (result is null)
                 return null;
 
             return result;

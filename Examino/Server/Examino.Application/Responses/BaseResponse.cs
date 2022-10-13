@@ -36,13 +36,13 @@ namespace Examino.Application.Responses
             StatusCode = statusCode;
         }
 
-        public static Dictionary<int, string> CommonResponse { get; set; } = new Dictionary<int, string>()
+        private static Dictionary<int, string> CommonResponse { get; } = new Dictionary<int, string>()
         {
-            //don t add 400 bad request(validation give that ),401 unathorized
             { 204,"No Content Response , operation succeed"},
+            { 201,"Created"},
+            { 400,"Bad request"},
             { 403,"Forbidden"},
             { 404,"Not found"},
-            { 201,"Created"},
             { 500 ,"Something went wrong"}
         };
        
