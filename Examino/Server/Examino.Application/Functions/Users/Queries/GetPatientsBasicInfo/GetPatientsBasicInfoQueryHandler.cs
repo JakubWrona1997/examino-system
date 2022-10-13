@@ -1,14 +1,12 @@
-﻿using Dapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Dapper;
 using Examino.Domain;
 using Examino.Domain.ConnectionServices;
 using Examino.Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Users.Queries.GetPatientsBasicInfo
 {
@@ -35,7 +33,7 @@ namespace Examino.Application.Functions.Users.Queries.GetPatientsBasicInfo
 
             var foundDoctor = await connection.QueryAsync<PatientsBasicInfoViewModel>(sqlUsers, new { patient = "Patient"});
 
-            return foundDoctor.ToList();
+            return foundDoctor?.ToList();
         }
     }
 }

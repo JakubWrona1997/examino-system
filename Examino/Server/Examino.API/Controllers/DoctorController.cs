@@ -55,6 +55,9 @@ namespace Examino.API.Controllers
         {
             var usersListInViewModel = await _mediator.Send(new GetPatientsBasicInfoQuery());
 
+            if (usersListInViewModel == null)
+                return NotFound();
+
             return Ok(usersListInViewModel);
         }
     }

@@ -1,17 +1,10 @@
 using AutoMapper;
-using Dapper;
 using Examino.Application.Functions.PeselChecker;
-using Examino.Domain;
 using Examino.Domain.Contracts;
 using Examino.Domain.DTOs.Patient;
 using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Examino.Infrastructure.Repositories
 {
@@ -21,7 +14,7 @@ namespace Examino.Infrastructure.Repositories
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _db;
 
-        public PatientRepository(UserManager<ApplicationUser> userManager, ApplicationDbContext db, ISqlConnectionService connectionService, IMapper mapper)
+        public PatientRepository(UserManager<ApplicationUser> userManager, ApplicationDbContext db, IMapper mapper)
         {
             _mapper = mapper;
             _userManager = userManager;
