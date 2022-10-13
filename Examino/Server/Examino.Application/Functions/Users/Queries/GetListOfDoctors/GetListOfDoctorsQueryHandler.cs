@@ -36,7 +36,7 @@ namespace Examino.Application.Functions.Users.Queries.GetListOfDoctors
 
             var foundDoctors = await connection.QueryAsync<ListOfDoctorsViewModel>(getDoctors, new {doctor = "Doctor"});
 
-            return foundDoctors.ToList();
+            return foundDoctors?.ToList();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Examino.Application.Functions.Users.Commands.Registration.RegisterPati
             var patient = _mapper.Map<Patient>(request);
 
             var patientResult = await _patientRepository.Register(patient, request.Password);
-            if (patientResult == null)
+            if (patientResult is null)
                 return new RegisterPatientCommandResponse(401, "Wrong Pesel!", false);
 
             else

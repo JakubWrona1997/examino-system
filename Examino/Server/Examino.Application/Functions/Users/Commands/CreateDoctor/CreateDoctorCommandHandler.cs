@@ -1,13 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using Examino.Domain.Contracts;
 using Examino.Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Examino.Application.Functions.Users.Commands.CreateDoctor
 {
@@ -24,12 +20,9 @@ namespace Examino.Application.Functions.Users.Commands.CreateDoctor
         public async Task<CreateDoctorCommandResponse> Handle(CreateDoctorCommand request, CancellationToken cancellationToken)
         {
             var doctor = _mapper.Map<Doctor>(request);
-            var createdDoctor = await _doctorRepository.Add(doctor, request.Password);
-            if (createdDoctor is not null) 
-                return new CreateDoctorCommandResponse(201, true);
-
-            else 
-                return new CreateDoctorCommandResponse(500, false);
+            await _doctorRepository.Add(doctor, request.Password);
+            
+            return new CreateDoctorCommandResponse(201, true);
         }
     }
 }
