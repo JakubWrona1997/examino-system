@@ -4,11 +4,6 @@ using Examino.Domain.DTOs.Doctor;
 using Examino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Examino.Infrastructure.Repositories
 {
@@ -33,21 +28,15 @@ namespace Examino.Infrastructure.Repositories
             return newDoctor;
 
         }
-        public async Task<Doctor> GetDoctorById(Guid id)
+        public async Task<Doctor?> GetDoctorById(Guid id)
         {
             var doctorToDelete = await _dbContext.Doctors.FirstOrDefaultAsync(x => x.Id == id);
-
-            if(doctorToDelete == null)
-                return null;
 
             return doctorToDelete;
         }
 
         public async Task DeleteDoctor(Doctor doctor)
         {
-            if (doctor == null)
-                await Task.FromResult<object>(null);
-
             _dbContext.Doctors.Remove(doctor);
             await _dbContext.SaveChangesAsync();
         }

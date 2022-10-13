@@ -37,7 +37,7 @@ namespace Examino.Application.Functions.Raports.Commands.CreateRaport
             if (command.Request.Prescription != null)
                 await _mediator.Publish(new CreatePrescritpionEvent(raportId, command.Request.Prescription.Medicines), cancellationToken);                
            
-            if(_raportRepository.IsCreateCompleted() == true)
+            if(_raportRepository.IsCreateCompleted())
             {
                 string receiver = raport.PatientId.ToString();
                 string sender = raport.DoctorId.ToString();

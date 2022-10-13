@@ -1,18 +1,13 @@
 ﻿using Examino.Domain.Contracts;
 using Examino.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Examino.Infrastructure.Repositories
 {
     public class RaportRepository : IRaportRepository
     {
         private readonly ApplicationDbContext _dbContext;
-        private bool isCompleted = false;
+        private bool _isCompleted;
         public RaportRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -31,31 +26,24 @@ namespace Examino.Infrastructure.Repositories
             _dbContext.Raports.Add(raport);
             var records = await _dbContext.SaveChangesAsync();
 
-            isCompleted = records > 0;
+            _isCompleted = records > 0;
 
             return raport.Id;         
         }
 
         public async Task DeleteRaport(Raport raport)
         {
-            if (raport == null)
-                await Task.FromResult<object>(null);
-            //Notfoundexception should be implemented here
-
             _dbContext.Raports.Remove(raport);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Raport> GetById(Guid id)
+        public async Task<Raport?> GetById(Guid id)
         {
             var result = await _dbContext.Raports
                 .Include(i => i.Prescription)
                 .Include(i => i.Patient)
                 .Include(i => i.Doctor)
                 .FirstOrDefaultAsync(x=>x.Id == id);
-
-            if (result is null)
-                return null;
 
             return result;
         }
@@ -64,6 +52,6 @@ namespace Examino.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
-        public bool IsCreateCompleted() => isCompleted;
+        public bool IsCreateCompleted() => _isCompleted;
     }
 }

@@ -1,15 +1,14 @@
 global using Examino.Infrastructure;
 global using Examino.Domain.Entities;
-using Hangfire;
-using Hangfire.SqlServer;
-using Microsoft.AspNetCore.Identity;
-using Examino.Infrastructure.Middleware;
-using Examino.Application;
-using Examino.Domain.TokenClasses;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Examino.Application;
 using Examino.Application.Hubs;
+using Examino.Domain.TokenClasses;
+using Examino.Infrastructure.Middleware;
+using Hangfire;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager Configuration = builder.Configuration;
@@ -79,7 +78,7 @@ app.UseCors(builder =>
     .AllowAnyMethod()
     .AllowAnyHeader();
 });
-app.UseMiddleware<AuthorizationHeader>();
+app.UseMiddleware<AuthorizationHeaderMiddleware>();
 
 app.MapHub<EventHub>("/hub");
 
