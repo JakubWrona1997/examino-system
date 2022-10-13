@@ -2,7 +2,9 @@
 using Examino.Application.Functions.Users.Commands.CreateDoctor;
 using Examino.Application.Functions.Users.Commands.Registration.RegisterPatient;
 using Examino.Application.Functions.Users.Commands.UpdateDoctorDetails;
+using Examino.Application.Functions.Users.Commands.UpdatePatientDetails;
 using Examino.Domain.Requests.Doctors.Update;
+using Examino.Domain.Requests.Patients.Update;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -30,6 +32,7 @@ namespace Examino.Application
             services.AddScoped<IValidator<CreateRaportCommand>, CreateRaportCommandValidator>();
             services.AddScoped<IValidator<CreateDoctorCommand>, CreateDoctorCommandValidator>();          
             services.AddScoped<IValidator<UpdateDoctorDetailsRequest>, UpdateDoctorDetailsRequestValidator>();
+            services.AddScoped<IValidator<UpdatePatientDetailsRequest>, UpdatePatientDetailsRequestValidator>();
 
             return services;
         }

@@ -26,7 +26,7 @@ namespace Examino.Infrastructure.Services
                             where u.Email = @Email";
 
             var matches = await connection.QueryAsync<Patient>(sqlString, new { @Email = email });
-            bool result = matches.Count() > 0;
+            bool result = matches.Any();
 
             return result;
         }
@@ -37,7 +37,7 @@ namespace Examino.Infrastructure.Services
                             from Users u
                             where u.PESEL = @PESEL";
             var matches = await connection.QueryAsync<Patient>(sqlString, new { @PESEL = pesel });
-            bool result = matches.Count() > 0;
+            bool result = matches.Any();
 
 
             return result;
