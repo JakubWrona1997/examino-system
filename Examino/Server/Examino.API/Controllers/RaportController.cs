@@ -19,13 +19,11 @@ namespace Examino.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IUserProvider _userProvider;
-        private readonly IMapper _mapper;
 
-        public RaportController(IMediator mediator, IUserProvider userProvider, IMapper mapper)
+        public RaportController(IMediator mediator, IUserProvider userProvider)
         {
             _mediator = mediator;
             _userProvider = userProvider;
-            _mapper = mapper;
         }
 
         [Authorize(Roles = "Doctor, Patient")]
@@ -36,7 +34,10 @@ namespace Examino.API.Controllers
             var userRole = _userProvider.GetUserRole();
             var userId = _userProvider.GetUserId();
 
-            var raports = await _mediator.Send(new GetUserRaportQuery(userId, userRole));            
+            var raports = await _mediator.Send(new GetUserRaportQuery(userId, userRole));
+
+            if (raports == null)
+                return NotFound();
 
             return Ok(raports);
         }
@@ -49,18 +50,10 @@ namespace Examino.API.Controllers
 
             var result = await _mediator.Send(new CreateRaportCommand(request, userId));
 
+            if (result.Success == false)
+                return BadRequest();
+
             return Ok(result.Id);
         }
-
-        //[Authorize(Roles = "Doctor")]
-        //[HttpDelete("{RaportId}")]
-        //[ProducesResponseType((int)HttpStatusCode.OK)]
-        //[ProducesResponseType((int)HttpStatusCode.NoContent)]
-        //public async Task<ActionResult<DeleteRaportCommandResponse>> DeleteRaport([FromRoute]Guid RaportId)
-        //{
-        //    var deleteRaportCommand = new DeleteRaportCommand(RaportId);
-        //    var result = await _mediator.Send(deleteRaportCommand);
-        //    return Ok(result);
-        //}
     }
 }

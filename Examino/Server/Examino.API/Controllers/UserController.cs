@@ -20,18 +20,18 @@ namespace Examino.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> RegisterPatientAsync([FromBody] RegisterPatientCommand RegisterPatientData)
+        public async Task<ActionResult> RegisterPatientAsync([FromBody] RegisterPatientCommand registerPatientData)
         {
-            var result = await _mediator.Send(RegisterPatientData);
+            var result = await _mediator.Send(registerPatientData);
 
             if (result.Success == false)
             {
                 return StatusCode(result.StatusCode, result.Message);
             }
 
-            var RedirectedStatus = await Login(new LoginCommand { Email = result.Email, Password = result.Password });
+            var redirectedStatus = await Login(new LoginCommand { Email = result.Email, Password = result.Password });
 
-            return RedirectedStatus;
+            return redirectedStatus;
         }
 
         [HttpPost("login")]
@@ -52,9 +52,9 @@ namespace Examino.API.Controllers
                 Expires = DateTime.Now.AddDays(15)
             };
 
-            HttpContext.Response.Cookies.Append("tokenCookie", result.Token.ToString(), cookieOptions);
+            HttpContext.Response.Cookies.Append("tokenCookie", result.Token, cookieOptions);
 
-            return Ok(result.Token.ToString());
+            return Ok(result.Token);
         }
 
         [HttpPost("logout")]

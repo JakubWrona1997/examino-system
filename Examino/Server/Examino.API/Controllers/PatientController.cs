@@ -1,19 +1,12 @@
-﻿using Examino.Application.Functions.Users.Commands.Login.UserLogin;
-using Examino.Application.Functions.Users.Commands.Registration.RegisterPatient;
+﻿using System.Net;
 using Examino.Application.Functions.Users.Commands.UpdatePatientDetails;
+using Examino.Application.Functions.Users.Queries.GetPatientDetails;
 using Examino.Domain.Contracts;
+using Examino.Domain.Requests.Patients.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Examino.Application.Functions.Users.Queries.GetPatientDetails;
-using Examino.Domain.Requests.Patients.Update;
 
 namespace Examino.Application.Controllers
 {    
@@ -39,6 +32,9 @@ namespace Examino.Application.Controllers
             var userId = _userProvider.GetUserId();
 
             var user = await _mediator.Send(new GetPatientDetailsQuery(userId));
+
+            if (user == null)
+                return NotFound();
 
             return Ok(user);
         }

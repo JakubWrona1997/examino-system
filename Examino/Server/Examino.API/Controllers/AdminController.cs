@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace Examino.API.Controllers
 {
@@ -26,7 +27,7 @@ namespace Examino.API.Controllers
         public async Task<IActionResult> CreateDoctor([FromBody]CreateDoctorCommand createDoctor)
         {
             var result = await _mediator.Send(createDoctor);
-            if (result.Success == true)
+            if (result.Success)
             {
                 return StatusCode(201, "Doctor created!");
             }
@@ -39,6 +40,9 @@ namespace Examino.API.Controllers
         {
             var result = await _mediator.Send(new GetListOfDoctorsQuery());
 
+            if (result == null)
+                return NotFound();
+
             return Ok(result);
         }
 
@@ -46,6 +50,9 @@ namespace Examino.API.Controllers
         public async Task<ActionResult<DeleteDoctorCommandResponse>> DeleteDoctor([FromRoute]Guid DoctorId)
         {
             var result = await _mediator.Send(new DeleteDoctorCommand(DoctorId));
+
+            if (result.Success == false)
+                return NotFound();
 
             return Ok(result);
         }
