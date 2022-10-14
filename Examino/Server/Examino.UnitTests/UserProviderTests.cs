@@ -10,12 +10,12 @@ namespace Examino.Tests
     public class UserTests
     {
         private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
-        private UserProvider _userProvider;
+        private UserProvider objectUnderTest;
 
         public UserTests()
         {
             _httpContextAccessor = new Mock<IHttpContextAccessor>();
-            _userProvider = new UserProvider(_httpContextAccessor.Object);
+            objectUnderTest = new UserProvider(_httpContextAccessor.Object);
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace Examino.Tests
 
             _httpContextAccessor.Setup(x => x.HttpContext.User.FindFirst(It.IsAny<string>())).Returns(new Claim(ClaimTypes.NameIdentifier, id));
             //Act
-            var result = _userProvider.GetUserId();
+            var result = objectUnderTest.GetUserId();
             //Assert
             Assert.Equal(id, result.ToString());
         }
@@ -38,9 +38,39 @@ namespace Examino.Tests
 
             _httpContextAccessor.Setup(x => x.HttpContext.User.FindFirst(It.IsAny<string>())).Returns(new Claim(ClaimTypes.Role, role));
             //Act
-            var result = _userProvider.GetUserRole();
+            var result = objectUnderTest.GetUserRole();
             //Assert
             Assert.Equal(role, result);
+        }
+        [Fact]
+        public void GetUserRole_Should_Throw_BadHttpRequestException_When_ContextAccessor_Is_Not_Set()
+        {
+            //Arrange           
+            
+            //Act
+            Func<string> actionToPerform = () => objectUnderTest.GetUserRole();
+            //Assert
+            Assert.Throws<BadHttpRequestException>(actionToPerform);
+        }
+        [Fact]
+        public void GetToken_Should_Throw_BadHttpRequestException_When_ContextAccessor_Is_Not_Set()
+        {
+            //Arrange           
+            
+            //Act
+            Func<string> actionToPerform = () => objectUnderTest.GetToken();
+            //Assert
+            Assert.Throws<BadHttpRequestException>(actionToPerform);
+        }
+        [Fact]
+        public void GetUserId_Should_Throw_BadHttpRequestException_When_ContextAccessor_Is_Not_Set()
+        {
+            //Arrange           
+            
+            //Act
+
+            //Assert
+            Assert.Throws<BadHttpRequestException>(() => objectUnderTest.GetUserId());
         }
     }
 }

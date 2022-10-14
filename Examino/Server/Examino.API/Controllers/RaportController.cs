@@ -1,6 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net;
 using Examino.Application.Functions.Raports.Commands.CreateRaport;
-using Examino.Application.Functions.Raports.Commands.DeleteRaport;
 using Examino.Application.Functions.Raports.Queries.GetUserRaports;
 using Examino.Domain.Contracts;
 using Examino.Domain.Requests.Raports;
@@ -8,7 +7,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace Examino.API.Controllers
 {

@@ -22,29 +22,43 @@ namespace Examino.Infrastructure.Services
         {
             var result = Guid.Empty;
 
-            if(_httpContextAccessor.HttpContext == null)
+            try
+            {
+                Guid.TryParse(_httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier).Value, out result);
+            }
+            catch (Exception e)
+            {
                 throw new BadHttpRequestException("Something went wrong", StatusCodes.Status404NotFound);
-                
-            Guid.TryParse(_httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier).Value, out result);
+            }
             
             return result;
         }
         public string GetUserRole()
         {
-            var userRole = _httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.Role).Value;
-
-            if(userRole != null)
-                return userRole;
-
+            try
+            {
+                var userRole = _httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.Role).Value;
+                if(userRole != null)
+                    return userRole;
+            }
+            catch (Exception e)
+            {
+                throw new BadHttpRequestException("Something went wrong", StatusCodes.Status404NotFound);
+            }
             return string.Empty;
         }
         public string GetToken()
         {
-            var token = _httpContextAccessor.HttpContext.Request.Cookies["tokenCookie"];
-
-            if(token != null)
-                return token;
-
+            try
+            {
+                var token = _httpContextAccessor.HttpContext.Request.Cookies["tokenCookie"];
+                if (token != null)
+                    return token;
+            }
+            catch (Exception e)
+            {
+                throw new BadHttpRequestException("Something went wrong", StatusCodes.Status404NotFound);
+            }
             return string.Empty;
         }
     }
