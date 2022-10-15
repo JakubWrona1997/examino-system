@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Examino.Application.Functions.Prescriptions.Events.CreatePrescritpion;
-using Examino.Application.Functions.Raports.Commands.CreateRaport;
+using Examino.Application.Functions.Raports.Queries.GetUserRaports;
 using Examino.Application.Functions.Users.Commands.CreateDoctor;
 using Examino.Application.Functions.Users.Commands.Registration.RegisterPatient;
 using Examino.Domain.DTOs.Doctor;
@@ -9,11 +9,6 @@ using Examino.Domain.Entities;
 using Examino.Domain.Requests.Doctors.Update;
 using Examino.Domain.Requests.Patients.Update;
 using Examino.Domain.Requests.Raports;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Examino.Application.Mapper
 {
@@ -45,6 +40,9 @@ namespace Examino.Application.Mapper
 
             CreateMap<CreateDoctorCommand, Doctor>()
                 .ForMember(x=>x.UserName,opt=>opt.MapFrom(x=>x.Email));
+
+            CreateMap<RaportDto, RaportViewModel>()
+                .ForMember(x=>x.PrescritpionId, opt => opt.MapFrom(x=>x.PrescriptionsId));
         }
     }
 }

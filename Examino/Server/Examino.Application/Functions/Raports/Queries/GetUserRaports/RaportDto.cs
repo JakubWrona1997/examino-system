@@ -1,22 +1,21 @@
-﻿using Examino.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace Examino.Application.Functions.Raports.Queries.GetUserRaports
 {
     public record RaportDto
     {
-        public Guid Id { get; set; }
-        public Guid? PatientId { get; set; }
-        public Guid? DoctorId { get; set; }
-        public DateTimeOffset RaportTime { get; set; }
-        public string Symptoms { get; set; }
-        public string Examination { get; set; }
-        public string Diagnosis { get; set; }
-        public string Recommendation { get; set; }
-        public string Comment { get; set; }
+        public Guid Id { get; init; }
+        public string DoctorName { get; init; }
+        public string DoctorSurname { get; init; }
+        public string PatientName { get; init; }
+        public string PatientSurname { get; init; }
+        public DateTimeOffset RaportTime { get; init; }
+        public string Symptoms { get; init; }
+        public string Examination { get; init; }
+        public string Diagnosis { get; init; }
+        public string Recommendation { get; init; }
+        public string Comment { get; init; }
+        public Guid PrescriptionsId { get; init; }
+        public string Medicines { get; init; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dapper;
 using Examino.Domain;
 using Examino.Domain.ConnectionServices;
@@ -13,78 +14,43 @@ namespace Examino.Application.Functions.Raports.Queries.GetUserRaports
     public class GetUserRaportQueryHandler : IRequestHandler<GetUserRaportQuery, List<RaportViewModel>>
     {
         private readonly ISqlConnectionService _connectionService;
+        private readonly IMapper _mapper;
 
-        public GetUserRaportQueryHandler(ISqlConnectionService connectionService)
+        public GetUserRaportQueryHandler(ISqlConnectionService connectionService, IMapper mapper)
         {
             _connectionService = connectionService;
+            _mapper = mapper;
+
         }
         public async Task<List<RaportViewModel>> Handle(GetUserRaportQuery request, CancellationToken cancellationToken)
         {
             var connection = await _connectionService.GetAsync();
 
-            string sqlRaport =      $@"SELECT {nameof(Raport.Id)},
-                                              {nameof(Raport.PatientId)},
-                                              {nameof(Raport.DoctorId)},
+            string sqlRaport =      $@"SELECT {(Dbo.Raports)}.{nameof(Raport.Id)} AS Id,
+                                              D.Name AS DoctorName,
+                                              D.Surname AS DoctorSurname,
+                                              P.Name AS PatientName,
+                                              P.Surname AS PatientSurname,
                                               {nameof(Raport.RaportTime)},
                                               {nameof(Raport.Symptoms)},
                                               {nameof(Raport.Examination)},
                                               {nameof(Raport.Diagnosis)},
                                               {nameof(Raport.Recommendation)},
-                                              {nameof(Raport.Comment)}
+                                              {nameof(Raport.Comment)},
+                                              {(Dbo.Prescriptions)}.{nameof(Prescription.Id)} AS PrescriptionsId,
+                                              {(Dbo.Prescriptions)}.{nameof(Prescription.Medicines)}
                                               FROM {(Dbo.Raports)}
+                                              LEFT OUTER JOIN {Dbo.Prescriptions} ON {(Dbo.Raports)}.{nameof(Raport.Id)} = {(Dbo.Prescriptions)}.{nameof(Prescription.RaportId)}
+                                              JOIN {(Dbo.Users)} D ON D.Id = {nameof(Raport.DoctorId)}
+                                              JOIN {(Dbo.Users)} P ON P.Id = {nameof(Raport.PatientId)}
                                               WHERE {nameof(Raport.PatientId)} = @PatientId OR {nameof(Raport.DoctorId)} = @DoctorId
                                               ORDER BY {nameof(Raport.RaportTime)} DESC";
 
             var foundRaports = await connection.QueryAsync<RaportDto>(sqlRaport, new { request.PatientId, request.DoctorId });
 
-            string sqlPrescription = $@"SELECT {nameof(Prescription.Id)},
-                                               {nameof(Prescription.RaportId)},
-                                               {nameof(Prescription.Medicines)}
-                                               FROM {(Dbo.Prescriptions)}";
+            var result = _mapper.Map<List<RaportViewModel>>(foundRaports.ToList());
 
-            var foundPrescription = await connection.QueryAsync<PrescriptionDto>(sqlPrescription);
-
-
-            string sqlPatient = $@"SELECT
-                                   {(Dbo.Users)}.{nameof(Patient.Id)} ,
-                                   {(Dbo.Users)}.{nameof(Patient.Name)}, 
-                                   {(Dbo.Users)}.{nameof(Patient.Surname)} 
-                                   FROM {(Dbo.Users)} 
-                                   WHERE {(Dbo.Users)}.[UserType] = @patient";           
-
-            var foundPatient = await connection.QueryAsync<PatientDto>(sqlPatient, new { patient = "Patient" });
-
-            string sqlDoctor =  $@"SELECT
-                                   {(Dbo.Users)}.{nameof(Patient.Id)} ,
-                                   {(Dbo.Users)}.{nameof(Patient.Name)}, 
-                                   {(Dbo.Users)}.{nameof(Patient.Surname)} 
-                                   FROM {(Dbo.Users)} 
-                                   WHERE {(Dbo.Users)}.[UserType] = @doctor";
-
-            var foundDoctor = await connection.QueryAsync<DoctorDto>(sqlDoctor, new { doctor = "Doctor" });
-
-            var listOfViewModels = new List<RaportViewModel>();
-
-            foreach (var raport in foundRaports)
-            {
-                var doctor = foundDoctor?.FirstOrDefault(doc => doc.Id == raport.DoctorId);
-
-                var patient = foundPatient?.FirstOrDefault(pat => pat.Id == raport.PatientId);
-
-                var prescriptionFromRaport = foundPrescription?.FirstOrDefault(rap => rap.RaportId == raport.Id);
-
-                listOfViewModels.Add(new RaportViewModel
-                {
-                    DoctorName = doctor?.Name,
-                    DoctorSurname = doctor?.Surname,
-                    PatientName = patient?.Name,
-                    PatientSurname = patient?.Surname,
-                    Raport = raport,
-                    Prescription = prescriptionFromRaport                    
-                });
-                
-            }
-            return listOfViewModels;
+            return result;
         }
     }
 }

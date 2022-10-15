@@ -1,12 +1,21 @@
-﻿namespace Examino.Application.Functions.Raports.Queries.GetUserRaports
+﻿using System;
+
+namespace Examino.Application.Functions.Raports.Queries.GetUserRaports
 {
-    public class RaportViewModel
+    public record RaportViewModel
     {
-        public string PatientName { get; set; }
-        public string PatientSurname { get; set; }
-        public string DoctorName { get; set; }
-        public string DoctorSurname { get; set; }
-        public RaportDto Raport { get; set; }
-        public PrescriptionDto Prescription { get; set; }
+        public Guid Id { get; init; }
+        public string PatientName { get; init; }
+        public string PatientSurname { get; init; }
+        public string DoctorName { get; init; }
+        public string DoctorSurname { get; init; }
+        public DateTimeOffset RaportTime { get; init; }
+        public string Symptoms { get; init; }
+        public string Examination { get; init; }
+        public string Diagnosis { get; init; }
+        public string Recommendation { get; init; }
+        public string Comment { get; init; }
+        public Guid PrescritpionId { get; init; }
+        public string Medicines { get; init; }
     }
 }

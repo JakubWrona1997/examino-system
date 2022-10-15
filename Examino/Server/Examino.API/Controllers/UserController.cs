@@ -68,6 +68,9 @@ namespace Examino.API.Controllers
         public ActionResult Get()
         {
             var token = _userProvider.GetToken();
+            if (token == string.Empty)
+                return BadRequest("Token not found");
+                
             return Ok(token);
         }
     }
