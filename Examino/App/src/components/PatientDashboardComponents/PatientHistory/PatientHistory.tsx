@@ -26,11 +26,7 @@ const PatientHistory = () => {
               </table>
             </div>
             {raports.map((raport, index) => (
-              <RaportItem
-                key={raport.raport.id}
-                raport={raport}
-                index={index + 1}
-              />
+              <RaportItem key={raport.id} raport={raport} index={index + 1} />
             ))}
           </React.Fragment>
         ) : (

@@ -13,9 +13,7 @@ const PrescriptionDetails = () => {
 
   useEffect(() => {
     if (raports) {
-      setRaport(
-        raports.find((raport) => raport.prescription?.id === params.id)
-      );
+      setRaport(raports.find((raport) => raport.prescriptionId === params.id));
     }
   }, [raports]);
 
@@ -31,14 +29,12 @@ const PrescriptionDetails = () => {
                   <th>Data wystawienia</th>
                   <td>
                     {raport &&
-                      new Date(raport.raport.raportTime).toLocaleString(
-                        "pl-PL"
-                      )}
+                      new Date(raport.raportTime).toLocaleString("pl-PL")}
                   </td>
                 </tr>
                 <tr>
                   <th>Numer recepty</th>
-                  <td>{raport?.prescription.id}</td>
+                  <td>{raport?.prescriptionId}</td>
                 </tr>
                 <tr>
                   <th>Wystawca</th>
@@ -54,7 +50,7 @@ const PrescriptionDetails = () => {
                 </tr>
                 <tr>
                   <th>Leki</th>
-                  <td>{raport?.prescription.medicines}</td>
+                  <td>{raport?.medicines}</td>
                 </tr>
               </tbody>
             </table>
