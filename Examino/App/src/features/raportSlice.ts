@@ -55,10 +55,7 @@ export const updateRaport = createAsyncThunk<
   { state: RootState; rejectValue: string }
 >("raport/update", async (raportData, thunkAPI) => {
   try {
-    const res = await axios.put(
-      `/api/raport/${raportData.raport.id}`,
-      raportData
-    );
+    const res = await axios.put(`/api/raport/${raportData.id}`, raportData);
     return res.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -107,14 +104,12 @@ export const raportSlice = createSlice({
       })
       .addCase(updateRaport.fulfilled, (state, action) => {
         state.raports = state.raports.filter((raport) =>
-          raport.raport.id === action.payload.raport.id
-            ? action.payload
-            : raport
+          raport.id === action.payload.id ? action.payload : raport
         );
       })
       .addCase(deleteRaport.fulfilled, (state, action) => {
         state.raports = state.raports.filter(
-          (raport) => raport.raport.id !== action.payload.id
+          (raport) => raport.id !== action.payload.id
         );
       });
   },

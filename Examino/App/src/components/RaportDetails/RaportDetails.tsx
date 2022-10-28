@@ -14,7 +14,7 @@ const RaportDetails = () => {
 
   useEffect(() => {
     if (raports) {
-      setRaport(raports.find((raport) => raport.raport.id === params.id));
+      setRaport(raports.find((raport) => raport.id === params.id));
     }
   }, [raports]);
 
@@ -30,9 +30,7 @@ const RaportDetails = () => {
                   <th>Data wizyty</th>
                   <td>
                     {raport &&
-                      new Date(raport.raport.raportTime).toLocaleString(
-                        "pl-PL"
-                      )}
+                      new Date(raport.raportTime).toLocaleString("pl-PL")}
                   </td>
                 </tr>
                 <tr>
@@ -49,30 +47,30 @@ const RaportDetails = () => {
                 </tr>
                 <tr>
                   <th>Symptomy</th>
-                  <td>{raport?.raport.symptoms}</td>
+                  <td>{raport?.symptoms}</td>
                 </tr>
                 <tr>
                   <th>Badanie</th>
-                  <td>{raport?.raport.examination}</td>
+                  <td>{raport?.examination}</td>
                 </tr>
                 <tr>
                   <th>Diagnoza</th>
-                  <td>{raport?.raport.diagnosis}</td>
+                  <td>{raport?.diagnosis}</td>
                 </tr>
                 <tr>
                   <th>Zalecenia</th>
-                  <td>{raport?.raport.recommendation}</td>
+                  <td>{raport?.recommendation}</td>
                 </tr>
                 <tr>
                   <th>Komentarz</th>
-                  <td>{raport?.raport.comment}</td>
+                  <td>{raport?.comment}</td>
                 </tr>
                 <tr>
                   <th>Recepta</th>
                   <td>
-                    {raport?.prescription ? (
+                    {raport?.prescriptionId ? (
                       <Link
-                        to={`/${user?.role}/history/prescription/${raport.prescription.id}`}
+                        to={`/${user?.role}/history/prescription/${raport.prescriptionId}`}
                       >
                         Pokaż receptę
                       </Link>

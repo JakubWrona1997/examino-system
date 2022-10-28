@@ -30,16 +30,12 @@ const PatientPanel = () => {
                   <tr>
                     <th>Data wizyty</th>
                     <td>
-                      {new Date(raports[0]?.raport.raportTime).toLocaleString(
-                        "pl-PL"
-                      )}
+                      {new Date(raports[0]?.raportTime).toLocaleString("pl-PL")}
                     </td>
                   </tr>
                   <tr className={styles.showDetails}>
                     <td>
-                      <Link
-                        to={`/patient/history/raport/${raports[0]?.raport.id}`}
-                      >
+                      <Link to={`/patient/history/raport/${raports[0]?.id}`}>
                         Pokaż szczegóły
                       </Link>
                     </td>
@@ -70,7 +66,7 @@ const PatientPanel = () => {
             <img src={patient} alt="patient" width={150} />
           </div>
         </div>
-        {raports.length > 0 && raports[0].prescription && (
+        {raports.length > 0 && raports[0].prescriptionId && (
           <div className={styles.cardWrapper}>
             <header className={styles.cardHeader}>Recepta</header>
             <div className={styles.cardContent}>
@@ -78,12 +74,12 @@ const PatientPanel = () => {
                 <tbody>
                   <tr>
                     <th>Numer recepty</th>
-                    <td>{raports[0]?.prescription.id}</td>
+                    <td>{raports[0]?.prescriptionId}</td>
                   </tr>
                   <tr className={styles.showDetails}>
                     <td>
                       <Link
-                        to={`/patient/history/prescription/${raports[0]?.prescription.id}`}
+                        to={`/patient/history/prescription/${raports[0]?.prescriptionId}`}
                       >
                         Pokaż szczegóły
                       </Link>

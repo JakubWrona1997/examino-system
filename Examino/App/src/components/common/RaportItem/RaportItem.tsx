@@ -29,13 +29,11 @@ const RaportItem = ({ raport, index }: Props) => {
                   {raport.doctorName}&nbsp;{raport.doctorSurname}
                 </td>
               )}
+              <td>{new Date(raport.raportTime).toLocaleString("pl-PL")}</td>
               <td>
-                {new Date(raport.raport.raportTime).toLocaleString("pl-PL")}
-              </td>
-              <td>
-                {raport?.prescription ? (
+                {raport?.prescriptionId ? (
                   <Link
-                    to={`/${user?.role}/history/prescription/${raport.prescription.id}`}
+                    to={`/${user?.role}/history/prescription/${raport.prescriptionId}`}
                   >
                     Pokaż receptę
                   </Link>
@@ -44,7 +42,7 @@ const RaportItem = ({ raport, index }: Props) => {
                 )}
               </td>
               <td>
-                <Link to={`/${user?.role}/history/raport/${raport.raport.id}`}>
+                <Link to={`/${user?.role}/history/raport/${raport.id}`}>
                   Pokaż szczegóły
                 </Link>
               </td>
