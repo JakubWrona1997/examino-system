@@ -26,6 +26,7 @@ import DoctorSchedule from "./components/DoctorDashboardComponents/DoctorSchedul
 import DoctorProfile from "./components/DoctorDashboardComponents/DoctorProfile/DoctorProfile";
 import DoctorsRecord from "./components/AdminDashboardComponents/DoctorsRecord/DoctorsRecord";
 import RegisterDoctorForm from "./components/AdminDashboardComponents/RegisterDoctorForm/RegisterDoctorForm";
+import AdminProfile from "./components/AdminDashboardComponents/AdminProfile/AdminProfile";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
               <Route index element={<Navigate to="doctors" />} />
               <Route path="doctors" element={<DoctorsRecord />} />
               <Route path="form" element={<RegisterDoctorForm />} />
+              <Route path="profile" element={<AdminProfile />} />
             </Route>
           </Route>
           <Route path="register" element={<RegisterPage />} />

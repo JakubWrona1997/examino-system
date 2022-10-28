@@ -43,6 +43,21 @@ export const deleteDoctor = createAsyncThunk<
   }
 });
 
+// Change password
+// DELETE /api/admin/change-password
+export const changePassword = createAsyncThunk<
+  void,
+  { currentPassword: string; newPassword: string },
+  { rejectValue: string }
+>("admin/changePassword", async (passwords, thunkAPI) => {
+  try {
+    const res = await axios.put("/api/admin/change-password", passwords);
+    return res.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 export const adminSlice = createSlice({
   name: "admin",
   initialState,
@@ -62,6 +77,12 @@ export const adminSlice = createSlice({
         );
       })
       .addCase(deleteDoctor.rejected, (state) => {
+        state.alert = { type: "error", message: "Oops! Coś poszło nie tak" };
+      })
+      .addCase(changePassword.fulfilled, (state) => {
+        state.alert = { type: "success", message: "Hasło zostało zmienione" };
+      })
+      .addCase(changePassword.rejected, (state) => {
         state.alert = { type: "error", message: "Oops! Coś poszło nie tak" };
       });
   },
