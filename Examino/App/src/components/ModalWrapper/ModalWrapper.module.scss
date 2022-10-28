@@ -1,0 +1,19 @@
+.overlay {
+  z-index: 999;
+  display: flex;
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.6);
+  animation: modal-blur-in 0.5s forwards;
+  .content {
+    position: absolute;
+    inset: 3rem;
+    height: fit-content;
+    width: fit-content;
+    margin: auto;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 0.25rem;
+    overflow: auto;
+  }
+}

@@ -4,7 +4,13 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../app/store";
 import { logoutUser } from "../../../features/userSlice";
 import { getDoctors } from "../../../features/adminSlice";
-import { FaHeartbeat, FaUsers, FaFileAlt, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaHeartbeat,
+  FaUsers,
+  FaFileAlt,
+  FaSignOutAlt,
+  FaUserAlt,
+} from "react-icons/fa";
 import styles from "./AdminDashboardPage.module.scss";
 import NavItem from "../../../components/layout/NavItem/NavItem";
 
@@ -36,6 +42,7 @@ const AdminDashboardPage = () => {
         <div className={styles.navigation}>
           <NavItem to="doctors" label="Doktorzy" icon={<FaUsers />} />
           <NavItem to="form" label="Formularz" icon={<FaFileAlt />} />
+          <NavItem to="profile" label="Profil" icon={<FaUserAlt />} />
           <NavItem
             to="/"
             label="Wyloguj"
